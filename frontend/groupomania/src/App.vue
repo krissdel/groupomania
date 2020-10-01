@@ -1,32 +1,33 @@
 <template>
   <div id="app">
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  
+
+  <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/icon_glob.png" width="30" height="30" alt="glob_logo">
+        </a>
+        <router-link to="/">HOME</router-link>
+        <div class="router_link_user"> 
+    <router-link to="/Users/Users_signin">sign up</router-link> |
+    <router-link to="/Users/Users_login">login</router-link>   
+        </div>
+      </nav>
   <router-view/>
   </div>
 </template>
+
+
 
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #fd2d01;
-    }
-  }
+.router_link_user {
+  justify-content: right;
+  justify-content: space-around;
 }
+
 </style>
