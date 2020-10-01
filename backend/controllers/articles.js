@@ -1,7 +1,7 @@
 const fs = require('fs'); //(file system) donne accès aux fonctions qui nous permettent de modifier le système de fichiers
 const ArticlesModel = require('../models/Articles');
 
-// -----[ création de sauce]-----------------------------------------------------------
+// -----[ création des articles]-----------------------------------------------------------
 exports.createArticles = (req, res) => {
     const articlesObject = JSON.parse(req.body.articles);
     delete articlesObject._id;       // Supprime l'id généré automatiquement
