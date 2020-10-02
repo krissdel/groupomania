@@ -6,10 +6,10 @@ const sequelize = new Sequelize('sqlite::memory:');
 
 const Articles = sequelize.define('Articles', {
   // Model attributes are defined here
-    userId: {type: DataTypes.STRING,allowNull: true},
-    title: {type: DataTypes.STRING,allowNull: true},
-    imageUrl: {type: DataTypes.STRING,allowNull: true},
-    content: {type: DataTypes.STRING,allowNull: true},
+    userId: {type: DataTypes.STRING},
+    title: {type: DataTypes.STRING},
+    imageUrl: {type: DataTypes.STRING},
+    content: {type: DataTypes.STRING},
     date_creation: {type: DataTypes.STRING,allowNull: true},
 
     likes: {type: DataTypes.Number,allowNull: 0},
@@ -20,8 +20,8 @@ const Articles = sequelize.define('Articles', {
 });
 
 
-// `sequelize.define` also returns the model
-console.log(User === sequelize.models.User); // true
+
+console.log(User === sequelize.models.Users); // true
 
 
 

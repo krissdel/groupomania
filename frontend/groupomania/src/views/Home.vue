@@ -8,7 +8,7 @@
 
     
     <!-- <div class=logo>
-      <img alt="Vue logo" src="../assets/icon-left-font-monochrome-black.png" >
+      <img alt="Vue logo" src="../assets/icon-above-font-resized.png" >
     </div>  -->
     <div>
   <h4>Social Network</h4>
@@ -39,6 +39,12 @@ export default {
   text-align: center;
   // background-image: url("../assets/groupomania_building.png");
 }
+// .jumbotron-fluid{
+//   // background-image: url("../assets/icon-left-font-monochrome-black.png");
+//         // <img alt="Vue logo" src= >
+// width: 100%;
+// }
+
 h4 {
   text-align: center;
   font-size: 2rem;
@@ -46,4 +52,10 @@ h4 {
 .container {
     height: 750px;
 }
+
+// img {
+//   width: 320px;
+// }
+
+
 </style>

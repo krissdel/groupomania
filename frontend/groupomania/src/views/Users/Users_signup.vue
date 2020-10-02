@@ -30,7 +30,7 @@
       <input type="password" class="form-control" id="inputPassword4">
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
+  <button type="submit" class="btn btn-primary">Sign up</button>
 </form>
 </div>
 </div>

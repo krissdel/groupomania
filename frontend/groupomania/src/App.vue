@@ -7,8 +7,8 @@
           <img src="./assets/icon_glob.png" width="30" height="30" alt="glob_logo">
         </a>
         <router-link to="/">HOME</router-link>
-        <div class="router_link_user"> 
-    <router-link to="/Users/Users_signin">sign up</router-link> |
+        <div class="router_link_users"> 
+    <router-link to="/Users/Users_signup">sign up</router-link> |
     <router-link to="/Users/Users_login">login</router-link>   
         </div>
       </nav>
