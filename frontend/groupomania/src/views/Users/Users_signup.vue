@@ -30,7 +30,10 @@
       <input type="password" class="form-control" id="inputPassword4">
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sign up</button>
+  <div id= "submit"> 
+  <!-- <button type="submit" class="btn btn-primary">Sign up</button> -->
+  <button v-on:click="sign_up" type="submit" class="btn btn-primary">Sign up</button>
+  </div>
 </form>
 </div>
 </div>
@@ -38,7 +41,26 @@
 </template>
     
 
+<script>
+import post from '.post'
 
+
+var submit = new Vue({
+  el: '#submit',
+  data: {
+    name: 'Vue.js'
+  },
+  
+  methods: {
+    sign_up: function (event) {
+      alert(this.$router.push('/url'))
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+</script>
 
 
 

@@ -9,7 +9,7 @@
         <router-link to="/">HOME</router-link>
         <div class="router_link_users"> 
     <router-link to="/Users/Users_signup">sign up</router-link> |
-    <router-link to="/Users/Users_login">login</router-link>   
+    <router-link to="/Users/Users_login">login</router-link>  
         </div>
       </nav>
   <router-view/>

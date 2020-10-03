@@ -1,10 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+// import post from './views/articles/post.vue'
 
 
-// // Auth views
 // import signin from "../views/auth/signin.vue";
 // import login from "../views/auth/login.vue";
+
+// import logout from '--------------'
+
 
 
 const routes = [
@@ -13,6 +16,7 @@ const routes = [
     name: 'Home',
     component: Home
   },
+
 
   {
     path: '/Users/Users_login',

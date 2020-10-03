@@ -24,11 +24,20 @@
   
 </form>
 </div>
-  </div>
+  </div> 
+  
+         
+
+
+   
 </template>
 
 
 <style lang="scss">
+
+
+
+
 
 .login{
     width: 80%;

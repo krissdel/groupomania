@@ -45,14 +45,14 @@ exports.getOneArticle = (req, res) => {
 };
 
 // -----[modifier un article]----------------------------------------------------------------------------
-exports.modifyArticle = (req, res) => {
+exports.modifyArticles = (req, res) => {
   const articlesObject = req.file ? {
     ...JSON.parse(req.body.articles),
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
    } : { ...req.body };
    ArticlesModel.findOne({ _id: req.params.id })
-    .then(article => {
+    .then(articles => {
       if (req.file) {
         const filename = articles.imageUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
@@ -89,52 +89,52 @@ exports.deleteArticle = (req, res) => {
 
 
 
-// =====[Like / dislike un article]======================================================================================
+// // =====[Like / dislike un article]======================================================================================
 
-exports.likeArticles = (req, res) => {
+// exports.likeArticles = (req, res) => {
   
-  if (req.body.like === 1) {    //utilisateur like un article
-    ArticlesModel.updateOne({ _id: req.params.id }, {
-      $push: { usersLiked: req.body.userId }, // Ajoute l'id de l'utilisateur à la liste des utilisateurs aimant la sauce
-      $inc: { likes: 1 }, // Incrémente de 1 le nombre d'utilisateurs aimant la sauce
-    })
-      .then(() => res.status(200).json({ message: "like article !" }))
-      .catch(error => res.status(400).json({ error }));
-  }
+//   if (req.body.like === 1) {    //utilisateur like un article
+//     ArticlesModel.updateOne({ _id: req.params.id }, {
+//       $push: { usersLiked: req.body.userId }, // Ajoute l'id de l'utilisateur à la liste des utilisateurs aimant la sauce
+//       $inc: { likes: 1 }, // Incrémente de 1 le nombre d'utilisateurs aimant la sauce
+//     })
+//       .then(() => res.status(200).json({ message: "like article !" }))
+//       .catch(error => res.status(400).json({ error }));
+//   }
 
-  if (req.body.like === -1) {      // utilisateur dislike une sauce
-    ArticlesModel.updateOne({ _id: req.params.id }, {
-      $set: { usersDisliked: req.body.userId }, // Ajoute l'id de l'utilisateur à la liste des utilisateurs n'aimant pas la sauce
-      $inc: { dislikes: 1 }, // Incrémente de 1 le nombre d'utilisateurs n'aimant pas la sauce
-    })
-      .then(() => res.status(200).json({ message: "dislike article !" }))
-      .catch(error => res.status(400).json({ error }));
-  }
+//   if (req.body.like === -1) {      // utilisateur dislike une sauce
+//     ArticlesModel.updateOne({ _id: req.params.id }, {
+//       $set: { usersDisliked: req.body.userId }, // Ajoute l'id de l'utilisateur à la liste des utilisateurs n'aimant pas la sauce
+//       $inc: { dislikes: 1 }, // Incrémente de 1 le nombre d'utilisateurs n'aimant pas la sauce
+//     })
+//       .then(() => res.status(200).json({ message: "dislike article !" }))
+//       .catch(error => res.status(400).json({ error }));
+//   }
   
-  if (req.body.like === 0) {    // utilisateur annule son like / dislike
-    ArticlesModel.findOne({ _id: req.params.id })
-      .then(articles => {
-        const alreadyLiked = articles.usersLiked.includes(req.body.userId); // Vérifie si la sauce a déjà un like de la part de l'utilisateur
+//   if (req.body.like === 0) {    // utilisateur annule son like / dislike
+//     ArticlesModel.findOne({ _id: req.params.id })
+//       .then(articles => {
+//         const alreadyLiked = articles.usersLiked.includes(req.body.userId); // Vérifie si la sauce a déjà un like de la part de l'utilisateur
         
-        if (alreadyLiked) {   // Si déjas liké
-          ArticlesModel.updateOne({ _id: req.params.id }, {
-            $pull: { usersLiked: req.body.userId }, // Supprime l'id de l'utilisateur de la liste des utilisateurs aimant la sauce
-            $inc: { likes: -1 }, // Décrémente de 1 le nombre d'utilisateurs aimant la sauce
-          })
-            .then(() => res.status(200).json({ message: "like supprimé !" }))
-            .catch(error => res.status(400).json({ error }));
+//         if (alreadyLiked) {   // Si déjas liké
+//           ArticlesModel.updateOne({ _id: req.params.id }, {
+//             $pull: { usersLiked: req.body.userId }, // Supprime l'id de l'utilisateur de la liste des utilisateurs aimant la sauce
+//             $inc: { likes: -1 }, // Décrémente de 1 le nombre d'utilisateurs aimant la sauce
+//           })
+//             .then(() => res.status(200).json({ message: "like supprimé !" }))
+//             .catch(error => res.status(400).json({ error }));
         
-        } else {   // Si déjas disliké
-          ArticlesModel.updateOne({ _id: req.params.id }, {
-            $pull: { usersDisliked: req.body.userId }, // Supprime l'id de l'utilisateur de la liste des utilisateurs n'aimant pas la sauce
-            $inc: { dislikes: -1 }, // Décrémente de 1 le nombre d'utilisateurs n'aimant pas la sauce
-          })
-            .then(() => res.status(200).json({ message: 'dislike supprimé !' }))
-            .catch(error => res.status(400).json({ error }));
-        }
-      })
-      .catch(error => res.status(500).json({
-        error
-      }));
-  }
-};
+//         } else {   // Si déjas disliké
+//           ArticlesModel.updateOne({ _id: req.params.id }, {
+//             $pull: { usersDisliked: req.body.userId }, // Supprime l'id de l'utilisateur de la liste des utilisateurs n'aimant pas la sauce
+//             $inc: { dislikes: -1 }, // Décrémente de 1 le nombre d'utilisateurs n'aimant pas la sauce
+//           })
+//             .then(() => res.status(200).json({ message: 'dislike supprimé !' }))
+//             .catch(error => res.status(400).json({ error }));
+//         }
+//       })
+//       .catch(error => res.status(500).json({
+//         error
+//       }));
+//   }
+// };

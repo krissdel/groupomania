@@ -4,7 +4,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
 <div class="home">
-    <Groupomania msg="Welcome to "/>
+    <Groupomania msg="Welcome to GROUPOMANIA "/>
 
     
     <!-- <div class=logo>
@@ -52,10 +52,6 @@ h4 {
 .container {
     height: 750px;
 }
-
-// img {
-//   width: 320px;
-// }
 
 
 </style>
