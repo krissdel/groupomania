@@ -2,26 +2,26 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
 
-// import signin from "../views/auth/signin.vue";
-// import login from "../views/auth/login.vue";
-
-// import logout from '--------------'
-
-
 
 const routes = [
   {
-    path: '/',
+    path: '/app',
     name: 'Home',
     component: Home
   },
-
-
+  
   {
     path: '/Users/Users_login',
     name: 'Users_login',
     component: () => import('../views/Users/Users_login.vue')
   },
+
+  {
+    path: '/Home',
+    name: 'Home',
+    component: () => import('../views/Home.vue')
+  },
+
   {
     path: '/Users/Users_signup',
     name: 'Users_signup',
@@ -36,11 +36,6 @@ const routes = [
 
 
 ]
-
-
-
-
-
 
 
 
