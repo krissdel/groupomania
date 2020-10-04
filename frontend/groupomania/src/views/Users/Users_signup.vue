@@ -42,24 +42,24 @@
     
 
 <script>
-import post from '.post'
+// import post from '.post'
 
 
-var submit = new Vue({
-  el: '#submit',
-  data: {
-    name: 'Vue.js'
-  },
+// var submit = new Vue({
+//   el: '#submit',
+//   data: {
+//     name: 'Vue.js'
+//   },
   
-  methods: {
-    sign_up: function (event) {
-      alert(this.$router.push('/url'))
-      if (event) {
-        alert(event.target.tagName)
-      }
-    }
-  }
-})
+//   methods: {
+//     sign_up: function (event) {
+//       alert(this.$router.push('/url'))
+//       if (event) {
+//         alert(event.target.tagName)
+//       }
+//     }
+//   }
+// })
 </script>
 
 
@@ -100,5 +100,7 @@ var submit = new Vue({
 }
 .btn-primary {
   font-size: 1.3rem;
+  width: 100%;
+  background-color: #0f2140 ;
 }
 </style>
