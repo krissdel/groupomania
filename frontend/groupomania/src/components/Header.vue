@@ -48,7 +48,7 @@ a {
 
 /* ============================================= */
 
-@media only screen and (min-width : 320px) {
+@media (min-width : 320px) {
   .img2{
      width: 90%;
      height: auto;
@@ -59,7 +59,7 @@ a {
    }
  }
  
- @media only screen and (min-width : 270px) {
+ @media (min-width : 270px) {
   
    .img2{
      width: 100%;
