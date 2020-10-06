@@ -18,7 +18,8 @@ import Footer from "@/components/Footer.vue";
 export default {
   components: {
     Header,
-    Footer,
+    Footer
+    
   },
 };
 </script>
@@ -26,6 +27,9 @@ export default {
 
 
 <style>
+/* @import 'style.css'; */
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

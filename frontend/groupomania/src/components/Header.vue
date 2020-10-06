@@ -12,8 +12,8 @@
         </router-link>
         </a>
         <div class="router_link_users"> 
-    <router-link to="/Users/Users_signup">sign up</router-link> |
-    <router-link to="/Users/Users_login">login</router-link>  
+    <router-link to="/Users/Sign_up">sign up</router-link> |
+    <router-link to="/Users/Login">login</router-link>  
         </div>
       </nav>
   <router-view/>
@@ -30,7 +30,36 @@ export default {
 
 
 
-<style>
+<style lang="scss">
+@media (min-width : 320px) {
+  .img2{
+     width: 90%;
+     height: auto;
+   }  
+   a.router-link-active.router-link-exact-active {
+     width: 47%;
+   }
+ }
+ 
+ @media (min-width : 270px) {
+   .img2{
+     width: 100%;
+     height: auto;
+   } 
+   a.router-link-active.router-link-exact-active {
+     width: 40%;
+   }
+ }
+ 
+ /* Small devices (landscape phones, 576px and up)  */
+ @media (min-width: 576px) {  
+    .img2{
+     width: 90%;
+     height: auto;
+   } 
+  }
+
+
 .router_link_user {
   justify-content: right;
   justify-content: space-around;
@@ -48,37 +77,5 @@ a {
 
 /* ============================================= */
 
-@media (min-width : 320px) {
-  .img2{
-     width: 90%;
-     height: auto;
-   } 
- 
-   a.router-link-active.router-link-exact-active {
-     width: 47%;
-   }
- }
- 
- @media (min-width : 270px) {
-  
-   .img2{
-     width: 100%;
-     height: auto;
-   } 
- 
-   a.router-link-active.router-link-exact-active {
-     width: 40%;
-   }
- 
- }
- 
- 
- /* Small devices (landscape phones, 576px and up)  */
- @media (min-width: 576px) {  
-    .img2{
-     width: 90%;
-     height: auto;
-   } 
 
-  }
 </style>

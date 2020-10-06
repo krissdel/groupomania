@@ -1,19 +1,34 @@
+// import Vue from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
 
 
+//auth views
+// import Users_login from '@/views/auth/Users_login'
+// import Users_signup from '@/views/auth/Users_signup'
+
+
 const routes = [
+
+  // {
+  //   path: '/Users/User_login',
+  //   name: 'Users_login',
+  //   component: Login
+  // },
+
+
+
   {
     path: '/app',
     name: 'Home',
     component: Home
   },
-  
+
   {
-    path: '/Users/Users_login',
-    name: 'Users_login',
-    component: () => import('../views/Users/Users_login.vue')
+    path: '/Users/Login',
+    name: 'Login',
+    component: () => import('../views/Users/Login.vue')
   },
 
   {
@@ -23,9 +38,9 @@ const routes = [
   },
 
   {
-    path: '/Users/Users_signup',
-    name: 'Users_signup',
-    component: () => import('../views/Users/Users_signup.vue')
+    path: '/Users/Sign_up',
+    name: 'Sign_up',
+    component: () => import('../views/Users/Sign_up.vue')
   },
 
   {
@@ -46,3 +61,6 @@ const router = createRouter({
 })
 
 export default router
+
+
+

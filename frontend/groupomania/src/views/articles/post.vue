@@ -45,7 +45,7 @@
   flex-direction: column;
 }
 .card {
-  height: 750px;
+  height: 100%;
 }
 h3 {
   text-align: center;

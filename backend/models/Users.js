@@ -7,7 +7,6 @@ const sequelize = new Sequelize('sqlite::memory:');
 module.exports = (sequelize, DataTypes) => {
     const Users = sequelize.define('Users', {
 
-    // id: {type: DataTypes.STRING},
     last_name: {type: DataTypes.STRING},
     first_name: {type: DataTypes.STRING},
     email: {type: DataTypes.STRING, unique: true },

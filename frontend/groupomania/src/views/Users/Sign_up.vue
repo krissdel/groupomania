@@ -1,17 +1,24 @@
 <template>
   <div class="section">
-    <!-- <div class="users_logo">
-      <img alt="logo" src="/assets/icon-above-font.png" width="30" height="30">  
-</div> -->
+    
 
     <div class="container">
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
+        
         <form class="sign_up">
           <div class="form-row">
             <div class="col">
+
+              
               <label for="inputFirstName">First name</label>
-              <input type="text" class="form-control" id="inputFirstName" />
+              <input type="text" class="form-control" id="inputFirstName"  />
+            <!-- <label for="inputFirstName">First Name</label>
+                <input type="text" v-model="user.firstName" v-validate="'required'" name="firstName" class="form-control" :class="{ 'is-invalid': submitted && errors.has('firstName') }" />
+                <div v-if="submitted && errors.has('firstName')" class="invalid-feedback">{{ errors.first('firstName') }}</div> -->
+            
+
+
             </div>
             <div class="col">
               <label for="inputLastName">Last name</label>
@@ -30,7 +37,6 @@
           </div>
           <div id="submit">
             <router-link :to="{ name: 'post' }">
-              <!-- <button type="submit" class="btn btn-primary">Sign up</button> -->
               <button
                 v-on:click="sign_up"
                 type="submit"
@@ -50,23 +56,52 @@
 <script>
 
 
-// import post from '.post'
+// import { mapState, mapActions } from 'vuex';
+// import { mapActions } from "vuex";
+// import Vuex from 'vuex';
+// Vue.use(Vuex)
+import axios from 'axios';
+export default {
+  data () {
+    return {
+      Sign_up: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+      },
+      // submitted: false
+      file:'',
+      error: ''
+    }
+  },
+      methods: {
+        selectFIle() {
+          this.file = this.$refs.file.files[0];
 
-// var submit = new Vue({
-//   el: '#submit',
-//   data: {
-//     name: 'Vue.js'
-//   },
+        },
+        async creatUsers(){
+          const formData = new FormData(); 
+          formData.append('first_name', this.users.first_name);
+          formData.append('last_name', this.users.last_name);
+          formData.append('email', this.users.email);
+          formData.append('password', this.users.password);
 
-//   methods: {
-//     sign_up: function (event) {
-//       alert(this.$router.push('/url'))
-//       if (event) {
-//         alert(event.target.tagName)
-//       }
-//     }
-//   }
-// })
+          try {
+            let response = await axios.post("Users/Sign_up", formData);
+              // console.log(response.data);
+
+              this.$router.replace({ name: 'post', params: {
+                message: response.data.success
+              }});
+          } catch (err) {
+            this.error = err.response.data.error
+          }
+        }
+      }
+  
+};
+
 </script>
 
 
