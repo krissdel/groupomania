@@ -70,7 +70,7 @@ exports.modifyArticles = (req, res) => {
 };
 
 // -----[effacer un article]------------------------------------------------------------------------------
-exports.deleteArticle = (req, res) => {
+exports.deleteArticles = (req, res) => {
     ArticlesModel.findOne({ _id: req.params.id})
     .then(articles => {
       const filename = articles.imageUrl.split('/images/')[1];

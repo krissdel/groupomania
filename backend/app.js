@@ -15,7 +15,8 @@ app.use(helmet());
 
 app.use(bodyParser.json()); // Transforme le corps de la requête en un objet JSON
 
-
+// app.use('app.router');
+// routes.initialize(app);
 
 // ----- [indique à Express qu'il faut gérer les images de manière statique]-------------------------------
 app.use('/images', express.static(path.join(__dirname, 'images'))); 
@@ -24,12 +25,11 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 //-----[route]---------------------------------------------------------------------------------------------
 
 app.use('/api/auth', usersRoutes);
-app.use('/api/articles', articlesRoutes);
-
+app.use('/api/auth/articles', articlesRoutes);
 
 
 
 module.exports = app;
-
+// module.exports = router;
 
 
