@@ -7,7 +7,7 @@ const Users = require('../models/Users');
 exports.signup = async (req, res) => {
     try {
         const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-        const users = new Users({
+        const user = new Users({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,

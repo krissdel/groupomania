@@ -26,9 +26,9 @@
             <!-- <div v-show="submitted && !password" class="invalid-feedback">Password is required</div> -->
           </div>
         </div>
-        <router-link :to="{ name: 'post' }">
-          <button type="submit" class="btn btn-primary">Login</button>
-        </router-link>
+        <!-- <router-link :to="{ name: 'post' }"> -->
+          <button type="submit" class="btn btn-primary" v-on:click="onSubmit">Login</button>
+        <!-- </router-link> -->
       </form>
     </div>
   </div>

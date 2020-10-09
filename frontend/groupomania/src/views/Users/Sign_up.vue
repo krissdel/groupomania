@@ -6,13 +6,13 @@
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
         
-        <form class="sign_up">
+        <!-- <form class="sign_up"> -->
           <div class="form-row">
             <div class="col">
 
               
               <label for="inputFirstName">First name</label>
-              <input type="text" class="form-control" id="inputFirstName"  />
+              <input type="text" class="form-control" id="inputFirstName" v-model="firstName" ref="firstName" />
             <!-- <label for="inputFirstName">First Name</label>
                 <input type="text" v-model="user.firstName" v-validate="'required'" name="firstName" class="form-control" :class="{ 'is-invalid': submitted && errors.has('firstName') }" />
                 <div v-if="submitted && errors.has('firstName')" class="invalid-feedback">{{ errors.first('firstName') }}</div> -->
@@ -22,31 +22,31 @@
             </div>
             <div class="col">
               <label for="inputLastName">Last name</label>
-              <input type="text" class="form-control" id="inputLastName" />
+              <input type="text" class="form-control" id="inputLastName" v-model="lastName" ref="lastName"/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputEmail4">Email</label>
-              <input type="email" class="form-control" id="inputEmail4" />
+              <input type="email" class="form-control" id="inputEmail4" v-model="email" ref="email"/>
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">Password</label>
-              <input type="password" class="form-control" id="inputPassword4" />
+              <input type="password" class="form-control" id="inputPassword4" v-model="password" ref="password"/>
             </div>
           </div>
           <div id="submit">
-            <router-link :to="{ name: 'post' }">
+            <!-- <router-link :to="{ name: 'post' }"> -->
               <button
                
-                type="submit"
-                class="btn btn-primary"
+                
+                class="btn btn-primary" v-on:click = "creatUsers"
               >
                 Sign up
               </button>
-            </router-link>
+            <!-- </router-link> -->
           </div>
-        </form>
+        <!-- </form> -->
       </div>
     </div>
   </div>
@@ -66,12 +66,12 @@ import axios from 'axios';
 export default {
   data () {
     return {
-      Sign_up: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-      },
+
+        firstName: 'kriss',
+        lastName: 'del',
+        email: 'delormechrist@gmail.com',
+        password: 'hello',
+
       // submitted: false
       file:'',
       error: ''
@@ -83,19 +83,27 @@ export default {
 
         },
         async creatUsers(){
+          
           const formData = new FormData(); 
-          formData.append('first_name', this.users.first_name);
-          formData.append('last_name', this.users.last_name);
-          formData.append('email', this.users.email);
-          formData.append('password', this.users.password);
+          formData.append('first_name', this.$refs.firstName.value);
+          formData.append('last_name', this.$refs.lastName.value);
+          formData.append('email', this.$refs.email.value);
+          formData.append('password', this.$refs.password.value);
+          const test = {
+            'first_name': this.$refs.firstName.value,
+            'last_name': this.$refs.lastName.value,
+            'email': this.$refs.email.value,
+            'password': this.$refs.password.value,
+          }
 
           try {
-            let response = await axios.post("Users/Sign_up", formData);
-              // console.log(response.data);
+            let response = await axios.post("users/sign_up", test);
+            console.log(response);
+            return;
 
-              this.$router.replace({ name: 'post', params: {
-                message: response.data.success
-              }});
+            //   this.$router.replace({ name: 'post', params: {
+            //     message: response.data.success
+            //   }});
           } catch (err) {
             this.error = err.response.data.error
           }
