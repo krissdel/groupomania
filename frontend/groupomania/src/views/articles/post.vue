@@ -38,7 +38,7 @@
 
 
 
-<style>
+<style langu="scss">
 .article {
   display: flex;
   justify-content: center;

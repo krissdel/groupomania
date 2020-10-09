@@ -11,9 +11,9 @@
         <div class="form-group row">
           <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" v-model="username" class="form-control" id="inputEmail3" />
+            <input type="email" v-model="email" class="form-control" id="inputEmail3" />
 
-            <!-- <div v-show="submitted && !username" class="invalid-feedback">Username is required</div> -->
+            <!-- <div v-show="submitted && !username" class="invalid-feedback">email is required</div> -->
           </div>
         </div>
         <div class="form-group row">
@@ -47,8 +47,8 @@ export default {
         email: '',
         password: ''
         // submitted: false
-      },
-      console.error();
+      }
+      // console.error();
 },
 
   methods: {
@@ -83,7 +83,7 @@ export default {
 
 
 
-<style scoped lang="scss">
+<style lang="scss">
 .login {
   width: 80%;
   display: flex;

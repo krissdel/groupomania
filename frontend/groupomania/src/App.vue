@@ -14,6 +14,10 @@
 <script >
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
+// import '@/header/components/style.scss';
+// import '@/public/css/style.css';
+
+
 
 export default {
   components: {
@@ -26,8 +30,10 @@ export default {
 
 
 
-<style>
+<style lang='scss'>
 /* @import 'style.css'; */
+/* @import '@/public/css/style'; */
+/* @import '@/header/components/style.scss'; */
 
 
 #app {

@@ -30,17 +30,6 @@ export default {
             }    
         },
 
-        // async Login ({ dispatch }, credentials) {
-        //     try {
-        //         let response = await axios.post( "Users/Login", credentials)
-
-        //         return dispatch('attempt', response.data.token)
-        //     } catch (err) {
-        //         //console.log(err.response.data)
-        //         return err.response.data.error 
-        //     }
-        // },
-
 
         async attempt ({ commit, state }, token) {
             if(token) {

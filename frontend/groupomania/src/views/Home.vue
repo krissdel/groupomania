@@ -24,7 +24,7 @@
 // @ is an alias to /src
 </script>
 
-<style>
+<style langue='scss'>
 .jumbotron-fluid {
   background-color: white;
   width: 100%;

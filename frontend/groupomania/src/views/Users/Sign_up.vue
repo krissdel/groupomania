@@ -38,7 +38,7 @@
           <div id="submit">
             <router-link :to="{ name: 'post' }">
               <button
-                v-on:click="sign_up"
+               
                 type="submit"
                 class="btn btn-primary"
               >
@@ -60,6 +60,8 @@
 // import { mapActions } from "vuex";
 // import Vuex from 'vuex';
 // Vue.use(Vuex)
+
+
 import axios from 'axios';
 export default {
   data () {
@@ -76,7 +78,7 @@ export default {
     }
   },
       methods: {
-        selectFIle() {
+        handleFIleUpload() {
           this.file = this.$refs.file.files[0];
 
         },
@@ -108,7 +110,7 @@ export default {
 
 
 
-<style scope lang="scss">
+<style lang="scss">
 .sign_up {
   width: 80%;
   display: flex;
