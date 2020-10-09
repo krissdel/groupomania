@@ -1,5 +1,21 @@
 @media only screen and (min-width : 320px) {
-  .img2{
+  .router_link_users {
+    width: 25%;
+    font-size: 67%;
+    text-align: end;
+}
+
+nav.navbar.navbar-light.bg-dark {
+  width: 100%;
+  display: flex;
+}
+
+a.logo_white {
+  width: 40%;
+  font-size: 43%;
+}
+
+  /* .img2{
      width: 90%;
      height: auto;
    } 
@@ -7,29 +23,55 @@
    a.router-link-active.router-link-exact-active {
      width: 47%;
    }
- }
+ } */
  
  @media only screen and (min-width : 270px) {
-  
-   .img2{
-     width: 100%;
-     height: auto;
-   } 
- 
-   a.router-link-active.router-link-exact-active {
-     width: 40%;
-   }
- 
+  .router_link_users {
+    width: 24%;
+    font-size: 70%;
+    text-align: end;
+}
+
+nav.navbar.navbar-light.bg-dark {
+  width: 100%;
+  display: flex;
+}
+
+a.logo_white {
+  width: 51%;
+  font-size: 43%;
+}
+
  }
  
  
- /* Small devices (landscape phones, 576px and up)  */
  @media (min-width: 576px) {  
     .img2{
-     width: 90%;
-     height: auto;
+     width: 70%;
+     /* height: auto; */
    } 
+
+   .router_link_users {
+    /* color: white; */
+    width: 16%;
+    font-size: 100%;
+    text-align: end;
+}
 
   }
 
+  @media (min-width: 1024px){
 
+  .img2{
+    width: 50%;
+    /* height: auto; */
+  } 
+
+  .router_link_users {
+   /* color: white; */
+   width: 9%;
+   font-size: 122%;
+   text-align: end;
+  }
+}
+}

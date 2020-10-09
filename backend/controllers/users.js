@@ -5,20 +5,26 @@ const Users = require('../models/Users');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
+  
     try {
         const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-        const user = new Users({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
+        const users = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             password: hash,
         });
-        await user.save()
+        console.log('users');
+
+
+        await users.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(() => res.status(500).json({ message: 'mot de passe incorrect !' }));
-    }    
+    }   
+    
       catch (error) {res.status(500).json({ error: 'utilisateur non trouvé !' });
   }
+  // console.log('ok');
 
 };
 
