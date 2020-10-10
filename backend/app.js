@@ -5,8 +5,14 @@ const bodyParser = require('body-parser');
 const path       = require('path');
 const cors       = require('cors');   //Cross Origin Resource Sharing (accéde à notre API/ajoute les headers/envoie requêtes  GET,POST...)
 
-const usersRoutes  = require('./routes/users');
+const userRoutes  = require('./routes/user');
 const articlesRoutes = require('./routes/articles');
+
+const { Sequelize } = require('sequelize');
+
+
+const sequelize = new Sequelize('sqlite::memory:');
+
 
 const app = express();
 app.use(cors());
@@ -24,9 +30,9 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //-----[route]---------------------------------------------------------------------------------------------
 
-app.use('/api/auth', usersRoutes);
+app.use('/api/auth', userRoutes);
 app.use('/api/auth/articles', articlesRoutes);
-app.use('/api/users', usersRoutes );
+app.use('/api/user', userRoutes );
 
 
 module.exports = app;

@@ -1,28 +1,30 @@
 // require("dotenv").config(); //charge les variables d'environnement à partir d'un .env fichier dans process.env
 const bcrypt = require('bcrypt');  //stock le mot de passe sécurisé sous forme de hash
 const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
-const Users = require('../models/Users');
+const User = require('../models/User');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
   
     try {
         const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-        const users = new User({
+        const user = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
             password: hash,
         });
-        console.log('users');
+        // console.log('user');
 
 
-        await users.save()
+        await user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(() => res.status(500).json({ message: 'mot de passe incorrect !' }));
     }   
     
-      catch (error) {res.status(500).json({ error: 'utilisateur non trouvé !' });
+      catch (error) {
+        console.log("\n\n\nerror", error);
+        res.status(500).json({ error: 'utilisateur non trouvé !' });
   }
   // console.log('ok');
 
@@ -81,23 +83,23 @@ exports.logout = async(req, res) =>{
 // -----[modifier un utilisateur]-----------------------------------------------------------------------
 
 
-exports.modifyUsers = (req, res) => {
-  const usersObject = req.file ? {
-    ...JSON.parse(req.body.users),
+exports.modifyUser = (req, res) => {
+  const userObject = req.file ? {
+    ...JSON.parse(req.body.user),
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
    } : { ...req.body };
-   Users.findOne({ _id: req.params.id })
-    .then(users => {
+   User.findOne({ _id: req.params.id })
+    .then(user => {
       if (req.file) {
-        const filename = users.imageUrl.split("/images/")[1];
+        const filename = user.imageUrl.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
-  Users.updateOne({ _id: req.params.id }, { ...usersObject, _id: req.params.id })
+  User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
       .then(() => res.status(200).json({ message: 'mise a jour utilisateur !'}))
       .catch(error => res.status(400).json({ error }));   
   });
 } else {
-  Users.updateOne({ _id: req.params.id }, { ...usersObject, _id: req.params.id })
+  User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: "compte utlisateur modifiée !" }))
     .catch(error => res.status(400).json({ error }));
 }
@@ -110,12 +112,12 @@ exports.modifyUsers = (req, res) => {
 // -----[supprimer un utilisateur]-----------------------------------------------------------------------
 
 
-exports.deleteUsers = (req, res) => {
-  Users.findOne({ _id: req.params.id})
-  .then(users => {
-    const filename = users.imageUrl.split('/images/')[1];
+exports.deleteUser = (req, res) => {
+  User.findOne({ _id: req.params.id})
+  .then(user => {
+    const filename = user.imageUrl.split('/images/')[1];
     fs.unlink(`images/${filename}`, () =>{            //assure que le fichier image correspondant est également supprimé.
-      users.deleteOne({_id: req.params.id })
+      user.deleteOne({_id: req.params.id })
       .then(() => res.status(200).json({ message: 'utilisateur supprimé !'}))
       .catch(error => res.status(400).json({ error }));
     });

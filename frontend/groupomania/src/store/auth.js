@@ -6,22 +6,22 @@ export default {
 
     state: {
         token: null, 
-        users: null
+        user: null
     },
 
     mutations: {
         SET_TOKEN (state, token) {
             state.token = token 
         },
-        SET_USERS (state, data ) {
-            state.users = data
+        SET_USER (state, data ) {
+            state.user = data
         }
     },
 
     actions: {
         async Login ({ dispatch }, credentials) {
             try {
-                let response = await axios.post( "Users/Login", credentials)
+                let response = await axios.post( "User/Login", credentials)
 
                 return dispatch('attempt', response.data.token)
             } catch (err) {
@@ -41,13 +41,13 @@ export default {
             }
 
             try {
-                let response =  await Vuex.get("Users")
+                let response =  await Vuex.get("User")
 
-                commit ('SET_USERS', response.data)
+                commit ('SET_USER', response.data)
 
             }catch (error) {
                 commit('SET_TOKEN', null)
-                commit('SET_USERS', null)
+                commit('SET_USER', null)
             }
 
     },

@@ -11,9 +11,9 @@
             <img class= "img2" src="@/assets/icon-left-font-monochrome-blanc-resize.png">
         </router-link>
         </a>
-        <div class="router_link_users"> 
-    <router-link to="/Users/Sign_up">sign up</router-link> |
-    <router-link to="/Users/Login">login</router-link>  
+        <div class="router_link_user"> 
+    <router-link to="/User/Sign_up">sign up</router-link> |
+    <router-link to="/User/Login">login</router-link>  
         </div>
       </nav>
   <router-view/>
@@ -68,7 +68,7 @@ export default {
 .bg-dark {
     background-color: #0f2140!important;
 }
-.router_link_users {
+.router_link_user {
 color: white;
 }
 a {

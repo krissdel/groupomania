@@ -40,7 +40,7 @@
               <button
                
                 
-                class="btn btn-primary" v-on:click = "creatUsers"
+                class="btn btn-primary" v-on:click = "creatUser"
               >
                 Sign up
               </button>
@@ -82,7 +82,7 @@ export default {
           this.file = this.$refs.file.files[0];
 
         },
-        async creatUsers(){
+        async creatUser(){
           
           const formData = new FormData(); 
           formData.append('first_name', this.$refs.firstName.value);
@@ -97,7 +97,7 @@ export default {
           }
 
           try {
-            let response = await axios.post("users/sign_up", test);
+            let response = await axios.post("user/sign_up", test);
             console.log(response);
             return;
 
@@ -127,7 +127,7 @@ export default {
 }
 
 .container_container {
-  display: flex;
+  //display: flex;
   justify-content: center;
   height: 100%;
   padding: 5%;
@@ -147,7 +147,7 @@ export default {
   padding-bottom: 5%;
 }
 
-.users_logo {
+.user_logo {
   text-align: center;
 }
 .btn-primary {

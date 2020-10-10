@@ -24,7 +24,7 @@ exports.createArticles = (req, res) => {
 };
 
 // -----[ trouver toutes les Articles  ]-------------------------------------------------------------
-exports.getArticles = (req, res) => {
+exports.getAllArticles = (req, res) => {
   ArticlesModel.find()
       .then(ArticlesModel => res.status(200).json(ArticlesModel))
       .catch(error => {

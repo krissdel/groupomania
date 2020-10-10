@@ -5,17 +5,11 @@ import Home from '../views/Home.vue'
 
 
 //auth views
-// import Users_login from '@/views/auth/Users_login'
-// import Users_signup from '@/views/auth/Users_signup'
+// import User_login from '@/views/auth/User_login'
+// import User_signup from '@/views/auth/User_signup'
 
 
 const routes = [
-
-  // {
-  //   path: '/Users/User_login',
-  //   name: 'Users_login',
-  //   component: Login
-  // },
 
 
 
@@ -26,9 +20,9 @@ const routes = [
   },
 
   {
-    path: '/Users/Login',
+    path: '/User/Login',
     name: 'Login',
-    component: () => import('../views/Users/Login.vue')
+    component: () => import('../views/User/Login.vue')
   },
 
   {
@@ -38,9 +32,9 @@ const routes = [
   },
 
   {
-    path: '/Users/Sign_up',
+    path: '/User/Sign_up',
     name: 'Sign_up',
-    component: () => import('../views/Users/Sign_up.vue')
+    component: () => import('../views/User/Sign_up.vue')
   },
 
   {

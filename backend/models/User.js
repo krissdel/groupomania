@@ -1,11 +1,11 @@
 // const { Sequelize, DataTypes } = require('sequelize');
 // const sequelize = new Sequelize('sqlite::memory:');
-
+const Sequelize = require('sequelize')
 
 
  
 module.exports = (sequelize, DataTypes) => {
-    const Users = sequelize.define('Users', {
+    const User = sequelize.define('User', {
 
     lastName: {type: DataTypes.STRING},
     firstName: {type: DataTypes.STRING},
@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     password: {type: DataTypes.STRING},
 
     });
-    return Users;
+    
+    return User;
+
   };
 
