@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');  //stock le mot de passe sécurisé sous forme
 const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
 const User = require('../models/User');
 
+
+
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
   
