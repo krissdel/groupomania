@@ -2,35 +2,67 @@
 const bcrypt = require('bcrypt');  //stock le mot de passe sécurisé sous forme de hash
 const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
 const User = require('../models/User');
+// const { Sequelize } = require('sequelize');
+// const sequelize = new Sequelize('sqlite::memory:');
+// const Sequelize = require('sequelize')
 
 
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
-  
     try {
-        const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-        const user = new User({
+        // const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
+
+        const user = await User.create ({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            password: hash,
-        });
-        // console.log('user');
-
-
+            password: hash
+          });
+          console.log(req.body); 
+            
         await user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(() => res.status(500).json({ message: 'mot de passe incorrect !' }));
     }   
-    
-      catch (error) {
-        console.log("\n\n\nerror", error);
-        res.status(500).json({ error: 'utilisateur non trouvé !' });
-  }
-  // console.log('ok');
 
+      catch (error) {
+        res.status(500).json({ error: "l'utilisateur existe déjà !"});
+  }
 };
+
+
+      //  =================================================
+
+
+
+//             var firstName = req.body.firstName;
+//             var lastName = req.body.lastName;
+//             var email =  req.body.email;
+//             var password = req.body.password;
+
+//     console.log( req.body)
+
+//     if (!email || !password|| !firstName || !lastName ) {
+//       return res.status(400).json({ error: 'Certains champs sont vides !' });
+//   }
+//   getUserByEmail(email)
+//   .then(user => {
+//       if(user) return res.status(400).json({ error: "L'utilisateur existe déjà !" });
+//   })
+//   .then (password => {
+//     models.User.create({
+//       firstName: firstName, 
+//       lastName: lastName,
+//       email: email,
+//       password: password,
+//     });
+//     return res.status(200).json({ success: 'Utilisateur enregistré !' });
+// })
+// .catch(error => {
+//   return res.status(400).json({ error });
+// })
+// }
 
 
 // -----[connection d'un utilisateur ]-----------------------------------------------------------------------

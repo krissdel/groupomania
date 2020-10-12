@@ -1,22 +1,22 @@
-// const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('sqlite::memory:');
+const { Sequelize, Model, DataTypes } = require("sequelize");
+const sequelize = new Sequelize("sqlite::memory:");
 // const Sequelize = require('sequelize')
 
 
 
-// module.exports = (sequelize, DataTypes) => {
-//     const User = sequelize.define('User', {
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define('User', {
 
-//     lastName: {type: DataTypes.STRING},
-//     firstName: {type: DataTypes.STRING},
-//     email: {type: DataTypes.STRING, unique: true },
-//     password: {type: DataTypes.STRING},
+    lastName: {type: DataTypes.STRING},
+    firstName: {type: DataTypes.STRING},
+    email: {type: DataTypes.STRING, unique: true },
+    password: {type: DataTypes.STRING},
 
-//     });
+    });
 
-//     return User;
+    return User;
 
-//   };
+  };
 
 
 
@@ -62,15 +62,16 @@
 
 // ===============================================================
 
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+// const { Sequelize, Model, DataTypes } = require('sequelize');
+// const sequelize = new Sequelize('sqlite::memory:');
 
 
-class User extends Model {}
-User.init({
-  firstName: DataTypes.STRING,
-  lasName: DataTypes.STRING,
-  email: DataTypes.STRING, allowNull: false, unique: true,
-  password: DataTypes.STRING
-}, { sequelize, modelName: 'User' });
+// class User extends Model {}
+// User.init({
+//   firstName: DataTypes.STRING,
+//   lasName: DataTypes.STRING,
+//   email: DataTypes.STRING, allowNull: false, unique: true,
+//   password: DataTypes.STRING
+// }, 
+// { sequelize, modelName: 'User' });
 
