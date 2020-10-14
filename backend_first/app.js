@@ -8,8 +8,10 @@ const cors       = require('cors');   //Cross Origin Resource Sharing (acc√©de √
 const userRoutes  = require('./routes/user');
 const articlesRoutes = require('./routes/articles');
 
+const { Sequelize } = require('sequelize');
 
 
+const sequelize = new Sequelize('sqlite::memory:');
 
 
 const app = express();

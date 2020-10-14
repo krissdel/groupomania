@@ -1,77 +1,30 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
-const sequelize = new Sequelize("sqlite::memory:");
-// const Sequelize = require('sequelize')
+const db = require("./database");
+
+exports.signup = async function(data) {
+  const sql = "INSERT INTO `user` (`first_name`, `last_name`, `email`, `password`) VALUES (?, ?, ?, ?)";
+  const reformatedData = [
+    data.firstName,
+    data.lastName,
+    data.email,
+    data.password
+  ];
+  
+  const answer = await db.request(sql, reformatedData);
+  console.log(answer);
+  return answer;
+}
+
+exports.alreadyExist = async function (email){
+  const sql = "SELECT id FROM `user` WHERE `email` LIKE ?";
+  const answer = await db.request(sql, email);
+  return answer;
+}
 
 
 
-module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
 
-    lastName: {type: DataTypes.STRING},
-    firstName: {type: DataTypes.STRING},
-    email: {type: DataTypes.STRING, unique: true },
-    password: {type: DataTypes.STRING},
-
-    });
-
-    return User;
-
-  };
-
-
-
-// ===========================================================
-
-// 'use strict';
-// const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('sqlite::memory:');
-
-// module.exports = (sequelize, DataTypes) => {
-
-//   const User = sequelize.define('User', {
-
-//     firstName: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     },
-//     lastName: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     },
-//     email: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//       unique: true
-//     },
-//     password: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     },
-
-//     // { 
-//     //   sequelize, modelName: 'User' 
-//     // },
-//   });
-//   return User;
-// };
-
-// `sequelize.define` also returns the model
-// console.log(User === sequelize.models.User); // true
-
-
-
-// ===============================================================
-
-// const { Sequelize, Model, DataTypes } = require('sequelize');
-// const sequelize = new Sequelize('sqlite::memory:');
-
-
-// class User extends Model {}
-// User.init({
-//   firstName: DataTypes.STRING,
-//   lasName: DataTypes.STRING,
-//   email: DataTypes.STRING, allowNull: false, unique: true,
-//   password: DataTypes.STRING
-// }, 
-// { sequelize, modelName: 'User' });
-
+exports.login =  async function (email, password){
+  const sql = "SELECT CURENT_USER id FROM 'user' WHERE 'email' LIKE ? 'password' LIKE ?";
+  const login = await db.request(sql, email, password);
+  return login;
+}

@@ -7,25 +7,26 @@
       <div class="container_container">
         
         <!-- <form class="sign_up"> -->
-          <div class="form-row">
-            <div class="col">
 
-              
+          <div class="form-row">
+
+          <!-- <div class="form-row1"> -->
+            <div class="col">
               <label for="inputFirstName">First name</label>
               <input type="text" class="form-control" id="inputFirstName" v-model="firstName" ref="firstName" />
             <!-- <label for="inputFirstName">First Name</label>
                 <input type="text" v-model="user.firstName" v-validate="'required'" name="firstName" class="form-control" :class="{ 'is-invalid': submitted && errors.has('firstName') }" />
                 <div v-if="submitted && errors.has('firstName')" class="invalid-feedback">{{ errors.first('firstName') }}</div> -->
-            
-
-
             </div>
             <div class="col">
               <label for="inputLastName">Last name</label>
-              <input type="text" class="form-control" id="inputLastName" v-model="lastName" ref="lastName"/>
+              <input type="text" class="form-control" id="inputLastName" v-model="lastName"  ref="lastName"/>
             </div>
+          <!-- </div> -->
           </div>
           <div class="form-row">
+          <!-- <div class="form-row2"> -->
+
             <div class="form-group col-md-6">
               <label for="inputEmail4">Email</label>
               <input type="email" class="form-control" id="inputEmail4" v-model="email" ref="email"/>
@@ -34,14 +35,12 @@
               <label for="inputPassword4">Password</label>
               <input type="password" class="form-control" id="inputPassword4" v-model="password" ref="password"/>
             </div>
+          <!-- </div> -->
           </div>
           <div id="submit">
             <!-- <router-link :to="{ name: 'post' }"> -->
-              <button
-               
-                
-                class="btn btn-primary" v-on:click = "creatUser"
-              >
+              <!-- <router-link :to="{ name: 'post', params: { userId: user.id}}"> -->
+              <button class="btn btn-primary" v-on:click = "creatUser">
                 Sign up
               </button>
             <!-- </router-link> -->
@@ -95,6 +94,7 @@ export default {
             'email': this.$refs.email.value,
             'password': this.$refs.password.value,
           }
+          
 
           try {
             let response = await axios.post("user/sign_up", test);
@@ -104,6 +104,9 @@ export default {
             //   this.$router.replace({ name: 'post', params: {
             //     message: response.data.success
             //   }});
+            
+
+
           } catch (err) {
             this.error = err.response.data.error
           }
