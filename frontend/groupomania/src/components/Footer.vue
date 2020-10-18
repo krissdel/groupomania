@@ -7,8 +7,8 @@
       <h5 class="card-title">adresse :</h5>
       <p class="card-text">
         Groupomania <br />
-        contact@groupomania.com <br />
-        12 place Sathonay 69001 Lyon
+        12 place Sathonay 69001 Lyon<br/>
+        contact@groupomania.com 
       </p>
 
       <!-- <a href="#" class="btn btn-primary">Go</a> -->

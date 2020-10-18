@@ -20,11 +20,15 @@ exports.alreadyExist = async function (email){
   return answer;
 }
 
-
+// exports.checkInput = function () {
+//   const input = (req.body.firstName > 0 || req.body.lastName > 0 || req.body.email > 0 || req.body.password > 0 ); 
+//   console.log(input);
+// }
 
 
 exports.login =  async function (email, password){
-  const sql = "SELECT CURENT_USER id FROM 'user' WHERE 'email' LIKE ? 'password' LIKE ?";
-  const login = await db.request(sql, email, password);
+  const sql = "SELECT * FROM 'user' WHERE 'email' = ? 'password' = ?";
+  const login = await db.request(sql, [email, password]);
   return login;
 }
+

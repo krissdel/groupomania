@@ -5,7 +5,7 @@
   "main": "controllers.js",
   "scripts": {
     "start": "node server",
-    "test": "nodemon server"
+    "test": "nodemon server --inspect"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +22,6 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.5"
   }
 }

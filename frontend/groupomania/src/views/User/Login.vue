@@ -6,29 +6,25 @@
     <h1 class="text-center">Login</h1>
 
     <div class="container_container">
-      <!-- <form @submit.prevent="handleSubmit" class="login"> -->
-      <form class="login">
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="email" v-model="email" class="form-control" id="inputEmail3" />
 
-            <!-- <div v-show="submitted && !username" class="invalid-feedback">email is required</div> -->
+      <Form v-slot="{ errors }" class="login" >
+        <div class="form-group row">
+          <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+          <Field name="email" as="input" :rules="isRequired" type="email" class="form-control" id="inputEmail" ref="email" />
+          <span>{{ errors.email }}</span>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label"
-            >Password</label
-          >
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
           <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword3" />
-
-            <!-- <div v-show="submitted && !password" class="invalid-feedback">Password is required</div> -->
+          <Field name="password" as="input" :rules="isRequired" type="password" class="form-control" id="inputPassword" ref="password" />
+          <span>{{ errors.password }}</span>
           </div>
         </div>
-        <router-link :to="{ name: 'post' }">
-          <button type="submit" class="btn btn-primary" v-on:click="onSubmit">Login</button>
-        </router-link>
+        <!-- <router-link :to="{ name: 'post', params: { res }}"> -->
+          <button type="submit" class="btn btn-primary" >Login</button>
+        <!-- </router-link> -->
       </form>
     </div>
   </div>
@@ -37,10 +33,15 @@
 <script>
 // import { mapState, mapActions } from "vuex";
 import { mapActions } from "vuex";
+import { Field, Form } from 'vee-validate';
 
 
 
 export default {
+   components: {
+    Field,
+    Form,
+  },
   name: "Login",
   data() {
     return {
@@ -52,6 +53,9 @@ export default {
 },
 
   methods: {
+     isRequired(value) {
+      return value ? true : 'This field is required';
+    },
     ...mapActions({
       Login: 'auth/Login'
     }),
@@ -63,7 +67,18 @@ export default {
         this.$router.replace({
           name: 'post',
           params: {message: 'vous êtes connecté !'}
-        })
+        });
+console.log("-------------------");
+
+        // if (!res) {
+        //   this.error = res
+        // }
+        // this.$router.replace({
+        //   name: 'Login',
+        //   params: {message: "une erreur c'est produite !"}
+        // })
+
+        
       })
     }
    
@@ -83,12 +98,25 @@ export default {
 
 
 
-<style lang="scss">
+<style scoped lang="scss">
+label.col-sm-2.col-form-label {
+    font-weight: lighter;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #0f2140;
+    border-color: #0f2140;
+    font-size: 1.3rem;
+    width: 100%;
+}
+span {
+  color: red;
+  font-weight: lighter;
+}
 .login {
   width: 80%;
   display: flex;
   flex-direction: column;
-  // justify-content: space-around;
   font-weight: bold;
 }
 

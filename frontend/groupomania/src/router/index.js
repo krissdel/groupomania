@@ -4,6 +4,10 @@ import Home from '../views/Home.vue'
 
 
 
+
+
+
+
 //auth views
 // import User_login from '@/views/auth/User_login'
 // import User_signup from '@/views/auth/User_signup'

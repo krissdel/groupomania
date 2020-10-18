@@ -1,51 +1,67 @@
 <template>
-  <div class="section">
-    
 
+
+  <div class="section">
     <div class="container">
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
+        <Form v-slot="{ errors }">
+          
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+              <div class="col">
+                <label for="inputFirstName">First name</label>   
+                <Field name="firstName" as="input" :rules="isRequired" type="text" class="form-control" id="inputFirstName"  
+                ref="firstName" />
+               <span>{{ errors.firstName}}</span>
+               </div>
+          </div>
+
+            <div class="form-group col-md-6">
+                <div class="col">
+                  <label for="inputLastName">Last name</label>   
+                  <Field name="lastName" as="input" :rules="isRequired" type="text" class="form-control" id="inputLastName" 
+                   ref="lastName" />
+                  <span>{{ errors.LastName }}</span>
+                </div>
+            </div>
+          </div>
         
-        <!-- <form class="sign_up"> -->
 
-          <div class="form-row">
+        
+        
+        <div class="form-row">
+          <div class="form-group col-md-6">
+              <div class="col">
+                <label for="inputEmail">Email</label>   
+                <Field name="email" as="input" :rules="isRequired" type="email" class="form-control" id="inputEmail"  
+                ref="email" />
+               <span>{{ errors.email }}</span>
+               </div>
+          </div>
 
-          <!-- <div class="form-row1"> -->
-            <div class="col">
-              <label for="inputFirstName">First name</label>
-              <input type="text" class="form-control" id="inputFirstName" v-model="firstName" ref="firstName" />
-            <!-- <label for="inputFirstName">First Name</label>
-                <input type="text" v-model="user.firstName" v-validate="'required'" name="firstName" class="form-control" :class="{ 'is-invalid': submitted && errors.has('firstName') }" />
-                <div v-if="submitted && errors.has('firstName')" class="invalid-feedback">{{ errors.first('firstName') }}</div> -->
-            </div>
-            <div class="col">
-              <label for="inputLastName">Last name</label>
-              <input type="text" class="form-control" id="inputLastName" v-model="lastName"  ref="lastName"/>
-            </div>
-          <!-- </div> -->
-          </div>
-          <div class="form-row">
-          <!-- <div class="form-row2"> -->
 
-            <div class="form-group col-md-6">
-              <label for="inputEmail4">Email</label>
-              <input type="email" class="form-control" id="inputEmail4" v-model="email" ref="email"/>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="inputPassword4">Password</label>
-              <input type="password" class="form-control" id="inputPassword4" v-model="password" ref="password"/>
-            </div>
-          <!-- </div> -->
+
+          <div class="form-group col-md-6">
+              <div class="col">
+                <label for="inputPassword">Password</label>   
+                <Field name="password" as="input" :rules="isRequired" type="password" class="form-control" id="inputPassword"  
+                ref="password" />
+               <span>{{ errors.password }}</span>
+               </div>
           </div>
-          <div id="submit">
-            <!-- <router-link :to="{ name: 'post' }"> -->
-              <!-- <router-link :to="{ name: 'post', params: { userId: user.id}}"> -->
-              <button class="btn btn-primary" v-on:click = "creatUser">
-                Sign up
-              </button>
-            <!-- </router-link> -->
-          </div>
-        <!-- </form> -->
+          
+        </div>
+
+
+
+        <div id="submit">
+          <!-- <router-link :to="{ name: 'post', params: {response: register} }">  -->
+            <button class="btn btn-primary" @click="creatUser">Sign up</button>
+          <!-- </router-link> -->
+        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -53,75 +69,101 @@
     
 
 <script>
-
-
 // import { mapState, mapActions } from 'vuex';
 // import { mapActions } from "vuex";
 // import Vuex from 'vuex';
 // Vue.use(Vuex)
 
+import axios from "axios";
+import { Field, Form } from 'vee-validate';
 
-import axios from 'axios';
+// import Vue from 'vue';
+// import VueSweetalert2 from 'vue-sweetalert2';
+// Vue.use(VueSweetalert2);
+
 export default {
-  data () {
+  components: {
+    Field,
+    Form,
+  },
+  data() {
     return {
-
-        firstName: 'kriss',
-        lastName: 'del',
-        email: 'delormechrist@gmail.com',
-        password: 'hello',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
 
       // submitted: false
-      file:'',
-      error: ''
-    }
+      file: "",
+      error: "",
+    };
   },
-      methods: {
-        handleFIleUpload() {
-          this.file = this.$refs.file.files[0];
+  methods: {
+     isRequired(value) {
+      return value ? true : 'This field is required';
+    },
+    handleFIleUpload() {
+      this.file = this.$refs.file.files[0];
+    },
+    // showAlert() {
+    //   // Use sweetalert2
+    //   this.$swal('Hello Vue world!!!');
+    // },
+    async creatUser() {
+      // const formData = new FormData();
+      // formData.append("first_name", this.$refs.firstName.value);
+      // formData.append("last_name", this.$refs.lastName.value);
+      // formData.append("email", this.$refs.email.value);
+      // formData.append("password", this.$refs.password.value);
+      const register = {
+        first_name: this.$refs.firstName.value,
+        last_name: this.$refs.lastName.value,
+        email: this.$refs.email.value,
+        password: this.$refs.password.value,
+      };
+      // console.log (register);
+      //  if (!this.$refs.firstName.value || !this.$refs.lastName.value || !this.$refs.email.value || !this.$refs.password.value ) {
+      // return ({ message: 'Certains champs sont vides !' });
 
-        },
-        async creatUser(){
-          
-          const formData = new FormData(); 
-          formData.append('first_name', this.$refs.firstName.value);
-          formData.append('last_name', this.$refs.lastName.value);
-          formData.append('email', this.$refs.email.value);
-          formData.append('password', this.$refs.password.value);
-          const test = {
-            'first_name': this.$refs.firstName.value,
-            'last_name': this.$refs.lastName.value,
-            'email': this.$refs.email.value,
-            'password': this.$refs.password.value,
-          }
-          
+      // }
 
-          try {
-            let response = await axios.post("user/sign_up", test);
-            console.log(response);
-            return;
+      try {
+        let response = await axios.post("user/sign_up", register);
+        console.log(response);
 
-            //   this.$router.replace({ name: 'post', params: {
-            //     message: response.data.success
-            //   }});
-            
+        // return;
 
+        // if (response){this.$router.replace({
+        //     name: "post",
 
-          } catch (err) {
-            this.error = err.response.data.error
-          }
-        }
+        //     params: {message: " error password ou email ",}
+        // });
+        // }
+        // if (!response) {
+        //    return this.$router.replace({
+        //    name: "Sign_up",
+        //      params: {
+        //        message: response.data.success,
+        //      },
+        //    });
+        //  }
+      } catch (err) {
+        this.error = err.response.data.error;
       }
-  
+    },
+  },
 };
-
 </script>
 
 
 
 
 
-<style lang="scss">
+<style scoped lang="scss">
+span {
+  color: red;
+  font-weight: lighter;
+}
 .sign_up {
   width: 80%;
   display: flex;
@@ -157,5 +199,7 @@ export default {
   font-size: 1.3rem;
   width: 100%;
   background-color: #0f2140;
+  border-color: #0f2140;
 }
+
 </style>
