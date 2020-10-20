@@ -23,7 +23,7 @@
                   <label for="inputLastName">Last name</label>   
                   <Field name="lastName" as="input" :rules="isRequired" type="text" class="form-control" id="inputLastName" 
                    ref="lastName" />
-                  <span>{{ errors.LastName }}</span>
+                  <span>{{ errors.lastName }}</span>
                 </div>
             </div>
           </div>
@@ -58,7 +58,7 @@
 
         <div id="submit">
           <!-- <router-link :to="{ name: 'post', params: {response: register} }">  -->
-            <button class="btn btn-primary" @click="creatUser">Sign up</button>
+            <button class="btn btn-primary"  @click="creatUser">Sign up</button>
           <!-- </router-link> -->
         </div>
         </form>
@@ -80,6 +80,16 @@ import { Field, Form } from 'vee-validate';
 // import Vue from 'vue';
 // import VueSweetalert2 from 'vue-sweetalert2';
 // Vue.use(VueSweetalert2);
+
+
+// new Vue({
+//   el: '#submit',
+//   methods: {
+//     say: function (message) {
+//       alert(message)
+//     }
+//   }
+// })
 
 export default {
   components: {

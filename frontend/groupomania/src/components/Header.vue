@@ -31,6 +31,16 @@ export default {
 
 
 <style lang="scss">
+
+@media (min-width : 270px) {
+   .img2{
+     width: 100%;
+     height: auto;
+   } 
+   a.router-link-active.router-link-exact-active {
+     width: 40%;
+   }
+ }
 @media (min-width : 320px) {
   .img2{
      width: 90%;
@@ -41,15 +51,7 @@ export default {
    }
  }
  
- @media (min-width : 270px) {
-   .img2{
-     width: 100%;
-     height: auto;
-   } 
-   a.router-link-active.router-link-exact-active {
-     width: 40%;
-   }
- }
+ 
  
  /* Small devices (landscape phones, 576px and up)  */
  @media (min-width: 576px) {  

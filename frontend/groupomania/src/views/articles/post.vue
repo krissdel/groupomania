@@ -9,7 +9,7 @@
 
 <div class="card" style="width: 18rem;">
 
-<div class="card" style="width: 18rem;">
+<div class="card1" style="width: auto;">
   <div class="card-body">
     <h5 class="card-title">POST <br/> image</h5>
     
