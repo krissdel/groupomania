@@ -17,7 +17,7 @@ exports.signup = async (req, res) => {
     
     
     
-    console.log("-1------------------------------")
+    console.log("-1------------------------------", req.body);
 
     const alreadyExist = await user.alreadyExist(req.body.email);
   console.log("-2-----------------------------")
@@ -41,6 +41,7 @@ exports.signup = async (req, res) => {
     
     console.log("-4-----------------------------")
     if (answer.succeed) res.status(201).json({ message: 'Utilisateur créé !' });
+    
     else res.status(500).json({ error: "oulàlà c'est le drame" });
   }
 

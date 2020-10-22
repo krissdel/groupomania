@@ -16,6 +16,18 @@
     <!-- <input class="btn btn-primary" id='getImg' type="file" name="image" accept="image/*" /> -->
 <!-- <button class="btn btn-outline-secondary" type="button">Button</button>  -->
 
+
+<!-- <file-upload
+    ref="upload"
+    v-model="files"
+    post-action="/post.method"
+    put-action="/put.method"
+    @input-file="inputFile"
+    @input-filter="inputFilter"
+  > -->
+
+
+
 <div class="input">
   <div class="custom-file">
     <input type="file" class="custom-file-input" id="inputGroupFile04"  accept=".jpg, .jpeg, .png" multiple>
@@ -48,7 +60,9 @@
 
 
 <script>
-
+// import Vue from 'vue';
+// const VueUploadComponent = require('vue-upload-component')
+// Vue.component('file-upload', VueUploadComponent)
 
 </script>
 

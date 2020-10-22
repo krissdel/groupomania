@@ -16,6 +16,7 @@
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0",
     "vue-sweetalert2": "^3.0.8",
+    "vue-upload-component": "^2.8.20",
     "vuex": "^4.0.0-beta.4"
   },
   "devDependencies": {

@@ -5,24 +5,30 @@
     <div class="container">
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
-        <Form v-slot="{ errors }">
-          
 
+      <!-- @submit="checkForm"
+  action="@Articles/post"
+  method="post" -->
+        <!-- <Form v-slot="{ errors }" @submit="checkForm" novalidate="true">  -->
+       
+       
+       
+        <Form   v-slot="{ errors }" >
         <div class="form-row">
           <div class="form-group col-md-6">
               <div class="col">
-                <label for="inputFirstName">First name</label>   
-                <Field name="firstName" as="input" :rules="isRequired" type="text" class="form-control" id="inputFirstName"  
-                ref="firstName" />
+                <label for="firstName">First name</label>   
+                <Field name="firstName" as="input" :rules="isRequiredFirstName" type="text" class="form-control" id="firstName" 
+                 ref="firstName" v-model="firstName"/>
                <span>{{ errors.firstName}}</span>
                </div>
           </div>
 
             <div class="form-group col-md-6">
                 <div class="col">
-                  <label for="inputLastName">Last name</label>   
-                  <Field name="lastName" as="input" :rules="isRequired" type="text" class="form-control" id="inputLastName" 
-                   ref="lastName" />
+                  <label for="lastName">Last name</label>   
+                  <Field name="lastName" as="input" :rules="isRequiredLastName" type="text" class="form-control" id="lastName" 
+                   ref="lastName" v-model="lastName"/>
                   <span>{{ errors.lastName }}</span>
                 </div>
             </div>
@@ -34,9 +40,9 @@
         <div class="form-row">
           <div class="form-group col-md-6">
               <div class="col">
-                <label for="inputEmail">Email</label>   
-                <Field name="email" as="input" :rules="isRequired" type="email" class="form-control" id="inputEmail"  
-                ref="email" />
+                <label for="email">Email</label>   
+                <Field  name="email" as="input" :rules="isRequiredEmail" type="email" class="form-control" id="email"  
+                ref="email" v-model="email"/>
                <span>{{ errors.email }}</span>
                </div>
           </div>
@@ -45,9 +51,9 @@
 
           <div class="form-group col-md-6">
               <div class="col">
-                <label for="inputPassword">Password</label>   
-                <Field name="password" as="input" :rules="isRequired" type="password" class="form-control" id="inputPassword"  
-                ref="password" />
+                <label for="password">Password</label>   
+                <Field name="password" as="input" :rules="isRequiredPassword" type="password" class="form-control" id="password"  
+                ref="password" v-model="password"/>
                <span>{{ errors.password }}</span>
                </div>
           </div>
@@ -57,8 +63,9 @@
 
 
         <div id="submit">
-          <!-- <router-link :to="{ name: 'post', params: {response: register} }">  -->
-            <button class="btn btn-primary"  @click="creatUser">Sign up</button>
+          <!-- <router-link :to="{ name: 'post', params: { message: response.data.succeed} }">  -->
+            <button class="btn btn-primary" type="submit" @click.prevent="creatUser">Sign up</button>
+
           <!-- </router-link> -->
         </div>
         </form>
@@ -77,19 +84,11 @@
 import axios from "axios";
 import { Field, Form } from 'vee-validate';
 
+
 // import Vue from 'vue';
 // import VueSweetalert2 from 'vue-sweetalert2';
 // Vue.use(VueSweetalert2);
 
-
-// new Vue({
-//   el: '#submit',
-//   methods: {
-//     say: function (message) {
-//       alert(message)
-//     }
-//   }
-// })
 
 export default {
   components: {
@@ -97,6 +96,7 @@ export default {
     Form,
   },
   data() {
+    
     return {
       firstName: "",
       lastName: "",
@@ -108,60 +108,141 @@ export default {
       error: "",
     };
   },
+
   methods: {
-     isRequired(value) {
-      return value ? true : 'This field is required';
-    },
+    //  onSubmit() {
+    //   alert('Submitting :(');
+    // },
+     isRequiredFirstName(value) {
+        return value ? true : 'First name is required';
+     },
+     isRequiredLastName(value) {
+        return value ? true : 'Last name is required';
+
+     },
+     isRequiredEmail(email){
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+           return re.test(email);
+
+     },
+     isRequiredPassword(value){
+         return value ? true : 'Password is required';
+
+     },
+
+
+      // return value ? true : 'This field is required';
+      //     if (!this.firstName) {
+      //   return value.firstName ? true : ("First name required")
+      // }
+      //   if (!this.lastName) {
+      //   return value.lastName ? true : ("Last name required")
+      // }
+     
+    //    validEmail: function (email) {
+    //   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //   return re.test(email);
+    // },
+
+
+      
+      //   if (!this.firstName) {
+      //   return("firstName required.");
+      // }
+      // if (!this.lastName) {
+      //  return("lastName required.");
+      // }
+      //  validateEmail(value){
+      //   // if the field is empty
+      //   if (!value) {
+      //     return ('email is required');
+      //  }
+       
+      //   // if the field is not a valid email
+      //   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      //     return 'This field must be a valid email';
+      // }
+      //  }
+     
+    
     handleFIleUpload() {
       this.file = this.$refs.file.files[0];
     },
-    // showAlert() {
-    //   // Use sweetalert2
-    //   this.$swal('Hello Vue world!!!');
-    // },
+   
     async creatUser() {
-      // const formData = new FormData();
-      // formData.append("first_name", this.$refs.firstName.value);
-      // formData.append("last_name", this.$refs.lastName.value);
-      // formData.append("email", this.$refs.email.value);
-      // formData.append("password", this.$refs.password.value);
-      const register = {
-        first_name: this.$refs.firstName.value,
-        last_name: this.$refs.lastName.value,
-        email: this.$refs.email.value,
-        password: this.$refs.password.value,
-      };
-      // console.log (register);
-      //  if (!this.$refs.firstName.value || !this.$refs.lastName.value || !this.$refs.email.value || !this.$refs.password.value ) {
-      // return ({ message: 'Certains champs sont vides !' });
 
-      // }
-
+      const register = 
+      {
+              first_name: this.firstName,
+              last_name: this.lastName,
+              email: this.email,
+              password: this.password,
+            };
+            console.log ( register);
+            console.log('fuck');
+ 
       try {
-        let response = await axios.post("user/sign_up", register);
+        let response = await axios.post("User/Sign_up", register);
+        
         console.log(response);
+        this.$router.replace({
+                        name: 'post',
+                        params: { message: response.data.succeed}
+                    })
 
-        // return;
 
-        // if (response){this.$router.replace({
-        //     name: "post",
-
-        //     params: {message: " error password ou email ",}
-        // });
-        // }
-        // if (!response) {
-        //    return this.$router.replace({
-        //    name: "Sign_up",
-        //      params: {
-        //        message: response.data.success,
-        //      },
-        //    });
-        //  }
       } catch (err) {
         this.error = err.response.data.error;
       }
+
     },
-  },
+
+
+      // valider(response) {
+      //     if (response) {
+      //         alert('OK');
+      //         } else if (!response ) {
+
+      //           alert('probleme');
+      //         } 
+      // },
+
+
+
+    //  valider() {
+  // if(document.formSaisie != "") {
+  //   document.formSaisie.submit();
+  // }
+  // else {
+  //   alert("veuillez remplir tous les champs");
+  // }
+//  valider() {
+//           if (first_name = this.firstName );
+//               (last_name = this.lastName);
+//               (email = this.email);
+//               (password = this.password){
+//                   // this.router.path(['/Articles/post']);
+//                      this.submit = true;
+//               }
+//           else {
+//                 this.submit = false;
+//               } 
+//  } 
+  
+
+// this.submit = false;
+//       alert("veuillez remplir tous les champs");
+ 
+  
+ 
+
+
+
+ 
+
+
+
+  }
 };
 </script>
 
