@@ -1,74 +1,99 @@
 <template>
-
-
   <div class="section">
     <div class="container">
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
-
-      <!-- @submit="checkForm"
+        <!-- @submit="checkForm"
   action="@Articles/post"
   method="post" -->
         <!-- <Form v-slot="{ errors }" @submit="checkForm" novalidate="true">  -->
-       
-       
-       
-        <Form   v-slot="{ errors }" >
-        <div class="form-row">
-          <div class="form-group col-md-6">
+
+        <Form v-slot="{ errors }">
+          <div class="form-row">
+            <div class="form-group col-md-6">
               <div class="col">
-                <label for="firstName">First name</label>   
-                <Field name="firstName" as="input" :rules="isRequiredFirstName" type="text" class="form-control" id="firstName" 
-                 ref="firstName" v-model="firstName"/>
-               <span>{{ errors.firstName}}</span>
-               </div>
-          </div>
+                <label for="firstName">First name</label>
+                <Field
+                  name="firstName"
+                  as="input"
+                  :rules="isRequiredFirstName"
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  ref="firstName"
+                  v-model="firstName"
+                />
+                <span>{{ errors.firstName }}</span>
+              </div>
+            </div>
 
             <div class="form-group col-md-6">
-                <div class="col">
-                  <label for="lastName">Last name</label>   
-                  <Field name="lastName" as="input" :rules="isRequiredLastName" type="text" class="form-control" id="lastName" 
-                   ref="lastName" v-model="lastName"/>
-                  <span>{{ errors.lastName }}</span>
-                </div>
+              <div class="col">
+                <label for="lastName">Last name</label>
+                <Field
+                  name="lastName"
+                  as="input"
+                  :rules="isRequiredLastName"
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  ref="lastName"
+                  v-model="lastName"
+                />
+                <span>{{ errors.lastName }}</span>
+              </div>
             </div>
           </div>
-        
 
-        
-        
-        <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-row">
+            <div class="form-group col-md-6">
               <div class="col">
-                <label for="email">Email</label>   
-                <Field  name="email" as="input" :rules="isRequiredEmail" type="email" class="form-control" id="email"  
-                ref="email" v-model="email"/>
-               <span>{{ errors.email }}</span>
-               </div>
+                <label for="email">Email</label>
+                <Field
+                  name="email"
+                  as="input"
+                  :rules="isRequiredEmail"
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  ref="email"
+                  v-model="email"
+                />
+                <span>{{ errors.email }}</span>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <div class="col">
+                <label for="password">Password</label>
+                <Field
+                  name="password"
+                  as="input"
+                  :rules="isRequiredPassword"
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  ref="password"
+                  v-model="password"
+                />
+                <span>{{ errors.password }}</span>
+              </div>
+            </div>
           </div>
 
+          <div id="submit">
+            <!-- <router-link :to="{ name: 'post', params: { message: response.data.succeed} }">  -->
+            <button
+              class="btn btn-primary"
+              type="submit"
+              @click.prevent="creatUser"
+            >
+              Sign up
+            </button>
 
-
-          <div class="form-group col-md-6">
-              <div class="col">
-                <label for="password">Password</label>   
-                <Field name="password" as="input" :rules="isRequiredPassword" type="password" class="form-control" id="password"  
-                ref="password" v-model="password"/>
-               <span>{{ errors.password }}</span>
-               </div>
+            <!-- </router-link> -->
           </div>
-          
-        </div>
-
-
-
-        <div id="submit">
-          <!-- <router-link :to="{ name: 'post', params: { message: response.data.succeed} }">  -->
-            <button class="btn btn-primary" type="submit" @click.prevent="creatUser">Sign up</button>
-
-          <!-- </router-link> -->
-        </div>
-        </form>
+        </Form>
       </div>
     </div>
   </div>
@@ -82,13 +107,11 @@
 // Vue.use(Vuex)
 
 import axios from "axios";
-import { Field, Form } from 'vee-validate';
-
+import { Field, Form } from "vee-validate";
 
 // import Vue from 'vue';
 // import VueSweetalert2 from 'vue-sweetalert2';
 // Vue.use(VueSweetalert2);
-
 
 export default {
   components: {
@@ -96,14 +119,11 @@ export default {
     Form,
   },
   data() {
-    
     return {
       firstName: "",
       lastName: "",
       email: "",
       password: "",
-
-      // submitted: false
       file: "",
       error: "",
     };
@@ -113,136 +133,48 @@ export default {
     //  onSubmit() {
     //   alert('Submitting :(');
     // },
-     isRequiredFirstName(value) {
-        return value ? true : 'First name is required';
-     },
-     isRequiredLastName(value) {
-        return value ? true : 'Last name is required';
-
-     },
-     isRequiredEmail(email){
+    isRequiredFirstName(value) {
+      return value ? true : "First name is required";
+    },
+    isRequiredLastName(value) {
+      return value ? true : "Last name is required";
+    },
+    isRequiredEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-           return re.test(email);
+      return re.test(email);
+    },
+    isRequiredPassword(value) {
+      return value ? true : "Password is required";
+    },
 
-     },
-     isRequiredPassword(value){
-         return value ? true : 'Password is required';
-
-     },
-
-
-      // return value ? true : 'This field is required';
-      //     if (!this.firstName) {
-      //   return value.firstName ? true : ("First name required")
-      // }
-      //   if (!this.lastName) {
-      //   return value.lastName ? true : ("Last name required")
-      // }
-     
-    //    validEmail: function (email) {
-    //   var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //   return re.test(email);
-    // },
-
-
-      
-      //   if (!this.firstName) {
-      //   return("firstName required.");
-      // }
-      // if (!this.lastName) {
-      //  return("lastName required.");
-      // }
-      //  validateEmail(value){
-      //   // if the field is empty
-      //   if (!value) {
-      //     return ('email is required');
-      //  }
-       
-      //   // if the field is not a valid email
-      //   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      //     return 'This field must be a valid email';
-      // }
-      //  }
-     
-    
     handleFIleUpload() {
       this.file = this.$refs.file.files[0];
     },
-   
-    async creatUser() {
 
-      const register = 
-      {
-              first_name: this.firstName,
-              last_name: this.lastName,
-              email: this.email,
-              password: this.password,
-            };
-            console.log ( register);
-            console.log('fuck');
- 
+    async creatUser() {
+      const register = {
+        first_name: this.firstName,
+        last_name: this.lastName,
+        email: this.email,
+        password: this.password,
+      };
+      console.log(register);
+      console.log("fuck");
+
       try {
         let response = await axios.post("User/Sign_up", register);
-        
+
         console.log(response);
         this.$router.replace({
-                        name: 'post',
-                        params: { message: response.data.succeed}
-                    })
-
-
+          name: "post",
+          params: { message: response.data.succeed },
+        });
+        console.log(alert);
       } catch (err) {
         this.error = err.response.data.error;
       }
-
     },
-
-
-      // valider(response) {
-      //     if (response) {
-      //         alert('OK');
-      //         } else if (!response ) {
-
-      //           alert('probleme');
-      //         } 
-      // },
-
-
-
-    //  valider() {
-  // if(document.formSaisie != "") {
-  //   document.formSaisie.submit();
-  // }
-  // else {
-  //   alert("veuillez remplir tous les champs");
-  // }
-//  valider() {
-//           if (first_name = this.firstName );
-//               (last_name = this.lastName);
-//               (email = this.email);
-//               (password = this.password){
-//                   // this.router.path(['/Articles/post']);
-//                      this.submit = true;
-//               }
-//           else {
-//                 this.submit = false;
-//               } 
-//  } 
-  
-
-// this.submit = false;
-//       alert("veuillez remplir tous les champs");
- 
-  
- 
-
-
-
- 
-
-
-
-  }
+  },
 };
 </script>
 
@@ -263,7 +195,6 @@ span {
 }
 
 .container_container {
-  //display: flex;
   justify-content: center;
   height: 100%;
   padding: 5%;
@@ -292,5 +223,4 @@ span {
   background-color: #0f2140;
   border-color: #0f2140;
 }
-
 </style>

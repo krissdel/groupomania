@@ -1,4 +1,5 @@
 <template>
+
   <div class="article">
     <div class="title">
       <h3>Ajouter un article</h3>
@@ -30,8 +31,16 @@
 
 <div class="input">
   <div class="custom-file">
-    <input type="file" class="custom-file-input" id="inputGroupFile04"  accept=".jpg, .jpeg, .png" multiple>
-    <label class="custom-file-label" for="inputGroupFile04"></label>
+    <!-- <input type="file" style="display: none" class="custom-file-input" id="inputGroupFile04"  accept=".jpg, .jpeg, .png" multiple> -->
+    <!-- <label class="custom-file-label" for="inputGroupFile04"></label> -->
+    <input 
+    style="display: none" 
+    type="file" 
+    @change="onFileSelected"
+    ref="fileInput">
+    <button @click="$refs.fileInput.click()">Pick image </button>
+    <button @click='onUpload'>Upload</button>
+
   </div>
 
 </div>
@@ -64,6 +73,40 @@
 // const VueUploadComponent = require('vue-upload-component')
 // Vue.component('file-upload', VueUploadComponent)
 
+
+import axios from 'axios';
+// import UploadImage from 'vue-upload-image';
+
+
+export default {
+  name: 'post',
+  data () {
+    return{
+     selecteFile: null
+    }
+  },
+  methods: {
+    onFileSelected (event) {
+     this.selectedFile = event.target.files[0]
+    },
+    onUpload() {
+      const fd = new FormData();
+      fd.append('image', this.selectedFile, this.selectedFile.name);   
+        axios.post('http://localhost:8080/#/Articles/post', fd, {
+          onUploadProgress: uploadEvent => {
+            console.log('Upload Progress' + Math.round(uploadEvent.loaded / uploadEvent.total * 100) + '%')
+          }
+        })
+        .then(res => {
+          console.log(res)
+        })
+    }
+  }
+}
+
+
+
+
 </script>
 
 
@@ -83,38 +126,13 @@ h3 {
     display: flex;
     justify-content: center;
 }
-/* .card-link {
-    color: #d53939;
-} */
+
 .card {
   min-width: -5;
 }
 
-/* 
-#getImg{
-      background-image:url('');
-      background-size:cover;
-      background-position: center;
-      height: 250px; width: 250px;
-      border: 1px solid #bbb;
-} */
-/* ========================================= */
-
-/* .article {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-} */
-/* .card {
-  height: 100%;
-} */
-
-/* .btn-primary {
-  font-size: 1.3rem;
-  width: 50%;
-} */
-/* .btn {
-  justify-content: center;
+/* .router_link_user {
+   visibility: hidden;
 } */
 </style>
 

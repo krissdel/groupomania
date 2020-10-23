@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
     const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
       const login = await user.login( req.body.email, hash);
 
-      console.log("okokoko", login.succeed, login.data);
+      console.log("okokoko-------------", login.succeed, login.data);
 
 
 
