@@ -5,7 +5,8 @@
     <h1 class="text-center">Login</h1>
 
     <div class="container_container">
-      <Form v-slot="{ errors }" class="login">
+                                            <!-- @onsubmit.prevent="onSubmit()" -->
+      <Form v-slot="{ errors }" class="login"> 
         <div class="form-group row">
           <label for="email" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
@@ -16,6 +17,7 @@
               type="email"
               class="form-control"
               id="email"
+              v-model="email"
               ref="email"
              
 
@@ -33,6 +35,8 @@
               type="password"
               class="form-control"
               id="password"
+             v-model="password"
+
               ref="password"
               
             />
@@ -41,7 +45,7 @@
         </div>
 
         <!-- <router-link :to="{ name: 'post', params: { res }}"> -->
-        <button type="submit" class="btn btn-primary" @click.prevent='onSubmit'>Login</button>
+        <button type="submit" class="btn btn-primary" @Click='onSubmit'>Login</button>
         <!-- </router-link> -->
       </Form>
     </div>
@@ -61,19 +65,20 @@ export default {
     Form,
   },
   // name: "Login",
-  data() {
+  data(data) {
 console.log('fuck0');
+    console.log(data);
 
     return {
       // form: {  
-        email: "black@gmail.com",
-        password: "black",
+        email: "",
+        password: "",
         // submitted: false
       // },
       error: "",
     };
-  },
 
+  },
   methods: {
     
 
@@ -106,20 +111,24 @@ console.log(onSubmit);
 
  const login = 
       {
+              // email: $ref.this.email.value,
+              // password: $ref.this.password.value,
               email: this.email,
-              password: this.password,
+              password:this.password,
             };
                 console.log ( login);
-      this.auth.Login(this.email, this.password).then((res) => {
+      // this.auth.Login(this.email, this.password).then((res) => {
+        this.Login(this.email, this.password).then((res) => {
+      // this.Login(this.form).then((res) => {
+
+
                console.log('fuck5');
                console.log(this.Login);
 
         if (res) {
           this.error = res;
         }
-
-        this.$router.replace({
-          
+        this.$router.replace({ 
           name: "post",
           params: { message: "vous êtes connecté !" },
         });
