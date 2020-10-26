@@ -42,12 +42,16 @@ const routes = [
   },
 
   {
-    path: '/Articles/post',
+    path: '/Post/post',
     name: 'post',
-    component: () => import('../views/Articles/post.vue')
+    component: () => import('../views/Post/post.vue')
+  },
+
+  {
+    path: '/Post/postsList',
+    name: 'postsList',
+    component: () => import('../views/Post/postsList.vue')
   }
-
-
 ]
 
 

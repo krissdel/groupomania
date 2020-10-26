@@ -3,10 +3,7 @@
     <div class="container">
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
-        <!-- @submit="checkForm"
-  action="@Articles/post"
-  method="post" -->
-        <!-- <Form v-slot="{ errors }" @submit="checkForm" novalidate="true">  -->
+   
 
         <Form v-slot="{ errors }">
           <div class="form-row">
@@ -82,7 +79,6 @@
           </div>
 
           <div id="submit">
-            <!-- <router-link :to="{ name: 'post', params: { message: response.data.succeed} }">  -->
             <button
               class="btn btn-primary"
               type="submit"
@@ -91,7 +87,6 @@
               Sign up
             </button>
 
-            <!-- </router-link> -->
           </div>
         </Form>
       </div>

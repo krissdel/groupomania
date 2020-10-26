@@ -12,7 +12,9 @@
         </router-link>
         </a>
         <div class="router_link_user"> 
-    <router-link to="/User/Sign_up">sign up</router-link> |
+    <router-link to="/User/Sign_up"> <slot>sign up</slot> </router-link>
+     |
+
     <router-link to="/User/Login">login</router-link>  
         </div>
       </nav>
