@@ -125,9 +125,7 @@ export default {
   },
 
   methods: {
-    //  onSubmit() {
-    //   alert('Submitting :(');
-    // },
+    
     isRequiredFirstName(value) {
       return value ? true : "First name is required";
     },
@@ -142,11 +140,32 @@ export default {
       return value ? true : "Password is required";
     },
 
+    
+
     handleFIleUpload() {
       this.file = this.$refs.file.files[0];
     },
 
     async creatUser() {
+      
+ if 
+    (!this.firstName ||
+    !this.lastName ||
+    !this.email ||
+    !this.password) {
+     return console.log('certains champs sont vide');
+    //  if(isRequiredFirstName(value) ||
+    //  isRequiredLastName(value) ||
+    //  isRequiredEmail(email) ||
+    //  isRequiredPassword(value)
+    //  )
+    //   {
+    //   return value ? true : "this field is required"
+    // }
+    // }
+      
+     
+}
       const register = {
         first_name: this.firstName,
         last_name: this.lastName,
@@ -154,7 +173,7 @@ export default {
         password: this.password,
       };
       console.log(register);
-      console.log("fuck");
+       
 
       try {
         let response = await axios.post("User/Sign_up", register);

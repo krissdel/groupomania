@@ -61,13 +61,13 @@
 
 
 <div class="form-group">
-    <label for="text"  >texte</label>
+    <label for="text"  >text</label>
     <textarea class="form-control"  v-model="text" id="text" rows="3"></textarea>
   </div>
 
   
 
-        <button type="submit" class="btn btn-primary2" @click.prevent='createPost'>ajouter un post</button>
+        <button type="submit" class="btn btn-primary2" @click.prevent='createPost'>Add post</button>
 
   </div>
   
@@ -103,7 +103,7 @@ export default {
   name: 'post',
   data () {
     return{
-    msg: "Ajouter un post",
+    msg: 'Please!.. Add post',
     selecteFile: null,
     resizedImg: '',
     // image: '',
@@ -128,14 +128,14 @@ export default {
       // fd.append('image', this.selectedFile, this.selectedFile.name);  
       // fd.append('text', this.text.post);
 
-      const fd = {
+      const addPost = {
       selectedFile: this.selectedFile.name,
       text: this.text,
       }
-      console.log(fd);
+      console.log(addPost);
       try{
 
-          let response = await axios.post("/Post/createPost", fd, {
+          let response = await axios.post("/Post/post", addPost, {
             // selectedFile: this.selectedFile.name,
             // text: this.text,
 
@@ -208,6 +208,7 @@ h3 {
 }
 img {
     border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 </style>

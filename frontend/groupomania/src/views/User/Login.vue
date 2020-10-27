@@ -45,7 +45,7 @@
         </div>
 
         <!-- <router-link :to="{ name: 'post', params: { res }}"> -->
-        <button type="submit" class="btn btn-primary" @Click='onSubmit'>Login</button>
+        <button type="submit" class="btn btn-primary" @Click.prevent='onSubmit'>Login</button>
         <!-- </router-link> -->
       </Form>
     </div>
@@ -105,13 +105,16 @@ console.log('fuck2');
       
     }),
     onSubmit(onSubmit) {
+      if (!this.email ||
+    !this.password) {
+     return console.log('certains champs sont vide');
+    }
 console.log('fuck4');
 console.log(onSubmit);
 
 
- const login = 
-      {
-              // email: $ref.this.email.value,
+ const login = {
+             // email: $ref.this.email.value,
               // password: $ref.this.password.value,
               email: this.email,
               password:this.password,

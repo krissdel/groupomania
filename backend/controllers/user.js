@@ -7,24 +7,28 @@ const user = require('../models/user');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
+ 
+  
   try {
     console.log("--------------------------------")
-    
-      // if (!checkInput) {
-      //   res.status(401).json({ message: 'Certains champs sont vides !' });
-      //     return;
-      // }
-    
+  
+ 
+  
     
     
     console.log("-1------------------------------", req.body);
 
     const alreadyExist = await user.alreadyExist(req.body.email);
   console.log("-2-----------------------------")
+
+
+
     if (alreadyExist.data.length > 0) {
       res.status(500).json({ error: "l'utilisateur existe déjà !" });
       return; 
     } 
+ 
+    
     
     const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
     console.log("-3-----------------------------")
