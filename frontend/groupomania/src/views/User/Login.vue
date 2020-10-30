@@ -62,8 +62,8 @@ export default {
     Form,
   },
   // name: "Login",
-  data(data) {
-    console.log(data);
+  data() {
+    // console.log(data);
 
     return {
       email: "parker@gmail.com",
@@ -106,23 +106,23 @@ export default {
       };
       console.log(login);
 
-      let response = axios.post("/login/auth", login);
+      let response = axios.post("/user/login", login);
       console.log(response);
-      this.Login(this.email, this.password).then((response) => {
-        console.log(this.Login);
+      // this.Login(this.email, this.password).then((response) => {
+      //   console.log(this.Login);
 
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          // this.error = res;
-        }
-        alert("SUCCESS!! \n\n" + JSON.stringify());
+        // if (response.data.accessToken) {
+        //   localStorage.setItem("user", JSON.stringify(response.data));
+        //   // this.error = res;
+        // // }
+        // alert("SUCCESS!! \n\n" + JSON.stringify());
 
-        this.$router.replace({
-          name: "post",
-          params: { message: "vous êtes connecté !" },
-        });
-        console.log("2------------------");
-      });
+      //   this.$router.replace({
+      //     name: "post",
+      //     params: { message: "vous êtes connecté !" },
+      //   });
+      //   console.log("2------------------");
+      // }
     },
   },
 };

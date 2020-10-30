@@ -115,7 +115,7 @@ export default {
     return {
       firstName: "peter",
       lastName: "parker",
-      email: "parker@gmail.com",
+      email: "p@gmail.com",
       password: "parker",
       file: "",
       error: "",

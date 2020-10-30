@@ -37,7 +37,8 @@ exports.signup = async (req, res) => {
       firstName: req.body.first_name,
       lastName: req.body.last_name,
       email: req.body.email,
-      password: hash
+      password: hash,
+      admin: 0
     });
     
     console.log("-4-----------------------------")
@@ -57,7 +58,10 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     console.log("**9*******************")
-
+    const user = await User.findOne({ email: req.body.email })
+    if (!user){
+      return res.status(401).json({ error: 'Utilisateur non trouveé !' });
+  }
     const currentUser = await user.alreadyExist(req.body.email)
     if (!currentUser) {
       return res.status(401).json({ error: 'Utilisateur non trouveé !' });
@@ -72,12 +76,12 @@ exports.login = async (req, res) => {
 
 
 
-      if (!login ) {
-        return res.status(401).json({ error: 'Utilisateur non trouveé !' });
-      }
+      // if (!login ) {
+      //   return res.status(401).json({ error: 'Utilisateur non trouveé !' });
+      // }
     const valid = await bcrypt.compare(req.body.password, user.password)
 
-      .then(valid => {
+    .then(valid => {
         if (!valid) {
           return res.status(401).json({ message: "Mot de passe incorrect !" });
         }

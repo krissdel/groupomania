@@ -14,24 +14,24 @@ module.exports = (req, res, next) => {
 
     const token = req.headers.authorization.split(' ')[1];
     console.log(22222222222222222);
-    console.log(token);
-      // if(!token) return res.status(400)s.send('Accès refusé !');
+      if(!token) return res.status(400).send('Accès refusé !');
 
-    const decodedToken = jwt.verify(token, process.env.JWT_KEY);
-    console.log(decodedToken);
+    const decodedToken = jwt.verify(token);
 
     console.log(3333333333333333333);
 
-    const userId = decodedToken.userId;
-    if (req.body.userId && req.body.userId !== userId) {
-      throw new Error("ID non valable !");
+    req.userId = verified.userId;
+    req.isAdmin = verified.isAdmin;
+    next();
+    // const userId = decodedToken.userId;
+    // if (req.body.userId && req.body.userId !== userId) {
+    //   throw new Error("ID non valable !");
 
-    //   req.userId = verified.userId;
-    //  req.isAdmin = verified.isAdmin;
-      next();
-    } else {
-      next();
-    }
+     
+     
+    // } else {
+    //   next();
+    // }
   } catch {
     res.status(401).json({error: Error || 'Invalid request!'})
   } 

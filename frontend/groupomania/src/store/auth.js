@@ -16,12 +16,12 @@ export default {
         SET_USER (state, data ) {
             state.user = data
         }
-    },
 
+    },
     actions: {
         async Login ({ dispatch }, credentials) {
             try {
-                let response = await axios.post( "User/Login", credentials)
+                let response = await axios.post( "user/ogin", credentials)
 
                 return dispatch('attempt', response.data.token)
             } catch (err) {
