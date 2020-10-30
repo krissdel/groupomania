@@ -5,8 +5,7 @@
     <h1 class="text-center">Login</h1>
 
     <div class="container_container">
-                                            <!-- @onsubmit.prevent="onSubmit()" -->
-      <Form v-slot="{ errors }" class="login"> 
+      <Form v-slot="{ errors }" class="login">
         <div class="form-group row">
           <label for="email" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-10">
@@ -19,8 +18,6 @@
               id="email"
               v-model="email"
               ref="email"
-             
-
             />
             <span>{{ errors.email }}</span>
           </div>
@@ -35,17 +32,15 @@
               type="password"
               class="form-control"
               id="password"
-             v-model="password"
-
+              v-model="password"
               ref="password"
-              
             />
             <span>{{ errors.password }}</span>
           </div>
         </div>
 
         <!-- <router-link :to="{ name: 'post', params: { res }}"> -->
-        <button type="submit" class="btn btn-primary" @Click.prevent='onSubmit'>Login</button>
+        <button type="submit" class="btn btn-primary" @Click.prevent="onLogin">Login</button>
         <!-- </router-link> -->
       </Form>
     </div>
@@ -53,96 +48,72 @@
 </template>
 
 <script>
-// import { mapState, mapActions } from "vuex";
 import { mapActions } from "vuex";
 import { Field, Form } from "vee-validate";
-// import axios from "axios";
-
-
+import axios from "axios";
+// import { ref } from 'vue';
 export default {
   components: {
     Field,
     Form,
   },
   // name: "Login",
-  data(data) {
-console.log('fuck0');
-    console.log(data);
 
+  
+  data() {
     return {
-      // form: {  
-        email: "",
-        password: "",
-        // submitted: false
-      // },
+      email: "parker@gmail.com",
+      password: "parker",
+
       error: "",
     };
-
   },
   methods: {
-    
-
     isRequiredEmail(email) {
-console.log('fuck1');
-
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    isRequiredPassword(value){
-console.log('fuck2');
-
-         return value ? true : 'Password is required';
+    isRequiredPassword(value) {
+      return value ? true : "Password is required";
     },
 
-//     handleFIleUpload() {
-// console.log('fuck3');
-//       this.file = this.$refs.file.files[0];
-//     },
+    
     ...mapActions({
-      
+
       // Login: "store/auth/Login",
       Login: "auth/Login",
-      
+
     }),
-    onSubmit(onSubmit) {
-      if (!this.email ||
-    !this.password) {
-     return console.log('certains champs sont vide');
-    }
-console.log('fuck4');
-console.log(onSubmit);
+   async onLogin(onLogin) {
+      if (!this.email || !this.password) {
+        return console.log("certains champs sont vide");
+      }
+     
 
+      const login = {
+           email: this.email,
+            password: this.password,
+      };
+            console.log(login);
+            
 
- const login = {
-             // email: $ref.this.email.value,
-              // password: $ref.this.password.value,
-              email: this.email,
-              password:this.password,
-            };
-                console.log ( login);
-      // this.auth.Login(this.email, this.password).then((res) => {
-        this.Login(this.email, this.password).then((res) => {
-      // this.Login(this.form).then((res) => {
+// ============================================
 
+ 
+        let response = await axios.post("/user/login", onLogin)
+         
+         console.log(response);
+      this.Login(this.email, this.password)
 
-               console.log('fuck5');
-               console.log(this.Login);
+      .then((response) => {
+        if (response.data.accessToken) {
+          localStorage.setItem('user', JSON.stringify(response.data));
+                 return response.data;
 
-        if (res) {
-          this.error = res;
         }
-        this.$router.replace({ 
-          name: "post",
-          params: { message: "vous êtes connecté !" },
-        });
-        console.log("2------------------");
-
-        
+         return response.data;
       });
-
     },
-
-  
   },
 };
 </script>

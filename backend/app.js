@@ -29,7 +29,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 //-----[route]---------------------------------------------------------------------------------------------
 
 app.use('/api/auth', userRoutes);
-app.use('/api/auth/post', postRoutes);
+app.use('/api/post', postRoutes);
 app.use('/api/user', userRoutes );
 // app.use('/api/post', postRoutes);
 

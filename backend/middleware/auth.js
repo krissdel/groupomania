@@ -1,16 +1,21 @@
 require("dotenv").config();  //charge les variables d'environnement à partir d'un .env fichier dans process.env
 const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
-  
+
+
+
+
 
 
 // -----[ protége les routes et vérifie que l'utilisateur est authentifié avant d'autoriser l'envoi des requêtes. ]------------------------------------------------------------------------------------
 module.exports = (req, res, next) => {
 
-  console.log(111111111111111111111);
   try {
+    console.log(6666666666666666666666);
 
     const token = req.headers.authorization.split(' ')[1];
     console.log(22222222222222222);
+    console.log(token);
+      // if(!token) return res.status(400)s.send('Accès refusé !');
 
     const decodedToken = jwt.verify(token, process.env.JWT_KEY);
     console.log(decodedToken);
@@ -20,6 +25,10 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId;
     if (req.body.userId && req.body.userId !== userId) {
       throw new Error("ID non valable !");
+
+    //   req.userId = verified.userId;
+    //  req.isAdmin = verified.isAdmin;
+      next();
     } else {
       next();
     }
@@ -28,6 +37,8 @@ module.exports = (req, res, next) => {
   } 
     
 };
+
+
 
 // ===================================================
 

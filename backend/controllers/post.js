@@ -3,16 +3,20 @@ const PostModel = require('../models/Post');
 
 // -----[ création des post]-----------------------------------------------------------
 exports.createPost = (req, res) => {
-    const postObject = JSON.parse(req.body.post);
-    delete postObject._id;       // Supprime l'id généré automatiquement
+  console.log(55555555555444444444444444);
+  const postObject = JSON.parse(req.body.post);
+    // const postObject = req.body.post;
+      console.log(req.body)
+
     try{
-      const post = new PostModel({
+      const postObject = new PostModel({
         ...postObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        
+        image: `${req.protocol}://${req.get('host')}/images/posts/${req.file}`
       });
-      console.log(postObject)
-      post.save()   // Enregistre l'post' dans la base de données
-      .then(() => res.status(201).json({message: 'Article enregistrées !'}))
+      console.log(post)
+      post.save()   // Enregistre 'post' dans la base de données
+      .then(() => res.status(201).json({message: 'Post enregistrées !'}))
       .catch(error => {
         res.status(400).json({ error })
       });
@@ -22,6 +26,41 @@ exports.createPost = (req, res) => {
       console.log("createPost : new PostModel Failed", error);
     }
 };
+
+// exports.createPost = (req, res) => {
+//   // Params
+//   var image;
+//   var post       = req.body.post;
+
+//   console.log(req.body)
+//   console.log('yyyyyyyyyyyyyyyyyyyyyyyy');
+  
+  // Vérifie les inputs
+  // if (!post) {
+  //     return res.status(400).json({ error: ' champs post est vide !' });
+  // }
+
+  // Url de l'image
+//   image = `${req.protocol}://${req.get('host')}/images/${req.file}`;
+
+
+//   getUserById(req.userId)
+//       .then(user => {
+//           if(!user) return res.status(400).json({ error: "L'utilisateur n'existe pas !" });
+
+//           return queryCreatePost(user.id, req.body, image);
+//       })
+//       .then(post => {
+//           res.status(200).json({ success: "Le post a bien été créé !" });
+//       })
+//       .catch(error => {
+//           res.status(400).json({ error });
+//       })
+// }
+
+
+
+
 
 // -----[ trouver toutes les Post  ]-------------------------------------------------------------
 exports.getAllPost = (req, res) => {

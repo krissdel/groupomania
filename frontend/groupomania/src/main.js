@@ -9,7 +9,7 @@ import axios from "axios"
 
 
 
-// import Vue from 'vue'
+import Vue from 'vue'
 // import VueSweetalert2 from 'vue-sweetalert2';
 
 
@@ -17,11 +17,20 @@ import axios from "axios"
 
 axios.defaults.baseURL = 'http://localhost:3000/api/';
 
-createApp(App).use(store).use(store).use(router).mount('#app')
+createApp(App).use(store).use(Vue).use(store).use(router).mount('#app')
 
 
 
 
+
+
+// store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
+//     new Vue({
+//       router,
+//       store,
+//       render: h => h(App)
+//     }).$mount("#app");
+//   })
 
 
 

@@ -34,7 +34,8 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue')
   },
-
+  
+  
   {
     path: '/User/Sign_up',
     name: 'Sign_up',

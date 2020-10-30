@@ -2,10 +2,9 @@ const db = require("./database");
 
 
 exports.createPost = async function(data) {
-    const sql = "INSERT INTO `post` (`refs`, `slugs`, `content`, `date_creation`) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO `post` (`refs`, `content`, `date_creation`) VALUES (?, ?, ?, ?)";
     const createPost = [
       data.refs,
-      data.slugs,
       data.content,
       data.date_creation
     ];

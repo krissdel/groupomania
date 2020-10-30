@@ -25,7 +25,7 @@ export default {
 
                 return dispatch('attempt', response.data.token)
             } catch (err) {
-                //console.log(err.response.data)
+                console.log(err.response.data)
                 return err.response.data.error 
             }    
         },

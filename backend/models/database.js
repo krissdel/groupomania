@@ -29,7 +29,8 @@ function disconnect(){
 
 async function request(sql, data=null){
   try {
-    // console.log("sql",sql, data);
+    // initial();
+    console.log("sql",sql, data);
     if (bdd === null) await connect();
     const answer = await bdd.query(sql,data);
     disconnect();
@@ -49,6 +50,21 @@ async function request(sql, data=null){
     if (bdd) bdd.release(); //release to pool
   }
 }
+
+// function initial() {
+//   Role.create({
+//     id: 1,
+//     name: "user"
+//   });
+ 
+//   Role.create({
+//     id: 2,
+//     name: "admin"
+//   });
+// }
+
+ 
+
 
 function removeMeta(data){
   delete(data["meta"]);

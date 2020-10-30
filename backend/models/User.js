@@ -17,14 +17,17 @@ exports.signup = async function(data) {
 exports.alreadyExist = async function (email){
   const sql = "SELECT id FROM `user` WHERE `email` = ?";
   const answer = await db.request(sql, [email]);
+    console.log(answer);
   return answer;
 };
 
 
 
 exports.login =  async function (email, password){
-  const sql = "SELECT id FROM 'user' WHERE 'email' = ? 'password' = ?";
+  const sql = "SELECT id FROM 'user' WHERE ('email') = ? ('password') = ?";
   const login = await db.request(sql, [email, password]);
+  console.log(login);
+
   return login;
 };
 

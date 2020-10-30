@@ -3,8 +3,6 @@
     <div class="container">
       <h1 class="text-center">Sign up</h1>
       <div class="container_container">
-   
-
         <Form v-slot="{ errors }">
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -82,11 +80,11 @@
             <button
               class="btn btn-primary"
               type="submit"
+              
               @click.prevent="creatUser"
             >
               Sign up
             </button>
-
           </div>
         </Form>
       </div>
@@ -115,17 +113,16 @@ export default {
   },
   data() {
     return {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
+      firstName: "peter",
+      lastName: "parker",
+      email: "parker@gmail.com",
+      password: "parker",
       file: "",
       error: "",
     };
   },
 
   methods: {
-    
     isRequiredFirstName(value) {
       return value ? true : "First name is required";
     },
@@ -140,32 +137,15 @@ export default {
       return value ? true : "Password is required";
     },
 
-    
-
     handleFIleUpload() {
       this.file = this.$refs.file.files[0];
     },
 
     async creatUser() {
-      
- if 
-    (!this.firstName ||
-    !this.lastName ||
-    !this.email ||
-    !this.password) {
-     return console.log('certains champs sont vide');
-    //  if(isRequiredFirstName(value) ||
-    //  isRequiredLastName(value) ||
-    //  isRequiredEmail(email) ||
-    //  isRequiredPassword(value)
-    //  )
-    //   {
-    //   return value ? true : "this field is required"
-    // }
-    // }
-      
-     
-}
+      if (!this.firstName || !this.lastName || !this.email || !this.password) {
+        return console.log("certains champs sont vide");
+   
+      }
       const register = {
         first_name: this.firstName,
         last_name: this.lastName,
@@ -173,16 +153,16 @@ export default {
         password: this.password,
       };
       console.log(register);
-       
 
       try {
-        let response = await axios.post("User/Sign_up", register);
+        let response = await axios.post("/user/sign_up", register);
 
         console.log(response);
         this.$router.replace({
           name: "post",
           params: { message: response.data.succeed },
         });
+        alert("Bravo!...  bienvenue sur Groupomania social network");
         console.log(alert);
       } catch (err) {
         this.error = err.response.data.error;
