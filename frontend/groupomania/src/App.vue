@@ -2,7 +2,6 @@
   <div id="app">
     <Header />
 
-    <!-- <router-view /> -->
 
     <Footer />
   </div>
@@ -15,8 +14,6 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
-// import { ValidationProvider, extend } from 'vee-validate';
-// import { required } from 'vee-validate/dist/rules';
 
 
 
