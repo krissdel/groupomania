@@ -19,8 +19,8 @@ exports.alreadyExist = async function (email){
   const answer = await db.request(sql, [email]);
     console.log(answer);
   return answer;
+  
 };
-
 
 
 exports.login =  async function (email, password){

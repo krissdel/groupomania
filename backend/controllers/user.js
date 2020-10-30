@@ -58,42 +58,41 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     console.log("**9*******************")
-    const user = await User.findOne({ email: req.body.email })
-    if (!user){
-      return res.status(401).json({ error: 'Utilisateur non trouveé !' });
-  }
+
     const currentUser = await user.alreadyExist(req.body.email)
+    
     if (!currentUser) {
       return res.status(401).json({ error: 'Utilisateur non trouveé !' });
+      
     }
-    console.log("--------------------------------")
-
-    const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-      const login = await user.login( req.body.email, hash);
+    console.log("---889899-----------------------------")
+   
+    // const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
+      // const login = await user.login( req.body.email, hash);
 
       console.log("okokoko-------------", login.succeed, login.data);
       console.log("------4444444444------------")
 
 
 
-      // if (!login ) {
-      //   return res.status(401).json({ error: 'Utilisateur non trouveé !' });
-      // }
+      if (!login ) {
+        return res.status(401).json({ error: 'Utilisateur non trouveé !' });
+      }
     const valid = await bcrypt.compare(req.body.password, user.password)
 
-    .then(valid => {
+      .then(valid => {
         if (!valid) {
           return res.status(401).json({ message: "Mot de passe incorrect !" });
         }
-        res.status(200).json({
-          userId: user._id,
-          token: jwt.sign(
-            { userId: user._id },
-            process.env.JWT_KEY,
-            'TOKEN_SECRET_KEY',
-            { expiresIn: "24h" },
-          ),
-        });
+        // res.status(200).json({
+        //   userId: user._id,
+        //   token: jwt.sign(
+        //     { userId: user._id },
+        //     process.env.JWT_KEY,
+        //     'TOKEN_SECRET_KEY',
+        //     { expiresIn: "24h" },
+        //   ),
+        // });
       })
       .catch(error => {
         res.status(500).json({ error })

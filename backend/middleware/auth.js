@@ -23,15 +23,15 @@ module.exports = (req, res, next) => {
     req.userId = verified.userId;
     req.isAdmin = verified.isAdmin;
     next();
-    // const userId = decodedToken.userId;
-    // if (req.body.userId && req.body.userId !== userId) {
-    //   throw new Error("ID non valable !");
+    const userId = decodedToken.userId;
+    if (req.body.userId && req.body.userId !== userId) {
+      throw new Error("ID non valable !");
 
      
      
-    // } else {
-    //   next();
-    // }
+    } else {
+      next();
+    }
   } catch {
     res.status(401).json({error: Error || 'Invalid request!'})
   } 
