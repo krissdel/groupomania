@@ -33,12 +33,13 @@ async function request(sql, data=null){
     console.log("sql",sql, data);
     if (bdd === null) await connect();
     const answer = await bdd.query(sql,data);
-    disconnect();
+    // disconnect();
     // console.log("request answer:",answer); 
     return {
       "succeed" : true,
       "data"    : removeMeta(answer)
     };
+    
   } catch (err) {
     console.warn("request error:", err);
     return {

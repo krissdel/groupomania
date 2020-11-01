@@ -155,7 +155,7 @@ export default {
       console.log(register);
 
       try {
-        let response = await axios.post("/user/sign_up", register);
+        let response = await axios.post("user/sign_up", register);
 
         console.log(response);
         this.$router.replace({

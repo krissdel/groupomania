@@ -109,21 +109,19 @@ export default {
       // this.Login(this.email, this.password).then((response) => {
       //   console.log(this.Login);
 
-        if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data));
+        if (response.succeed) {
+          // localStorage.setItem('user', JSON.stringify(response));
+          // this.$router.replace({
+          // name: "post",
+          // params: { message: "vous êtes connecté !" },
+        // });
         }
           // this.error = response;
           // alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
-          return response.data;
+          return response;
         }
 
-        // this.$router.replace({
-        //   name: "post",
-        //   params: { message: "vous êtes connecté !" },
-        // });
-        // console.log("2------------------");
-
-      // }
+        
     },
   
 };

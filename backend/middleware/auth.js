@@ -13,7 +13,6 @@ module.exports = (req, res, next) => {
     // const token = req.headers.authorization.split(' ')[0] === 'Bearer'
     const token = req.headers.authorization.split('')[1];
    
-    console.log(22222222222222222);
       if(!token) return res.status(400).send('Accès refusé !');
 
     const decodedToken = jwt.verify(token, process.env.JWT_KEY);
