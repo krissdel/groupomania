@@ -113,10 +113,10 @@ export default {
   },
   data() {
     return {
-      firstName: "peter",
-      lastName: "parker",
-      email: "p@gmail.com",
-      password: "parker",
+      firstName: "luc",
+      lastName: "cage",
+      email: "cage@gmail.com",
+      password: "cage",
       file: "",
       error: "",
     };

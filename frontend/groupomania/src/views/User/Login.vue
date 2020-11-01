@@ -52,7 +52,7 @@
 
 <script>
 // import { mapState, mapActions } from "vuex";
-// import { mapActions } from "vuex";
+import { mapActions } from "vuex";
 import { Field, Form } from "vee-validate";
 import axios from "axios";
 
@@ -61,13 +61,13 @@ export default {
     Field,
     Form,
   },
-  // name: "Login",
+  name: "Login",
   data() {
     // console.log(data);
 
     return {
-      email: "parker@gmail.com",
-      password: "parker",
+      email: "cage@gmail.com",
+      password: "cage",
 
       error: "",
     };
@@ -78,21 +78,19 @@ export default {
       return re.test(email);
     },
     isRequiredPassword(value) {
-      console.log("fuck2");
-
-      return value ? true : "Password is required";
+      return value ? true : "Password is required"; 
     },
     // ============================================================
     //     handleFIleUpload() {
     // console.log('fuck3');
     //       this.file = this.$refs.file.files[0];
     //     },
-    // ...mapActions({
 
-    //   // Login: "store/auth/Login",
-    //   Login: "auth/Login",
 
-    // }),
+    ...mapActions({
+      Login: "auth/Login",
+
+    }),
     onSubmit(onSubmit) {
       if (!this.email || !this.password) {
         return console.log("certains champs sont vide");
@@ -111,20 +109,23 @@ export default {
       // this.Login(this.email, this.password).then((response) => {
       //   console.log(this.Login);
 
-        if (response) {
-          localStorage.setItem("user", JSON.stringify(response));
-          // this.error = res;
+        if (response.data.accessToken) {
+          localStorage.setItem('user', JSON.stringify(response.data));
         }
-        alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
+          // this.error = response;
+          // alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
+          return response.data;
+        }
 
         // this.$router.replace({
         //   name: "post",
         //   params: { message: "vous êtes connecté !" },
         // });
-      //   console.log("2------------------");
+        // console.log("2------------------");
+
       // }
     },
-  },
+  
 };
 </script>
 

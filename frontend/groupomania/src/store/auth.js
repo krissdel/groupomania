@@ -1,4 +1,4 @@
-import Vuex from 'vuex'
+// import Vuex from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -7,6 +7,16 @@ export default {
     state: {
         token: null, 
         user: null
+    },
+
+    getters: {
+        authentificated (state) {
+            return state.token && state.user
+        },
+
+        user (state) {
+            return state.user
+        }
     },
 
     mutations: {
@@ -21,7 +31,7 @@ export default {
     actions: {
         async Login ({ dispatch }, credentials) {
             try {
-                let response = await axios.post( "user/ogin", credentials)
+                let response = await axios.post( "user/login", credentials)
 
                 return dispatch('attempt', response.data.token)
             } catch (err) {
@@ -41,7 +51,7 @@ export default {
             }
 
             try {
-                let response =  await Vuex.get("User")
+                let response =  await axios.get("user")
 
                 commit ('SET_USER', response.data)
 
@@ -52,12 +62,12 @@ export default {
 
     },
 
-    // async logout ({ commit }) {
-    //     return axios.post('auth/logout').then(() => {
-    //         commit('SET_TOKEN', null)
-    //         commit('SET_USER', null)
-    //     })
-    // }
+    async logout ({ commit }) {
+        return axios.post('auth/logout').then(() => {
+            commit('SET_TOKEN', null)
+            commit('SET_USER', null)
+        })
+    }
 
     }
 };

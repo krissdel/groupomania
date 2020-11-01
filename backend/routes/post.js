@@ -8,7 +8,7 @@ const postCtrl = require('../controllers/post');
 
 // exports.router = (function() {
 //     var router = express.Router();
-    console.log('yo');
+    console.log('yep');
 
 router.post('/',auth, postCtrl.createPost);   
 router.get('/', auth, postCtrl.getAllPost);   

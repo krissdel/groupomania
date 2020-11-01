@@ -48,7 +48,7 @@ exports.signup = async (req, res) => {
   }
 
   catch (error) {
-    res.status(500).json({ error: error });
+    res.status(504).json({ error: error });
   }
 };
 
@@ -57,46 +57,52 @@ exports.signup = async (req, res) => {
 // -----[connection d'un utilisateur ]-----------------------------------------------------------------------
 exports.login = async (req, res) => {
   try {
+
     console.log("**9*******************")
 
     const currentUser = await user.alreadyExist(req.body.email)
-    
+
     if (!currentUser) {
       return res.status(401).json({ error: 'Utilisateur non trouveé !' });
       
     }
-    console.log("---889899-----------------------------")
-   
-    // const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-      // const login = await user.login( req.body.email, hash);
-
-      console.log("okokoko-------------", login.succeed, login.data);
-      console.log("------4444444444------------")
 
 
+    
+    console.log("---889899-----------------------")
+
+    const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
+    const login = await user.login( req.body.email, password);
+
+    console.log("okokoko-------------", login.succeed, login.data);
 
       if (!login ) {
         return res.status(401).json({ error: 'Utilisateur non trouveé !' });
       }
-    const valid = await bcrypt.compare(req.body.password, user.password)
 
-      .then(valid => {
-        if (!valid) {
-          return res.status(401).json({ message: "Mot de passe incorrect !" });
-        }
-        // res.status(200).json({
-        //   userId: user._id,
-        //   token: jwt.sign(
-        //     { userId: user._id },
-        //     process.env.JWT_KEY,
-        //     'TOKEN_SECRET_KEY',
-        //     { expiresIn: "24h" },
-        //   ),
-        // });
-      })
-      .catch(error => {
-        res.status(500).json({ error })
-      });
+
+
+
+
+    // const valid = await bcrypt.compare(req.body.password, user.password)
+
+    //   .then(valid => {
+    //     if (!valid) {
+    //       return res.status(401).json({ message: "Mot de passe incorrect !" });
+    //     } 
+    //     res.status(200).json({
+    //       userId: user._id
+          // token: jwt.sign(
+          //   { userId: user._id },
+          //   process.env.JWT_KEY,
+          //   'TOKEN_SECRET_KEY',
+          //   { expiresIn: "24h" },
+          // ),
+  //       });
+  //     })
+  //     .catch(error => {
+  //       res.status(500).json({ error })
+  //     });
   }
 
 
