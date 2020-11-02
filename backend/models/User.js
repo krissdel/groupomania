@@ -25,9 +25,9 @@ exports.alreadyExist = async function (email){
 
 exports.login =  async function (email, password){
   const sql = "SELECT id FROM `user` WHERE (`email`) = ? (`password`) = ?";
-  const login = await db.request(sql, [email, password]);
-  console.log(login);
+  const answer = await db.request(sql, [email, password]);
+  console.log(answer);
 
-  return login;
+  return answer;
 };
 
