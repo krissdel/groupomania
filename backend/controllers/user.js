@@ -7,29 +7,26 @@ const user = require('../models/user');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
- 
-  
+
+
   try {
 
     console.log("-1------------------------------", req.body);
 
     const alreadyExist = await user.alreadyExist(req.body.email);
-  console.log("-2-----------------------------")
-
-
-
+    console.log("-2-----------------------------")
     if (alreadyExist.data.length > 0) {
       res.status(500).json({ error: "l'utilisateur existe déjà !" });
       console.log('utilisateur existe déjà');
-      return 
-    } 
- 
-    
-    
+      return
+    }
+
+
+
     const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
     console.log("-3-----------------------------")
 
-   
+
 
 
     const answer = await user.signup({
@@ -39,11 +36,22 @@ exports.signup = async (req, res) => {
       password: hash,
       admin: 0
     });
-    
+
+
+
+
     console.log("-4-----------------------------")
-    if (answer.succeed) res.status(201).json({ message: 'Utilisateur créé !' });
-    
-    else res.status(500).json({ error: "oulàlà c'est le drame" });
+
+    if (answer.succeed) {
+      console.log("-5-----------------------------")
+
+      const token = jwt.sign(
+        { userId: answer.data.insertId },
+        process.env.JWT_KEY,
+        // { expiresIn: "24h" }
+      );
+      res.status(201).json({ "message": "Utilisateur créé !", "jwt": token });
+    } else res.status(500).json({ error: "oulàlà c'est le drame" });
   }
 
   catch (error) {
@@ -61,90 +69,48 @@ exports.login = async (req, res) => {
     console.log("-1------------------------------", req.body);
 
     const alreadyExist = await user.alreadyExist(req.body.email);
-  console.log("-2-----------------------------")
+    console.log("-2-----------------------------")
 
     if (!alreadyExist.data.length > 0) {
       res.status(500).json({ error: "utilisateur n'existe pas !" });
       return console.log("utilisateur n'existe pas");
-       
-    } 
+      //  console.log(alreadyExist.data.length)
+    }
+    console.log('ooooooooooooooooooo');
 
-// =========================
-  
-const valid = await bcrypt.compare(req.body.password, user.password)
-      // console.log(valid)  
-.then(valid => {
-    if (!valid) {
-      return res.status(401).json({ message: "Mot de passe incorrect !" });
-     }
-                res.status(200).json({
-                  userId: user._id,
-                  token: jwt.sign(
-                    { userId: user._id },
-                    process.env.JWT_KEY,
-                    { expiresIn: "24h" },
-                  ),
-                });
-              })
-.catch(error => {
-  res.status(500).json({ error })
-});
-          
-
-    //  else {
-    //   const login = await user.login( req.body.email, password);
-    //  console.log(login)
-    //   const valid = await bcrypt.compare(req.body.password, user.password);
-    //   console.log("---*********---------------------", valid);
-
-    // }
-
-
-
-    console.log("-3-----------------------------")
+    // =============================================
 
 
 
 
+    if (alreadyExist.succeed) {
+      console.log('*****************', alreadyExist);
+      const token = jwt.sign(
+        { userId: user.id },
+        process.env.JWT_KEY,
+        { expiresIn: "24h" },
 
-  
-    
 
-    
+      );
+      console.log("----->>>>", user);
+      return res.status(200).json({ 
+        "message": "welcome user !",
+        // "user": user.id,
+        // "jwt": token,
+
+      });
+
+
+      // res.status(200).json({
+      //   userId: user.id,
+      //   token: token
+      // });
+
+
+    }
+
     console.log("---889899-----------------------")
-
-    // const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-    // const login = await user.login( req.body.email, password);
-
-    // console.log("okokoko-------------", login.succeed, login.data);
-
-    //   if (!login ) {
-    //     return res.status(401).json({ error: 'Utilisateur non trouveé !' });
-    //   }
-
-
-
-
-
-  //   const valid = await bcrypt.compare(req.body.password, user.password)
-  //   console.log("---*********---------------------", valid)
-
-  //     .then(valid => {
-  //       if (!valid) {
-  //         return res.status(401).json({ message: "Mot de passe incorrect !" });
-  //       } 
-  //       res.status(200).json({
-  //         userId: user._id,
-  //         token: jwt.sign(
-  //           { userId: user._id },
-  //           process.env.JWT_KEY,
-  //           { expiresIn: "24h" },
-  //         ),
-  //       });
-  //     })
-  //     .catch(error => {
-  //       res.status(500).json({ error })
-  //     });
+    // next();
   }
 
 

@@ -100,7 +100,8 @@
 // Vue.use(Vuex)
 
 import axios from "axios";
-import { Field, Form } from "vee-validate";
+  import { Field, Form } from "vee-validate";
+  import auth from "../../services/auth";
 
 // import Vue from 'vue';
 // import VueSweetalert2 from 'vue-sweetalert2';
@@ -113,10 +114,10 @@ export default {
   },
   data() {
     return {
-      firstName: "luc",
-      lastName: "cage",
-      email: "cage@gmail.com",
-      password: "cage",
+      firstName: "peter",
+      lastName: "parker",
+      email: "parker@gmail.com",
+      password: "parker",
       file: "",
       error: "",
     };
@@ -156,14 +157,13 @@ export default {
 
       try {
         let response = await axios.post("user/sign_up", register);
-
-        console.log(response);
+        auth.init(response);
         this.$router.replace({
-          name: "post",
+          name: "Account",
           params: { message: response.data.succeed },
         });
         alert("Bravo!...  bienvenue sur Groupomania social network");
-        console.log(alert);
+        console.log("succeed");
       } catch (err) {
         this.error = err.response.data.error;
       }

@@ -1,6 +1,13 @@
 // import Vue from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+// import PostList from '../views/PostList.vue'
+
+
+
+
+
+
 
 
 
@@ -22,6 +29,7 @@ const routes = [
     name: 'Home',
     component: Home
   },
+
 
   {
     path: '/User/Login',
@@ -53,10 +61,19 @@ const routes = [
   },
 
   {
-    path: '/Post/postsList',
-    name: 'postsList',
-    component: () => import('../views/Post/postsList.vue')
+    path: '/Post/allPosts',
+    name: 'allPosts',
+    component: () => import('../views/Post/allPosts.vue')
   },
+
+  {
+    path: '/User/Account',
+    name: 'Account',
+    component: () => import('../views/User/Account.vue')
+  },
+
+  
+
 
  
 ]

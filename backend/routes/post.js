@@ -10,9 +10,10 @@ const postCtrl = require('../controllers/post');
 //     var router = express.Router();
     console.log('yep');
 
-router.post('/',auth, postCtrl.createPost);   
-router.get('/', auth, postCtrl.getAllPost);   
-router.get('/:id', auth, postCtrl.getOneArticle);  
+router.post('/', postCtrl.createPost);   
+router.get('/', postCtrl.getAllPosts);  
+router.get('/:id', postCtrl.getAllUserPosts); 
+// router.get('/:id', postCtrl.getOnePost);  
 router.put('/:id', auth, multer, postCtrl.modifyPost);   
 router.delete('/auth/post/:id', postCtrl.deletePost);   
 

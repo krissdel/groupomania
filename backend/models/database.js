@@ -14,6 +14,7 @@ const pool = (require("mariadb")).createPool({
 
 
 async function connect(){
+  console.log("******connect")
   try{
     if (bdd !== null) return;
     bdd = await pool.getConnection();

@@ -55,6 +55,7 @@
 import { mapActions } from "vuex";
 import { Field, Form } from "vee-validate";
 import axios from "axios";
+import auth from "../../services/auth";
 
 export default {
   components: {
@@ -91,7 +92,7 @@ export default {
       Login: "auth/Login",
 
     }),
-    onSubmit(onSubmit) {
+    async onSubmit(onSubmit) {
       if (!this.email || !this.password) {
         return console.log("certains champs sont vide");
       }
@@ -104,21 +105,55 @@ export default {
       };
       console.log(login);
 
-      let response = axios.post("/user/login", login);
-      console.log(response);
+      // let response = axios.post("/user/login", login,{headers: auth.addHeader()});
+      // console.log(response);
       // this.Login(this.email, this.password).then((response) => {
       //   console.log(this.Login);
 
-        if (response.succeed) {
-          // localStorage.setItem('user', JSON.stringify(response));
-          // this.$router.replace({
-          // name: "post",
-          // params: { message: "vous êtes connecté !" },
+
+try {
+      let response = await axios.post("/user/login", login,{headers: auth.addHeader()});
+      console.log('oooooooooooooo', response, auth);
+      
+        auth.init(response);
+        this.$router.replace({
+          name: "post",
+          params: { message: response.succeed },
+        });
+        alert("Bravo!...  bienvenue sur Groupomania social network");
+        console.log(" user connecté ! ");
+      } catch (err) {
+        this.error = err.response;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // if (response.succeed) {
+        //   localStorage.setItem('user', JSON.stringify(response));
+        //   auth.init(response);
+        //   this.$router.replace({
+        //   name: "post",
+        //   params: { message:  response.data.succeed  },
         // });
-        }
+        //  alert("Bravo!...  bienvenue sur Groupomania social network");
+        // console.log(" user connecté ! ");
+        // }
+        //  return console.log('mot de passe incorrect !')
+        
+        
           // this.error = response;
           // alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
-          return response;
+          // return response;
         }
 
         

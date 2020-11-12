@@ -1,16 +1,17 @@
 <template>
   <div class="post">
+    
     <div class="title">
       <h3>{{ msg }}</h3>
     </div>
 
-    <form @add="savePost" @submit.prevent="createPost">
+    <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
         <div class="card" style="width: 18rem">
           <div class="card1" style="width: auto">
             <div class="card-body">
-              <h5 class="card-title">image</h5>
-
+              <!-- <h5 class="card-title">image</h5> -->
+              <label for="image"></label>
               <div class="input">
                 <div class="custom-file">
                   <input
@@ -20,6 +21,7 @@
                     type="file"
                     @change="onFileSelected"
                     ref="fileInput"
+                    id="image"
                   />
 
                   <div class="button">
@@ -39,34 +41,28 @@
             </div>
           </div>
 
+          <!-- --------[section text]------------------------------------>
+
           <div class="card-body">
             <!-- <h5 class="card-title">   </h5> -->
 
             <div class="form-group">
-              <label for="text">text</label>
+              <label for="text">texte</label>
               <textarea
                 class="form-control"
                 id="text"
                 rows="3"
-               v-model="text"
+                v-model="text"
               ></textarea>
-
             </div>
 
-            <button
-              type="submit"
-              class="btn btn-primary2" 
-            >
+            <button type="submit" id="add" class="btn btn-primary2">
               Add post
             </button>
           </div>
         </div>
       </div>
     </form>
-<ul>
-<!-- <li v-for="addPost in createPost" :key.id  >{{posts}} </li> -->
-</ul>
-
   </div>
 </template>
 
@@ -75,13 +71,12 @@
 <script>
 import axios from "axios";
 import resizeImage from "@/plugins/image-resize.js";
-// import { ref } from 'vue';
+import { ref } from "vue";
+import auth from "../../services/auth";
+// import func from '../../../../vue-temp/vue-editor-bridge';
 
 export default {
-  setup(){
-     
-  },
-
+  setup() {},
 
   name: "post",
   data() {
@@ -91,78 +86,72 @@ export default {
       resizedImg: "",
       // image: '',
       file: "",
-      text: "",
+      text: "yo",
+      addPost: "",
+      add: "",
+
+      post: "",
     };
   },
+  components: {},
+
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       const file = event.target.files[0];
-      // this.image = file;
       resizeImage({ file: file, maxSize: 200 }).then((resizedImage) => {
         this.resizedImg = URL.createObjectURL(resizedImage);
       });
     },
 
-    async createPost() {
-     
-      const addPost = {
-        image    : this.selectedFile !== undefined ? this.selectedFile.name : null,
-        text     : this.text,
-        idParent : 0  
-      }  
-      console.log(addPost);
-       
-      
-     
-    //  const savePost = function(){
-    //         this.addPost = [...this.addPost]
-    //       }
-    //             console.log(savePost);
+    // savePost : function () {
+    //  this.addPost.push({
+    //   image: this.selectedFile++,
+    //   text: this.text++,
+    //  })
+    // },
 
+    async createPost() {
+      let post = ref([]);
+      console.log(post);
+
+      const addPost = {
+        image: this.selectedFile !== undefined ? this.selectedFile.name : null,
+        text: this.text,
+        idParent: 0,
+        post: [this.selectedFile, this.text],
+      };
+
+      console.log("-----------", addPost);
 
       try {
         let response = await axios.post("/post/", addPost, {
-            onUploadProgress: (uploadEvent) => {
-              console.log(
-                "Upload Progress" +
-                  Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-                  "%"
-              );
-            },
-          })
+          headers: auth.addHeader(),
+          onUploadProgress: (uploadEvent) => {
+            console.log(
+              "Upload Progress" +
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
+            );
+          },
+        });
+        auth.init(response);
+        if (response.status !== 201) throw response.data.message;
+        // console.log("---- :) ", response)
 
-          .then((res) => {
-            console.log(res);
-            console.log(res.data);
+        this.$router.push({
+          name: "allPosts",
 
-          });
-        console.log("****************************", response);
-        // si succès de la raquette on admet que response.succeed = true
-        if (response.succeed) {
-          this.$router.replace({
-            name: "postsList",
-            params: { message: response.data.succeed },
-          });
-        }
+          query: { view: "allUserPosts" }, 
+          // query: { view: "allPosts", userId:1},  //TODO : changer l'id 1 par une valeur dynamique
+        });
+        // alert("Bravo!...  vous venez de créer un post");
+        // console.log(" post crée ! ");
       } catch (err) {
-        this.error = err.response.data.error;
+        if (typeof err === "string") this.error = err;
+        else this.error = err.response;
       }
-
-          // const savePost = function(data){
-          //   createPost = [...this.creatPost, {post: data, id: Date.now()}]
-          // }
-
-          // savePost ()= {
-          //   addPost = [...this.addPost,{post: data, id: Date.now()}]
-          // }
-          //       console.log(savePost);
-
-
     },
-
-
-
   },
 };
 </script>
@@ -170,6 +159,45 @@ export default {
 
 
 <style scoped langue="scss">
+
+a.card-link1 {
+    color: black;
+}
+h1.display-4 {
+    text-align: center;
+}
+.card-body-link {
+    display: flex;
+    justify-content: space-around;
+}
+a.card-link-userPost {
+  color: black;
+  line-height: normal;
+}
+a.card-link-allPost {
+  color: black;
+  line-height: normal;
+}
+a.card-link-allPost {
+  color: black;
+  line-height: normal;
+}
+
+.card-welcome {
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  padding-top: 16px;
+}
+.container-container {
+  display: flex;
+  justify-content: center;
+}
+ul {
+  color: red;
+  background-color: blueviolet;
+  height: 50px;
+}
 .title {
   padding: 30px;
 }
