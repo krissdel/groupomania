@@ -50,6 +50,14 @@ exports.signup = async (req, res) => {
 
 
 
+<<<<<<< Updated upstream
+=======
+
+
+
+// -----[connection d'un utilisateur ]-----------------------------------------------------------------------
+exports.login = async (req, res) => {
+>>>>>>> Stashed changes
 
 
 
