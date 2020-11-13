@@ -23,6 +23,7 @@
             <!-- <a href="#" class="card-link-allPost">all posts</a> | -->
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <a href="view/Post/post#/Post/allPosts" class="card-link-allPost"
               >all posts</a
             >
@@ -40,11 +41,18 @@
             <a href="view/post#/Post/allPosts?view=allPosts" class="card-link-allPost">all posts</a> |
 
 >>>>>>> Stashed changes
+=======
+            <a href="view/post#/Post/allPosts?view=allPosts" class="card-link-allPost">all posts</a> |
+
+>>>>>>> Stashed changes
             <a href="view/Post/post#/Post/post" class="card-link-addPost">Add post</a> |
            
             <a href="view/post#/Post/allPosts?view=allUserPosts" class="card-link-userPost">user post</a>
          <button type="submit" class="btn btn-info" @click="getUserPosts">user post</button>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -58,6 +66,7 @@
 <script>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 export default {
   data: function () {
       return {
@@ -68,6 +77,8 @@ export default {
   }
 }
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -104,6 +115,9 @@ console.log( "lolooololol")
 
   };
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

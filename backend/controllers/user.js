@@ -51,7 +51,10 @@ exports.signup = async (req, res) => {
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 
 
