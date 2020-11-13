@@ -1,9 +1,7 @@
 require("dotenv").config(); //charge les variables d'environnement à partir d'un .env fichier dans process.env
 const bcrypt = require('bcrypt');  //stock le mot de passe sécurisé sous forme de hash
-const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
-const user = require('../models/user');
-
-
+const jwt    = require('jsonwebtoken');  //crée et vérifie les TOKEN
+const user   = require('../models/user');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
@@ -32,7 +30,7 @@ exports.signup = async (req, res) => {
       const token = jwt.sign(
         { userId: answer.data.insertId },
         process.env.JWT_KEY,
-        // { expiresIn: "24h" }
+        { expiresIn: "24h" }
       );
       res.status(201).json({
         "first_name": req.body.first_name,
@@ -55,27 +53,16 @@ exports.signup = async (req, res) => {
 // -----[connection d'un utilisateur ]-----------------------------------------------------------------------
 exports.login = async (req, res) => {
   try {
-
-    // console.log("-1------------------------------", req.body);
-
     const alreadyExist = await user.alreadyExist(req.body.email);
-    // console.log("-2-----------------------------")
-
     if (!alreadyExist.data.length > 0) {
       throw("utilisateur n'existe pas !");
     }
-    // console.log('ooooooooooooooooooo');
-
-    // =============================================
-
     if (alreadyExist.succeed) {
-      console.log('*****************', alreadyExist);
       const token = jwt.sign(
         { userId: alreadyExist.data[0].id },
         process.env.JWT_KEY,
         { expiresIn: "24h" },
-      );
-      
+      );      
       return res.status(200).json({ 
         "first_name": alreadyExist.data[0].first_name,
         "id"        : alreadyExist.data[0].id,
@@ -85,17 +72,12 @@ exports.login = async (req, res) => {
         "role"      : alreadyExist.data[0].role,
       });
     }
-
-    console.log("---889899-----------------------")
     // next();
   }
-
-
   catch (error) {
-    console.log(":)", error)
+    console.log("controllers/user > login :", error)
     return res.status(401).json(error);
   };
-
 };
 
 
