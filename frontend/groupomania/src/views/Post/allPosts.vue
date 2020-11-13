@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <div class="jumbotron jumbotron-fluid">
+      <div class='msg'>
+      {{ msg }}
+      </div>
       <div class="container">
-        <h1 class="display-4">ALL POSTS</h1>
-        {{ msg }}
+        
       
         <div class="container-posts" v-if="allPosts !== null">
 
@@ -14,6 +16,7 @@
           v-bind:text="data.text"
           v-bind:id="data.id"
           >
+          
             <!-- {{image}} 
            {{text}}
            -->
@@ -61,9 +64,9 @@ export default {
 
       case "allUserPosts": {
         axios.get("/post/:id").then((res) => {
-          this.allUserPosts = res.data.data;
-          console.log("****", typeof res.data, res.data.data);
-          console.log("++++++++++++", this.allUserPosts);
+          this.allUserPosts = res.data.data.index.id;
+          console.log("===========", typeof res.data, res.data.data.index.id);
+          console.log("vvvvvvvvvvvv", this.allUserPosts);
               
         });
         break;
@@ -80,5 +83,25 @@ export default {
 
 
 <style scoped langue="scss">
+.card[data-v-6a48ebef] {
+    height: 10pc;
+    color: blue;
+}
+
+/* .card {
+  width: 18rem;
+  height: 18pc;
+} */
+.msg {
+    text-align: center;
+}
+.container {
+
+    justify-content: center;
+    display: flex;
+
+    
+}
+
 </style>
 

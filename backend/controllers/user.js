@@ -50,6 +50,9 @@ exports.signup = async (req, res) => {
 
 
 
+
+
+
 // -----[connection d'un utilisateur ]-----------------------------------------------------------------------
 exports.login = async (req, res) => {
   try {
@@ -64,12 +67,19 @@ exports.login = async (req, res) => {
         { expiresIn: "24h" },
       );      
       return res.status(200).json({ 
+<<<<<<< Updated upstream
         "first_name": alreadyExist.data[0].first_name,
         "id"        : alreadyExist.data[0].id,
         "jwt"       : token,
         "last_name" : alreadyExist.data[0].last_name,
         "message"   : "welcome user !",
         "role"      : alreadyExist.data[0].role,
+=======
+        "message": "welcome user !",
+        user: user.id,
+        jwt: token,
+
+>>>>>>> Stashed changes
       });
     }
     // next();

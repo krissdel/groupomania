@@ -1,6 +1,5 @@
 <template>
   <div class="post">
-    
     <div class="title">
       <h3>{{ msg }}</h3>
     </div>
@@ -76,8 +75,6 @@ import auth from "../../services/auth";
 // import func from '../../../../vue-temp/vue-editor-bridge';
 
 export default {
-  setup() {},
-
   name: "post",
   data() {
     return {
@@ -141,10 +138,21 @@ export default {
 
         this.$router.push({
           name: "allPosts",
-
-          query: { view: "allUserPosts" }, 
-          // query: { view: "allPosts", userId:1},  //TODO : changer l'id 1 par une valeur dynamique
+          query: { view: "allPosts" },
         });
+
+        // if (response.status !== 201) throw  response.data.message;
+        // console.log(";;;;;;;;;;;;;;;;", answer.data)
+        // this.$router.push({
+        //   name: "allUserPosts",
+        //   query: { view: "allUserPosts", userId: 1 }, //TODO : changer l'id 1 par une valeur dynamique
+        // });
+
+
+
+
+
+
         // alert("Bravo!...  vous venez de créer un post");
         // console.log(" post crée ! ");
       } catch (err) {
@@ -159,16 +167,15 @@ export default {
 
 
 <style scoped langue="scss">
-
 a.card-link1 {
-    color: black;
+  color: black;
 }
 h1.display-4 {
-    text-align: center;
+  text-align: center;
 }
 .card-body-link {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 a.card-link-userPost {
   color: black;

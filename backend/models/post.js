@@ -33,7 +33,7 @@ exports.createPost = async function(data) {
   // ------------------------------------------------
   
   exports.getAllUserPosts =  async function(data){
-    const sql = "SELECT * from post WHERE `user_id` = ?";
+    const sql = "SELECT from `post` WHERE  `text`, `image` = data.text, data.image";
     const getAllUserPosts = [
       data
     ];
@@ -43,19 +43,22 @@ exports.createPost = async function(data) {
 
     return answer;
   }
+// ----------------------------------------------------
 
-// exports.deletePost = async function(data) {
-//   const sql = "DELETE FROM `post` WHERE `post`.`id` = ? ";
-//   const deletePost = [
-//     data.text,
-//     data.image,
-//   ];
+
+exports.deletePost = async function(data) {
+  const sql = "DELETE FROM `post` WHERE `text`.`id`, `image`.`id` = ?, ?";
   
-//   const answer = await db.request(sql, deletePost);
-//   console.log("deletePost", answer);
-//       console.log('post supprimé');
+  const deletePost = [
+    data.text,
+    data.image,
+  ];
+  
+  const answer = await db.request(sql, deletePost);
+  console.log("deletePost", answer);
+      console.log('post supprimé');
 
-//   return answer;
-// }
+  return answer;
+}
 
  

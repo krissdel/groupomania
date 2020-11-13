@@ -32,7 +32,7 @@ export default {
 
 
 
-<style lang="scss">
+<style scoped lang="scss">
 
 @media (min-width : 270px) {
    .img2{

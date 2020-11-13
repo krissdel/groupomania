@@ -21,6 +21,7 @@
         <div class="card-body">
           <div class="card-body-link">
             <!-- <a href="#" class="card-link-allPost">all posts</a> | -->
+<<<<<<< Updated upstream
             <a href="view/Post/post#/Post/allPosts" class="card-link-allPost"
               >all posts</a
             >
@@ -31,6 +32,14 @@
             >
             |
             <a href="#" class="card-link-userPost">user post</a>
+=======
+            <a href="view/post#/Post/allPosts?view=allPosts" class="card-link-allPost">all posts</a> |
+
+            <a href="view/Post/post#/Post/post" class="card-link-addPost">Add post</a> |
+           
+            <a href="view/post#/Post/allPosts?view=allUserPosts" class="card-link-userPost">user post</a>
+         <button type="submit" class="btn btn-info" @click="getUserPosts">user post</button>
+>>>>>>> Stashed changes
           </div>
         </div>
       </div>
@@ -39,6 +48,7 @@
 </template>
 
 <script>
+<<<<<<< Updated upstream
 export default {
   data: function () {
       return {
@@ -48,6 +58,41 @@ export default {
     }
   }
 }
+=======
+
+import axios from "axios";
+// import auth from "../../services/auth";
+
+export default {
+
+  name: "post",
+  data() {
+    return {
+      
+     
+    };
+  },
+  components: {},
+
+  methods: {
+   
+   
+
+    async getUserPosts() {
+console.log( "lolooololol")
+
+ axios.get("/post/:id").then((res) => {
+          this.allUserPosts = res.data.data;
+          console.log("****", typeof res.data, res.data.data);
+          console.log("++++++++++++", this.allUserPosts);
+        })
+    }
+  }
+
+
+
+  };
+>>>>>>> Stashed changes
 </script>
 
 <style scoped langue="scss">

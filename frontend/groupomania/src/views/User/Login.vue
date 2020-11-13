@@ -106,9 +106,21 @@ export default {
       // this.Login(this.email, this.password).then((response) => {
       //   console.log(this.Login);
 
+<<<<<<< Updated upstream
       try {
         let response = await axios.post("/user/login", login, {
           headers: auth.addHeader(),
+=======
+
+try {
+      let response = await axios.post("/user/login", login,{headers: auth.addHeader()});
+      console.log('oooooooooooooo', response, auth);
+      
+        auth.init(response);
+        this.$router.replace({
+          name: "Account",
+          params: { message: response.succeed },
+>>>>>>> Stashed changes
         });
 
     /**

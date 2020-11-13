@@ -125,7 +125,8 @@ exports.createPost = async (req, res) => {
     try {
 
       const answer = await post.deletePost({
-          image: `${req.protocol}://${req.get('host')}/images/post/${req.file}`,
+          // image: `${req.protocol}://${req.get('host')}/images/post/${req.file}`,
+        image: req.body.image,
           text: req.body.text,
       });
   
