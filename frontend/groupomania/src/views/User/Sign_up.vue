@@ -157,7 +157,9 @@ export default {
 
       try {
         let response = await axios.post("user/sign_up", register);
-        auth.init(response);
+        console.clear();
+        console.log(response)
+        auth.init(response.data);
         this.$router.replace({
           name: "Account",
           params: { message: response.data.succeed },

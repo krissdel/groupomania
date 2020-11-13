@@ -7,8 +7,6 @@ const user = require('../models/user');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
-
-
   try {
 
     console.log("-1------------------------------", req.body);
@@ -20,15 +18,8 @@ exports.signup = async (req, res) => {
       console.log('utilisateur existe déjà');
       return
     }
-
-
-
     const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-    console.log("-3-----------------------------")
-
-
-
-
+    console.log("-3-----------------------------");
     const answer = await user.signup({
       firstName: req.body.first_name,
       lastName: req.body.last_name,
@@ -37,21 +28,21 @@ exports.signup = async (req, res) => {
       admin: 0
     });
 
-
-
-
-    console.log("-4-----------------------------")
-
     if (answer.succeed) {
-      console.log("-5-----------------------------")
-
       const token = jwt.sign(
         { userId: answer.data.insertId },
         process.env.JWT_KEY,
         // { expiresIn: "24h" }
       );
-      res.status(201).json({ "message": "Utilisateur créé !", "jwt": token });
-    } else res.status(500).json({ error: "oulàlà c'est le drame" });
+      res.status(201).json({
+        "first_name": req.body.first_name,
+        "id"        : answer.data.insertId,
+        "jwt"       : token,
+        "last_name" : req.body.last_name,
+        "message"   : "Utilisateur créé !",
+        "role"      : 0,
+      });
+    } throw("oulàlà c'est le drame");
   }
 
   catch (error) {
@@ -63,50 +54,36 @@ exports.signup = async (req, res) => {
 
 // -----[connection d'un utilisateur ]-----------------------------------------------------------------------
 exports.login = async (req, res) => {
-
   try {
 
-    console.log("-1------------------------------", req.body);
+    // console.log("-1------------------------------", req.body);
 
     const alreadyExist = await user.alreadyExist(req.body.email);
-    console.log("-2-----------------------------")
+    // console.log("-2-----------------------------")
 
     if (!alreadyExist.data.length > 0) {
-      res.status(500).json({ error: "utilisateur n'existe pas !" });
-      return console.log("utilisateur n'existe pas");
-      //  console.log(alreadyExist.data.length)
+      throw("utilisateur n'existe pas !");
     }
-    console.log('ooooooooooooooooooo');
+    // console.log('ooooooooooooooooooo');
 
     // =============================================
-
-
-
 
     if (alreadyExist.succeed) {
       console.log('*****************', alreadyExist);
       const token = jwt.sign(
-        { userId: user.id },
+        { userId: alreadyExist.data[0].id },
         process.env.JWT_KEY,
         { expiresIn: "24h" },
-
-
       );
-      console.log("----->>>>", user);
+      
       return res.status(200).json({ 
-        "message": "welcome user !",
-        // "user": user.id,
-        // "jwt": token,
-
+        "first_name": alreadyExist.data[0].first_name,
+        "id"        : alreadyExist.data[0].id,
+        "jwt"       : token,
+        "last_name" : alreadyExist.data[0].last_name,
+        "message"   : "welcome user !",
+        "role"      : alreadyExist.data[0].role,
       });
-
-
-      // res.status(200).json({
-      //   userId: user.id,
-      //   token: token
-      // });
-
-
     }
 
     console.log("---889899-----------------------")
@@ -115,7 +92,8 @@ exports.login = async (req, res) => {
 
 
   catch (error) {
-    return res.status(500).json({ error });
+    console.log(":)", error)
+    return res.status(401).json(error);
   };
 
 };

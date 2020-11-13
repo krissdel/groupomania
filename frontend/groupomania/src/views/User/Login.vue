@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="container">
     <h1 class="text-center">Login</h1>
@@ -67,8 +65,8 @@ export default {
     // console.log(data);
 
     return {
-      email: "cage@gmail.com",
-      password: "cage",
+      email: "parker@gmail.com",
+      password: "parker",
 
       error: "",
     };
@@ -79,7 +77,7 @@ export default {
       return re.test(email);
     },
     isRequiredPassword(value) {
-      return value ? true : "Password is required"; 
+      return value ? true : "Password is required";
     },
     // ============================================================
     //     handleFIleUpload() {
@@ -87,16 +85,14 @@ export default {
     //       this.file = this.$refs.file.files[0];
     //     },
 
-
     ...mapActions({
       Login: "auth/Login",
-
     }),
     async onSubmit(onSubmit) {
       if (!this.email || !this.password) {
         return console.log("certains champs sont vide");
       }
-      console.log(onSubmit);
+      console.log("onSubmit",onSubmit);
 
       // =============================================
       const login = {
@@ -110,61 +106,72 @@ export default {
       // this.Login(this.email, this.password).then((response) => {
       //   console.log(this.Login);
 
+      try {
+        let response = await axios.post("/user/login", login, {
+          headers: auth.addHeader(),
+        });
 
-try {
-      let response = await axios.post("/user/login", login,{headers: auth.addHeader()});
-      console.log('oooooooooooooo', response, auth);
-      
-        auth.init(response);
+    /**
+     * response
+     *
+     * [response.error]      objet si l'utilisateur n'exhiste pas
+     * [response.message]    unqiuement en cas de succès : un message d'information
+     * [response.id]         unqiuement en cas de succès : l'id de l'utilsateur
+     * [response.jwt]        unqiuement en cas de succès : le jeton d'authentification
+     * [response.last_name]  unqiuement en cas de succès : le nom de l'utilsateur
+     * [response.first_name] unqiuement en cas de succès : le prénom de l'utilisateur
+     * [response.role]       unqiuement en cas de succès : 0 utilisateur 1 admin
+     *
+     */
+
+
+      console.log("oooooooooooooo", response);
+
+
+
+        auth.init(response.data);
         this.$router.replace({
           name: "post",
           params: { message: response.succeed },
         });
-        alert("Bravo!...  bienvenue sur Groupomania social network");
+        alert(`Bravo ${response.first_name}!...  bienvenue sur Groupomania social network`);
         console.log(" user connecté ! ");
-      } catch (err) {
-        this.error = err.response;
+      } 
+      catch (err) {
+        // console.log("------------- :)",err);
+        const code = parseInt(err.toString().slice(-3));
+        switch (code){
+          case 500 : 
+            alert("le serveur a rencontré une erreur")
+            break;
+          case 401 : 
+            alert("utilisateur ou mot de passe incorrect");
+            break;
+          default : 
+            alert("le serveur a rencontré une erreur imprévisible")
+            break;
+        }
       }
 
+      // if (response.succeed) {
+      //   localStorage.setItem('user', JSON.stringify(response));
+      //   auth.init(response);
+      //   this.$router.replace({
+      //   name: "post",
+      //   params: { message:  response.data.succeed  },
+      // });
+      //  alert("Bravo!...  bienvenue sur Groupomania social network");
+      // console.log(" user connecté ! ");
+      // }
+      //  return console.log('mot de passe incorrect !')
 
-
-
-
-
-
-
-
-
-
-
-
-        // if (response.succeed) {
-        //   localStorage.setItem('user', JSON.stringify(response));
-        //   auth.init(response);
-        //   this.$router.replace({
-        //   name: "post",
-        //   params: { message:  response.data.succeed  },
-        // });
-        //  alert("Bravo!...  bienvenue sur Groupomania social network");
-        // console.log(" user connecté ! ");
-        // }
-        //  return console.log('mot de passe incorrect !')
-        
-        
-          // this.error = response;
-          // alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
-          // return response;
-        }
-
-        
+      // this.error = response;
+      // alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
+      // return response;
     },
-  
+  },
 };
 </script>
-
-
-
-
 
 <style scoped lang="scss">
 label.col-sm-2.col-form-label {
@@ -211,7 +218,3 @@ span {
   font-size: 1.3rem;
 }
 </style>
-
-
-
-

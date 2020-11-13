@@ -17,7 +17,7 @@ exports.signup = async function(data) {
 };
 
 exports.alreadyExist = async function (email){
-  const sql = "SELECT id FROM `user` WHERE `email` = ?";
+  const sql = "SELECT id, first_name, last_name, role FROM `user` WHERE `email` = ?";
   const answer = await db.request(sql, [email]);
   console.log("alreadyExist",answer);
   // if (answer.data.id < 0) return false;
