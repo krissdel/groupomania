@@ -1,6 +1,7 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
     <div class="logout">
+       <router-link class="dropdown-item" to="/">Se déconnecter</router-link>
       <a href="#" class="logout">log out</a>
       <!-- <a href="#" class="card-link1">unsubscribe</a> -->
       <!-- <h6>logout</h6> -->
@@ -15,47 +16,33 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">User_id : {{ id }}</li>
-          <li class="list-group-item">Nom : {{last_name}}</li>
-          <li class="list-group-item">Prenom : {{first_name}}</li>
+          <li class="list-group-item">Nom : {{ last_name }}</li>
+          <li class="list-group-item">Prenom : {{ first_name }}</li>
         </ul>
         <div class="card-body">
           <div class="card-body-link">
-            <!-- <a href="#" class="card-link-allPost">all posts</a> | -->
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            <a href="view/Post/post#/Post/allPosts" class="card-link-allPost"
+            <a
+              href="view/post#/Post/allPosts?view=allPosts"
+              class="card-link-allPost"
               >all posts</a
             >
             |
-
+              <button type="submit" class="btn btn-info" @click="getUserPosts">
+              Add post
+            </button>
             <a href="view/Post/post#/Post/post" class="card-link-addPost"
               >Add post</a
             >
             |
-            <a href="#" class="card-link-userPost">user post</a>
-=======
-            <a href="view/post#/Post/allPosts?view=allPosts" class="card-link-allPost">all posts</a> |
 
-=======
-            <a href="view/post#/Post/allPosts?view=allPosts" class="card-link-allPost">all posts</a> |
-
->>>>>>> Stashed changes
-=======
-            <a href="view/post#/Post/allPosts?view=allPosts" class="card-link-allPost">all posts</a> |
-
->>>>>>> Stashed changes
-            <a href="view/Post/post#/Post/post" class="card-link-addPost">Add post</a> |
-           
-            <a href="view/post#/Post/allPosts?view=allUserPosts" class="card-link-userPost">user post</a>
-         <button type="submit" class="btn btn-info" @click="getUserPosts">user post</button>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+            <a
+              href="view/post#/Post/allPosts?view=allUserPosts"
+              class="card-link-userPost"
+              >user post</a
+            >
+            <button type="submit" class="btn btn-info" @click="getUserPosts">
+              user post
+            </button>
           </div>
         </div>
       </div>
@@ -64,63 +51,16 @@
 </template>
 
 <script>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 export default {
   data: function () {
-      return {
-        "id": sessionStorage.getItem("id"),
-        "last_name": sessionStorage.getItem("last_name"),
-        "first_name": sessionStorage.getItem("first_name"),
-    }
-  }
-}
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
-import axios from "axios";
-// import auth from "../../services/auth";
-
-export default {
-
-  name: "post",
-  data() {
     return {
-      
-     
+      id: sessionStorage.getItem("id"),
+      last_name: sessionStorage.getItem("last_name"),
+      first_name: sessionStorage.getItem("first_name"),
     };
   },
-  components: {},
+};
 
-  methods: {
-   
-   
-
-    async getUserPosts() {
-console.log( "lolooololol")
-
- axios.get("/post/:id").then((res) => {
-          this.allUserPosts = res.data.data;
-          console.log("****", typeof res.data, res.data.data);
-          console.log("++++++++++++", this.allUserPosts);
-        })
-    }
-  }
-
-
-
-  };
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 </script>
 
 <style scoped langue="scss">

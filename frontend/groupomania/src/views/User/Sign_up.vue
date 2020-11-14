@@ -94,18 +94,11 @@
     
 
 <script>
-// import { mapState, mapActions } from 'vuex';
-// import { mapActions } from "vuex";
-// import Vuex from 'vuex';
-// Vue.use(Vuex)
 
 import axios from "axios";
   import { Field, Form } from "vee-validate";
   import auth from "../../services/auth";
 
-// import Vue from 'vue';
-// import VueSweetalert2 from 'vue-sweetalert2';
-// Vue.use(VueSweetalert2);
 
 export default {
   components: {

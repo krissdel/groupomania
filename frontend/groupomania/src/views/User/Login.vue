@@ -106,11 +106,11 @@ export default {
       // this.Login(this.email, this.password).then((response) => {
       //   console.log(this.Login);
 
-<<<<<<< Updated upstream
-      try {
-        let response = await axios.post("/user/login", login, {
-          headers: auth.addHeader(),
-=======
+// <<<<<<< Updated upstream
+      // try {
+      //   let response = await axios.post("/user/login", login, {
+      //     headers: auth.addHeader(),
+
 
 try {
       let response = await axios.post("/user/login", login,{headers: auth.addHeader()});
@@ -120,7 +120,6 @@ try {
         this.$router.replace({
           name: "Account",
           params: { message: response.succeed },
->>>>>>> Stashed changes
         });
 
     /**
@@ -143,7 +142,7 @@ try {
 
         auth.init(response.data);
         this.$router.replace({
-          name: "post",
+          name: "Account",
           params: { message: response.succeed },
         });
         alert(`Bravo ${response.first_name}!...  bienvenue sur Groupomania social network`);
@@ -165,21 +164,7 @@ try {
         }
       }
 
-      // if (response.succeed) {
-      //   localStorage.setItem('user', JSON.stringify(response));
-      //   auth.init(response);
-      //   this.$router.replace({
-      //   name: "post",
-      //   params: { message:  response.data.succeed  },
-      // });
-      //  alert("Bravo!...  bienvenue sur Groupomania social network");
-      // console.log(" user connecté ! ");
-      // }
-      //  return console.log('mot de passe incorrect !')
-
-      // this.error = response;
-      // alert("SUCCESS!! \n\n" + JSON.stringify("bienvenue sur Groupomania social network"));
-      // return response;
+     
     },
   },
 };
