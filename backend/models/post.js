@@ -49,18 +49,13 @@ exports.createPost = async function(data) {
 
 
 exports.deletePost = async function(id) {
-  
   const sql = "DELETE FROM `post` WHERE `post`.`id` = ? ";
-  // const sql = "DELETE FROM `post` WHERE `text`.`id`, `image`.`id` = ?, ?";
-
   const deletePost = [
    id
   ];
-  
   const answer = await db.request(sql, deletePost);
   console.log("deletePost", answer);
       console.log('post supprimé');
-
   return answer;
 }
 

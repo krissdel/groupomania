@@ -1,11 +1,12 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
     <div class="logout">
-      <!-- <button type="submit" class="btn btn-primary" @Click.prevent="onSubmit">
-        Logout
-      </button> -->
-      <a href="#/Home" class="logout">log out</a>
-    </div>
+        <router-link to="/user/account">
+          <button type="button" class="btn btn-primary btn-sm">
+            Log out
+          </button>
+        </router-link>
+      </div>
 
     <div class="container">
       <h1 class="display-4">Social Network</h1>
@@ -67,7 +68,7 @@ export default {
   methods: {
     async deleteUser() {
       try {
-        let response = await axios.delete("/user/:id", {
+        let response = await axios.delete("/user/" + this.id, {
           headers: auth.addHeader(),
         });
         console.log("delete", response, auth);
@@ -76,9 +77,7 @@ export default {
           name: "Home",
           params: { message: response.succeed },
         });
-        alert(
-          ` ${response.data.first_name} ${response.data.last_name} Vôtre compte a bien été supprimé`
-        );
+        alert(` Vôtre compte a bien été supprimé`);
         console.log(" user supprimé ! ");
       } catch (err) {
         console.log("------------- :)", err);
@@ -92,6 +91,15 @@ export default {
 
 
 <style scoped langue="scss">
+
+button.btn.btn-primary.btn-sm {
+    background-color: #506a96;
+    border-color: #0f2140;
+}
+button.btn.btn-info {
+    background-color: #506a96;
+    border-color: #0f2140;
+}
 .btn-light {
   color: #212529;
   background-color: none;

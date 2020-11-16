@@ -1,22 +1,23 @@
 <template>
   <div class="container">
     <div class="jumbotron jumbotron-fluid">
-      <div class='msg'>
-      {{ msg }}
+      <div class="msg">
+        {{ msg }}
+      </div>
+      <div class="container-addPost">
+        <router-link to="/Post/post">
+          <button type="submit" class="btn btn-info">Add post</button>
+        </router-link>
       </div>
       <div class="container">
-        
-      
         <div class="container-posts" v-if="allPosts !== null">
-
-          <Posted 
-          v-for="(data, index) in allPosts.reverse()" 
-          v-bind:key="index"
-          v-bind:image="data.image"
-          v-bind:text="data.text"
-          v-bind:id="data.id"
+          <Posted
+            v-for="(data, index) in allPosts.reverse()"
+            v-bind:key="index"
+            v-bind:image="data.image"
+            v-bind:text="data.text"
+            v-bind:id="data.id"
           >
-          
           </Posted>
         </div>
       </div>
@@ -31,29 +32,23 @@ import axios from "axios";
 import Posted from "@/components/Posted.vue";
 
 export default {
-  
-  
-
   name: "allPosts",
   data() {
     return {
-      msg: "loading messages",
+      msg: "Posts",
       allPosts: null,
-      
     };
   },
   components: {
     Posted,
   },
   created() {
-    
     switch (this.$route.query.view) {
       case "allPosts": {
         axios.get("/post/").then((res) => {
           this.allPosts = res.data.data;
           console.log("****", typeof res.data, res.data.data);
           console.log("++++++++++++", this.allPosts);
-              
         });
         break;
       }
@@ -63,7 +58,6 @@ export default {
           this.allUserPosts = res.data.data.index.id;
           console.log("===========", typeof res.data, res.data.data.index.id);
           console.log("vvvvvvvvvvvv", this.allUserPosts);
-              
         });
         break;
       }
@@ -79,9 +73,21 @@ export default {
 
 
 <style scoped langue="scss">
+.msg {
+    font-size: 30px;
+}
+
+button.btn.btn-info {
+    background-color: #506a96;
+    border-color: #0f2140;
+}
+.container-addPost {
+  text-align: end;
+ 
+}
 .card[data-v-6a48ebef] {
-    height: 10pc;
-    color: blue;
+  height: 10pc;
+  color: blue;
 }
 
 /* .card {
@@ -89,15 +95,11 @@ export default {
   height: 18pc;
 } */
 .msg {
-    text-align: center;
+  text-align: center;
 }
 .container {
-
-    justify-content: center;
-    display: flex;
-
-    
+  justify-content: center;
+  display: flex;
 }
-
 </style>
 

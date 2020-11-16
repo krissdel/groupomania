@@ -2,10 +2,14 @@
   <div class="post">
     <div class="title">
       <h3>{{ msg }}</h3>
-
-     
+      <div class="B-to-account">
+        <router-link to="/user/account">
+          <button type="button" class="btn btn-primary btn-sm">
+            Back to account
+          </button>
+        </router-link>
+      </div>
     </div>
-
     <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
         <div class="card" style="width: 18rem">
@@ -62,12 +66,7 @@
           </div>
         </div>
       </div>
-       <router-link to="/user/account">
-        <button type="button" class="btn btn-primary btn-sm">Back to account</button>
-      </router-link>
-      <br>
     </form>
-    
   </div>
 </template>
 
@@ -108,11 +107,10 @@ export default {
     },
 
     async createPost() {
-  
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
         text: this.text,
-        id: sessionStorage.getItem('id'),
+        id: sessionStorage.getItem("id"),
         idParent: 0,
       };
 
@@ -131,9 +129,9 @@ export default {
         });
         auth.init(response);
         if (response.status !== 201) throw response.data.message;
-        console.log("---- :) ", response)
+        console.log("---- :) ", response);
 
-        this.$router.push({
+        this.$router.replace({
           name: "allPosts",
           query: { view: "allPosts" },
         });
@@ -159,6 +157,13 @@ export default {
 
 
 <style scoped langue="scss">
+button.btn.btn-primary.btn-sm {
+  background-color: #506a96;
+  border-color: #0f2140;
+}
+.B-to-account {
+  text-align: end;
+}
 a.card-link1 {
   color: black;
 }

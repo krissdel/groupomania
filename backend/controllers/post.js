@@ -104,16 +104,10 @@ exports.getAllUserPosts = async (req, res) => {
 // -----[effacer un post]------------------------------------------------------------------------------
 
 exports.deletePost = async (req, res) => {
-
   try {
     console.log(req.params);
     const answer = await post.deletePost(req.params.id);
     if (answer.succeed) {
-      for (let i = 1, size = answer.data.length; i > size; i--) {
-        if (answer.data[i].image === null) continue;
-        answer.data[i].image = "/" + imagePath + "/" + answer.data[i].image;
-      }
-
       console.log("controller deletePost Fin--ok---------------------------")
       res.status(200).json({ message: "post supprimée !" });
     };

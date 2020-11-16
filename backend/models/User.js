@@ -36,7 +36,6 @@ exports.login =  async function (email){
 
 
 exports.logout =  async function (email){
-
   const sql = "SELECT id, FROM `user` WHERE `id` = connected ";
   const answer = await db.request(sql, [email]);
   console.log("!!!!!!!!!logout:",answer);
@@ -46,25 +45,10 @@ exports.logout =  async function (email){
 
 
 exports.delete =  async function (email){
-  // console.log('yyyyyyyyyyyyyyyy', delete)
-
-  const sql = "DELETE FROM `user`(`first_name`, `last_name`, `email`, `password`) VALUES (?, ?, ?, ?)";
-
+  const sql = "DELETE FROM `user` WHERE `user`.`id` = ?";
   const answer = await db.request(sql, [email]);
   console.log("!!!!!!!!!delete:",answer);
   return answer;
 };
 
-// exports.getAllPosts =  async function(data){
-//   const sql = "SELECT * from post ";
-//   const getAllPosts = 
-//   [
-//     data
-//   ];
-//   const answer = await db.request(sql, getAllPosts);
-//   console.log("getAllPosts", answer);
-//       console.log('voiçi tous les posts');
-
-//   return answer;
-// }
 

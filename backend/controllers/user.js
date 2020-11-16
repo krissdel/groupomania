@@ -25,7 +25,6 @@ exports.signup = async (req, res) => {
       password: hash,
       admin: 0
     });
-
     if (answer.succeed) {
       const token = jwt.sign(
         { userId: answer.data.insertId },
@@ -43,27 +42,10 @@ exports.signup = async (req, res) => {
       });
     } throw("oulàlà c'est le drame");
   }
-
   catch (error) {
     res.status(500).json({ error: error });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-// -----[connection d'un utilisateur ]-----------------------------------------------------------------------
-// exports.login = async (req, res) => {
-
-
-
 
 // -----[connection d'un utilisateur ]-----------------------------------------------------------------------
 exports.login = async (req, res) => {
@@ -79,23 +61,17 @@ exports.login = async (req, res) => {
         { expiresIn: "24h" },
       );      
       return res.status(200).json({ 
-
         "first_name": alreadyExist.data[0].first_name,
         "id"        : alreadyExist.data[0].id,
         "jwt"       : token,
         "last_name" : alreadyExist.data[0].last_name,
-        "message"   : "welcome user !",
         "role"      : alreadyExist.data[0].role,
         "email"     : alreadyExist.data[0].email,
         "message"   : "welcome user !",
-       
         user: user.id,
         jwt: token,
-
-
       });
     }
-    // next();
   }
   catch (error) {
     console.log("controllers/user > login :", error)
@@ -117,88 +93,18 @@ exports.logout = async (req, res) => {
     (error => res.status(500).json({ error }))
   }
 };
-// -----[modifier un utilisateur]-----------------------------------------------------------------------
-
-
-// exports.modifyUser = (req, res) => {
-//   const userObject = req.file ? {
-//     ...JSON.parse(req.body.user),
-//     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-
-//   } : { ...req.body };
-//   User.findOne({ _id: req.params.id })
-//     .then(user => {
-//       if (req.file) {
-//         const filename = user.imageUrl.split("/images/")[1];
-//         fs.unlink(`images/${filename}`, () => {
-//           User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
-//             .then(() => res.status(200).json({ message: 'mise a jour utilisateur !' }))
-//             .catch(error => res.status(400).json({ error }));
-//         });
-//       } else {
-//         User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
-//           .then(() => res.status(200).json({ message: "compte utlisateur modifiée !" }))
-//           .catch(error => res.status(400).json({ error }));
-//       }
-//     })
-//     .catch(error => res.status(500).json({ error }));
-// };
-
-
 
 // -----[supprimer un utilisateur]-----------------------------------------------------------------------
 
 exports.deleteUser = async (req, res) => {
-  const user = res.session.id;
   try {
-    var data = sessionStorage.getItem('clé');
-    // const alreadyExist = await user.alreadyExist(req.body.id);
-    // if (!alreadyExist.data.length > 0) {
-    //   console.log( " ############", alreadyExist);
-    //   throw("suppression de compte impossible!");
-      if (!data ){
-        throw("suppression de compte impossible!");
-      
-    }
-if(data){
-  if (sessionStorage.getItem("id")) {
-    // Restauration du contenu du champ
-    id.value = sessionStorage.getItem("id");
+    console.log(req.params);
+    const answer = await user.delete(req.params.id);
+    if (answer.succeed) {
+      console.log("controller deleteUser Fin--ok---------------------------")
+      res.status(200).json({ message: "user supprimée !" });
+    };
+  } catch (error) {
+    console.log("deleteUser Failed", error);
   }
-}
-
-    // if (alreadyExist.succeed) {
-    //   const token = jwt.sign(
-    //     { userId: alreadyExist.data[0].id },
-    //     process.env.JWT_KEY,
-    //     { expiresIn: "24h" },
-    //   );      
-     
-    // }
-    
-  }
-  catch (error) {
-    console.log("controllers/user > delete :", error)
-    return res.status(401).json(error);
-  };
 };
-
-
-
-
-// exports.deleteUser = (req, res) => {
-//   // const user = res.session.userID;
-//   User.findOne({ _id: req.params.id })
-//     .then(user => {
-//       const filename = user.imageUrl.split('/images/')[1];
-//       fs.unlink(`images/${filename}`, () => {            //assure que le fichier image correspondant est également supprimé.
-//         user.deleteOne({ _id: req.params.id })
-//           .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
-//           .catch(error => res.status(400).json({ error }));
-//       });
-//     })
-//     .catch(error => error.status(500).json({
-//       error
-//     }));
-
-// };

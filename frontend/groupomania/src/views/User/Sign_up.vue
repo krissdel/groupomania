@@ -157,7 +157,8 @@ export default {
           name: "Account",
           params: { message: response.data.succeed },
         });
-        alert("Bravo!...  bienvenue sur Groupomania social network");
+        
+        alert(`Bravo!..." ${response.data.first_name} ${response.data.last_name}  "bienvenue sur Groupomania social network`);
         console.log("succeed");
       } catch (err) {
         this.error = err.response.data.error;
