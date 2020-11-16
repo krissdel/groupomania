@@ -2,6 +2,8 @@
   <div class="post">
     <div class="title">
       <h3>{{ msg }}</h3>
+
+     
     </div>
 
     <form @submit.prevent="createPost" for="post" id="post">
@@ -9,7 +11,6 @@
         <div class="card" style="width: 18rem">
           <div class="card1" style="width: auto">
             <div class="card-body">
-              <!-- <h5 class="card-title">image</h5> -->
               <label for="image"></label>
               <div class="input">
                 <div class="custom-file">
@@ -61,7 +62,12 @@
           </div>
         </div>
       </div>
+       <router-link to="/user/account">
+        <button type="button" class="btn btn-primary btn-sm">Back to account</button>
+      </router-link>
+      <br>
     </form>
+    
   </div>
 </template>
 
@@ -70,7 +76,7 @@
 <script>
 import axios from "axios";
 import resizeImage from "@/plugins/image-resize.js";
-import { ref } from "vue";
+// import { ref } from "vue";
 import auth from "../../services/auth";
 // import func from '../../../../vue-temp/vue-editor-bridge';
 
@@ -101,22 +107,13 @@ export default {
       });
     },
 
-    // savePost : function () {
-    //  this.addPost.push({
-    //   image: this.selectedFile++,
-    //   text: this.text++,
-    //  })
-    // },
-
     async createPost() {
-      let post = ref([]);
-      console.log(post);
-
+  
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
         text: this.text,
+        id: sessionStorage.getItem('id'),
         idParent: 0,
-        post: [this.selectedFile, this.text],
       };
 
       console.log("-----------", addPost);
@@ -134,7 +131,7 @@ export default {
         });
         auth.init(response);
         if (response.status !== 201) throw response.data.message;
-        // console.log("---- :) ", response)
+        console.log("---- :) ", response)
 
         this.$router.push({
           name: "allPosts",
@@ -147,11 +144,6 @@ export default {
         //   name: "allUserPosts",
         //   query: { view: "allUserPosts", userId: 1 }, //TODO : changer l'id 1 par une valeur dynamique
         // });
-
-
-
-
-
 
         // alert("Bravo!...  vous venez de créer un post");
         // console.log(" post crée ! ");

@@ -10,16 +10,13 @@
         <div class="container-posts" v-if="allPosts !== null">
 
           <Posted 
-          v-for="(data, index) in allPosts" 
+          v-for="(data, index) in allPosts.reverse()" 
           v-bind:key="index"
           v-bind:image="data.image"
           v-bind:text="data.text"
           v-bind:id="data.id"
           >
           
-            <!-- {{image}} 
-           {{text}}
-           -->
           </Posted>
         </div>
       </div>
@@ -42,22 +39,21 @@ export default {
     return {
       msg: "loading messages",
       allPosts: null,
-      // text: [],
-      // image: [],
+      
     };
   },
   components: {
     Posted,
   },
   created() {
-    // console.log("================", this.$route.query);
+    
     switch (this.$route.query.view) {
       case "allPosts": {
         axios.get("/post/").then((res) => {
           this.allPosts = res.data.data;
           console.log("****", typeof res.data, res.data.data);
           console.log("++++++++++++", this.allPosts);
-              // data(): { msg: string; allPosts: any[]; text: any[]; }
+              
         });
         break;
       }

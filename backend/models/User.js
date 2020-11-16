@@ -36,6 +36,7 @@ exports.login =  async function (email){
 
 
 exports.logout =  async function (email){
+
   const sql = "SELECT id, FROM `user` WHERE `id` = connected ";
   const answer = await db.request(sql, [email]);
   console.log("!!!!!!!!!logout:",answer);
@@ -45,9 +46,12 @@ exports.logout =  async function (email){
 
 
 exports.delete =  async function (email){
-  const sql = "DELETE id, first_name, last_name, email, password, role FROM `user` WHERE `email` = ?";
+  // console.log('yyyyyyyyyyyyyyyy', delete)
+
+  const sql = "DELETE FROM `user`(`first_name`, `last_name`, `email`, `password`) VALUES (?, ?, ?, ?)";
+
   const answer = await db.request(sql, [email]);
-  console.log("!!!!!!!!!logout:",answer);
+  console.log("!!!!!!!!!delete:",answer);
   return answer;
 };
 

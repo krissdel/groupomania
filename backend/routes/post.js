@@ -14,7 +14,7 @@ router.post('/', postCtrl.createPost);
 router.get('/', postCtrl.getAllPosts);  
 router.get('/:id', postCtrl.getAllUserPosts); 
 // router.get('/:id', postCtrl.getOnePost);  
-router.put('/:id', auth, multer, postCtrl.modifyPost);   
+// router.put('/:id', auth, multer, postCtrl.modifyPost);   
 router.delete('/auth/post/:id', postCtrl.deletePost);   
 
 

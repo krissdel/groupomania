@@ -2,10 +2,12 @@ const db = require("./database");
 
 
 exports.createPost = async function(data) {
-    const sql = "INSERT INTO `post` (`text`, `image`) VALUES (?, ?)";
+    const sql = "INSERT INTO `post` (`text`, `image`, `refs`, `user_id` ) VALUES (?, ?, ?, ?)";
     const createPost = [
       data.text,
       data.image,
+      data.idParent,
+      data.id,
     ];
     
     const answer = await db.request(sql, createPost);
@@ -46,12 +48,13 @@ exports.createPost = async function(data) {
 // ----------------------------------------------------
 
 
-exports.deletePost = async function(data) {
-  const sql = "DELETE FROM `post` WHERE `text`.`id`, `image`.`id` = ?, ?";
+exports.deletePost = async function(id) {
   
+  const sql = "DELETE FROM `post` WHERE `post`.`id` = ? ";
+  // const sql = "DELETE FROM `post` WHERE `text`.`id`, `image`.`id` = ?, ?";
+
   const deletePost = [
-    data.text,
-    data.image,
+   id
   ];
   
   const answer = await db.request(sql, deletePost);

@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import auth from "../../services/auth";
+// import axios from "axios";
+// import auth from "../../services/auth";
 
 export default {
   name: "Account",
@@ -68,30 +68,30 @@ export default {
     //   password: sessionStorage.getItem("password"),
 };
   },
-  methods: {
-      async modifyUser(){
-           const register = {
+//   methods: {
+//       async modifyUser(){
+//            const register = {
        
-        email: this.email,
-        password: this.password,
-      };
-      console.log(register);
-        try {
-              let response = await axios.put("/user/:id",{headers: auth.addHeader()});
-              console.log('oooooooooooooo', response, auth);
-               auth.init(response.data);
-                this.$router.replace({
-                  name: "Account",
-                  params: { message: response.succeed },
-                });
-                alert(`Bravo ${response.data.first_name} ${response.data.last_name}!...  bienvenue sur Groupomania social network`);
-                console.log(" user connecté ! ");
-              } 
-              catch (err) {
+//         email: this.email,
+//         password: this.password,
+//       };
+//       console.log(register);
+//         try {
+//               let response = await axios.put("/user/:id",{headers: auth.addHeader()});
+//               console.log('oooooooooooooo', response, auth);
+//                auth.init(response.data);
+//                 this.$router.replace({
+//                   name: "Account",
+//                   params: { message: response.succeed },
+//                 });
+//                 alert(`Bravo ${response.data.first_name} ${response.data.last_name}!...  bienvenue sur Groupomania social network`);
+//                 console.log(" user connecté ! ");
+//               } 
+//               catch (err) {
                 // console.log("------------- :)",err);
-                     }
-      }
-  }
+                    //  }
+    //   }
+//   }
 };
 </script>
 

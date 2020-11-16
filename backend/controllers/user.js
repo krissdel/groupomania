@@ -149,36 +149,32 @@ exports.logout = async (req, res) => {
 // -----[supprimer un utilisateur]-----------------------------------------------------------------------
 
 exports.deleteUser = async (req, res) => {
+  const user = res.session.id;
   try {
-    const alreadyExist = await user.alreadyExist(req.body.user_id);
-    if (!alreadyExist.data.length > 0) {
-      console.log( " ############", alreadyExist);
-      throw("suppression de compte impossible!");
+    var data = sessionStorage.getItem('clé');
+    // const alreadyExist = await user.alreadyExist(req.body.id);
+    // if (!alreadyExist.data.length > 0) {
+    //   console.log( " ############", alreadyExist);
+    //   throw("suppression de compte impossible!");
+      if (!data ){
+        throw("suppression de compte impossible!");
       
     }
-    if (alreadyExist.succeed) {
-      const token = jwt.sign(
-        { userId: alreadyExist.data[0].id },
-        process.env.JWT_KEY,
-        { expiresIn: "24h" },
-      );      
-      return res.status(200).json({ 
+if(data){
+  if (sessionStorage.getItem("id")) {
+    // Restauration du contenu du champ
+    id.value = sessionStorage.getItem("id");
+  }
+}
 
-        "first_name": alreadyExist.data[0].first_name,
-        "id"        : alreadyExist.data[0].id,
-        "jwt"       : token,
-        "last_name" : alreadyExist.data[0].last_name,
-        
-        "role"      : alreadyExist.data[0].role,
-        "email"     : alreadyExist.data[0].email,
-        "message"   : "user supprimé!",
-       
-        user: user.id,
-        jwt: token,
-
-
-      });
-    }
+    // if (alreadyExist.succeed) {
+    //   const token = jwt.sign(
+    //     { userId: alreadyExist.data[0].id },
+    //     process.env.JWT_KEY,
+    //     { expiresIn: "24h" },
+    //   );      
+     
+    // }
     
   }
   catch (error) {
@@ -191,6 +187,7 @@ exports.deleteUser = async (req, res) => {
 
 
 // exports.deleteUser = (req, res) => {
+//   // const user = res.session.userID;
 //   User.findOne({ _id: req.params.id })
 //     .then(user => {
 //       const filename = user.imageUrl.split('/images/')[1];

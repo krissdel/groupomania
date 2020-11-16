@@ -13,20 +13,13 @@
     <div class="container-container">
       <div class="card" style="width: 90%">
         <div class="card-welcome">
-          <!-- <router-link to="/User/Profile">
-            <button type="button" class="btn btn-light">
-              modifier profile
-            </button>
-          </router-link> -->
-          <!-- <div class="card-title" > -->
-          <h5 >Welcome</h5>
-          <!-- </div> -->
-          
+          <h5>Welcome</h5>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">User_id : {{ id }}</li>
           <li class="list-group-item">Nom : {{ last_name }}</li>
           <li class="list-group-item">Prenom : {{ first_name }}</li>
+          <li class="list-group-item">email : {{ email }}</li>
         </ul>
         <div class="card-body">
           <div class="card-body-link">
@@ -45,16 +38,14 @@
               </button>
             </router-link>
           </div>
-          <br>
-          <div class=" supprime">
-          <button type="button" class="btn btn-light" @click="deleteUser">
-            supprimer profile
-          </button>
+          <br />
+          <div class="supprime">
+            <button type="button" class="btn btn-light" @click="deleteUser">
+              delete account
+            </button>
           </div>
         </div>
-        
       </div>
-      
     </div>
   </div>
 </template>
@@ -70,24 +61,18 @@ export default {
       id: sessionStorage.getItem("id"),
       last_name: sessionStorage.getItem("last_name"),
       first_name: sessionStorage.getItem("first_name"),
+      email: sessionStorage.getItem("email"),
     };
   },
   methods: {
     async deleteUser() {
-      // const supprime = {
-      //  first_name: this.firstName,
-      //   last_name: this.lastName,
-      //   email: this.email,
-      //   password: this.password,
-      // };
-      // console.log(register);
       try {
         let response = await axios.delete("/user/:id", {
-          // headers: auth.addHeader(),
+          headers: auth.addHeader(),
         });
         console.log("delete", response, auth);
         auth.init(response.data);
-        this.$router.replace({
+        this.$router.push({
           name: "Home",
           params: { message: response.succeed },
         });
@@ -96,7 +81,7 @@ export default {
         );
         console.log(" user supprimé ! ");
       } catch (err) {
-        // console.log("------------- :)",err);
+        console.log("------------- :)", err);
       }
     },
   },
