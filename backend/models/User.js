@@ -17,7 +17,7 @@ exports.signup = async function(data) {
 };
 
 exports.alreadyExist = async function (email){
-  const sql = "SELECT id, first_name, last_name, role FROM `user` WHERE `email` = ?";
+  const sql = "SELECT id, first_name, last_name, email, role FROM `user` WHERE `email` = ?";
   const answer = await db.request(sql, [email]);
   console.log("alreadyExist",answer);
   // if (answer.data.id < 0) return false;
@@ -32,4 +32,35 @@ exports.login =  async function (email){
   console.log("qfffffffffffflogin:",answer);
   return answer;
 };
+
+
+
+exports.logout =  async function (email){
+  const sql = "SELECT id, FROM `user` WHERE `id` = connected ";
+  const answer = await db.request(sql, [email]);
+  console.log("!!!!!!!!!logout:",answer);
+  return answer;
+};
+
+
+
+exports.delete =  async function (email){
+  const sql = "DELETE id, first_name, last_name, email, password, role FROM `user` WHERE `email` = ?";
+  const answer = await db.request(sql, [email]);
+  console.log("!!!!!!!!!logout:",answer);
+  return answer;
+};
+
+// exports.getAllPosts =  async function(data){
+//   const sql = "SELECT * from post ";
+//   const getAllPosts = 
+//   [
+//     data
+//   ];
+//   const answer = await db.request(sql, getAllPosts);
+//   console.log("getAllPosts", answer);
+//       console.log('voiçi tous les posts');
+
+//   return answer;
+// }
 

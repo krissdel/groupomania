@@ -39,6 +39,7 @@ exports.signup = async (req, res) => {
         "last_name" : req.body.last_name,
         "message"   : "Utilisateur créé !",
         "role"      : 0,
+        "email"     : req.body.email,
       });
     } throw("oulàlà c'est le drame");
   }
@@ -85,8 +86,9 @@ exports.login = async (req, res) => {
         "last_name" : alreadyExist.data[0].last_name,
         "message"   : "welcome user !",
         "role"      : alreadyExist.data[0].role,
-
-        "message": "welcome user !",
+        "email"     : alreadyExist.data[0].email,
+        "message"   : "welcome user !",
+       
         user: user.id,
         jwt: token,
 
@@ -118,47 +120,88 @@ exports.logout = async (req, res) => {
 // -----[modifier un utilisateur]-----------------------------------------------------------------------
 
 
-exports.modifyUser = (req, res) => {
-  const userObject = req.file ? {
-    ...JSON.parse(req.body.user),
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+// exports.modifyUser = (req, res) => {
+//   const userObject = req.file ? {
+//     ...JSON.parse(req.body.user),
+//     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
-  } : { ...req.body };
-  User.findOne({ _id: req.params.id })
-    .then(user => {
-      if (req.file) {
-        const filename = user.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
-            .then(() => res.status(200).json({ message: 'mise a jour utilisateur !' }))
-            .catch(error => res.status(400).json({ error }));
-        });
-      } else {
-        User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
-          .then(() => res.status(200).json({ message: "compte utlisateur modifiée !" }))
-          .catch(error => res.status(400).json({ error }));
-      }
-    })
-    .catch(error => res.status(500).json({ error }));
-};
+//   } : { ...req.body };
+//   User.findOne({ _id: req.params.id })
+//     .then(user => {
+//       if (req.file) {
+//         const filename = user.imageUrl.split("/images/")[1];
+//         fs.unlink(`images/${filename}`, () => {
+//           User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+//             .then(() => res.status(200).json({ message: 'mise a jour utilisateur !' }))
+//             .catch(error => res.status(400).json({ error }));
+//         });
+//       } else {
+//         User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+//           .then(() => res.status(200).json({ message: "compte utlisateur modifiée !" }))
+//           .catch(error => res.status(400).json({ error }));
+//       }
+//     })
+//     .catch(error => res.status(500).json({ error }));
+// };
 
 
 
 // -----[supprimer un utilisateur]-----------------------------------------------------------------------
 
+exports.deleteUser = async (req, res) => {
+  try {
+    const alreadyExist = await user.alreadyExist(req.body.user_id);
+    if (!alreadyExist.data.length > 0) {
+      console.log( " ############", alreadyExist);
+      throw("suppression de compte impossible!");
+      
+    }
+    if (alreadyExist.succeed) {
+      const token = jwt.sign(
+        { userId: alreadyExist.data[0].id },
+        process.env.JWT_KEY,
+        { expiresIn: "24h" },
+      );      
+      return res.status(200).json({ 
 
-exports.deleteUser = (req, res) => {
-  User.findOne({ _id: req.params.id })
-    .then(user => {
-      const filename = user.imageUrl.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {            //assure que le fichier image correspondant est également supprimé.
-        user.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
-          .catch(error => res.status(400).json({ error }));
+        "first_name": alreadyExist.data[0].first_name,
+        "id"        : alreadyExist.data[0].id,
+        "jwt"       : token,
+        "last_name" : alreadyExist.data[0].last_name,
+        
+        "role"      : alreadyExist.data[0].role,
+        "email"     : alreadyExist.data[0].email,
+        "message"   : "user supprimé!",
+       
+        user: user.id,
+        jwt: token,
+
+
       });
-    })
-    .catch(error => error.status(500).json({
-      error
-    }));
-
+    }
+    
+  }
+  catch (error) {
+    console.log("controllers/user > delete :", error)
+    return res.status(401).json(error);
+  };
 };
+
+
+
+
+// exports.deleteUser = (req, res) => {
+//   User.findOne({ _id: req.params.id })
+//     .then(user => {
+//       const filename = user.imageUrl.split('/images/')[1];
+//       fs.unlink(`images/${filename}`, () => {            //assure que le fichier image correspondant est également supprimé.
+//         user.deleteOne({ _id: req.params.id })
+//           .then(() => res.status(200).json({ message: 'utilisateur supprimé !' }))
+//           .catch(error => res.status(400).json({ error }));
+//       });
+//     })
+//     .catch(error => error.status(500).json({
+//       error
+//     }));
+
+// };

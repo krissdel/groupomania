@@ -8,25 +8,28 @@
     </div>
 
     <div class="container">
-      <h1 class="display-4">Social Network</h1>
+      <h1 class="display-4">Profile</h1>
     </div>
     <div class="container-container">
       <div class="card" style="width: 90%">
         <div class="card-welcome">
-          <!-- <router-link to="/User/Profile">
-            <button type="button" class="btn btn-light">
-              modifier profile
-            </button>
-          </router-link> -->
-          <!-- <div class="card-title" > -->
-          <h5 >Welcome</h5>
-          <!-- </div> -->
-          
+          <h5 class="card-title">{{ first_name }} {{ last_name }}</h5>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">User_id : {{ id }}</li>
           <li class="list-group-item">Nom : {{ last_name }}</li>
           <li class="list-group-item">Prenom : {{ first_name }}</li>
+          <li class="list-group-item">email : {{ email }}
+            <button type="submit" class="btn btn-info" @click="modifyUser">
+              modifier
+            </button>
+          </li>
+          <!-- <li class="list-group-item">password : {{ password }}
+            <button type="submit" class="btn btn-info" @click="modifyUser">
+              modifier
+            </button>
+          </li> -->
+
         </ul>
         <div class="card-body">
           <div class="card-body-link">
@@ -40,21 +43,11 @@
             </router-link>
             |
             <router-link to="/Post/allPosts?view=allUserPosts">
-              <button type="submit" class="btn btn-info" @click="getUserPosts">
-                user post
-              </button>
+              <button type="submit" class="btn btn-info">user post</button>
             </router-link>
           </div>
-          <br>
-          <div class=" supprime">
-          <button type="button" class="btn btn-light" @click="deleteUser">
-            supprimer profile
-          </button>
-          </div>
         </div>
-        
       </div>
-      
     </div>
   </div>
 </template>
@@ -70,36 +63,35 @@ export default {
       id: sessionStorage.getItem("id"),
       last_name: sessionStorage.getItem("last_name"),
       first_name: sessionStorage.getItem("first_name"),
-    };
+      email: sessionStorage.getItem("email"),
+
+    //   password: sessionStorage.getItem("password"),
+};
   },
   methods: {
-    async deleteUser() {
-      // const supprime = {
-      //  first_name: this.firstName,
-      //   last_name: this.lastName,
-      //   email: this.email,
-      //   password: this.password,
-      // };
-      // console.log(register);
-      try {
-        let response = await axios.delete("/user/:id", {
-          // headers: auth.addHeader(),
-        });
-        console.log("delete", response, auth);
-        auth.init(response.data);
-        this.$router.replace({
-          name: "Home",
-          params: { message: response.succeed },
-        });
-        alert(
-          ` ${response.data.first_name} ${response.data.last_name} Vôtre compte a bien été supprimé`
-        );
-        console.log(" user supprimé ! ");
-      } catch (err) {
-        // console.log("------------- :)",err);
+      async modifyUser(){
+           const register = {
+       
+        email: this.email,
+        password: this.password,
+      };
+      console.log(register);
+        try {
+              let response = await axios.put("/user/:id",{headers: auth.addHeader()});
+              console.log('oooooooooooooo', response, auth);
+               auth.init(response.data);
+                this.$router.replace({
+                  name: "Account",
+                  params: { message: response.succeed },
+                });
+                alert(`Bravo ${response.data.first_name} ${response.data.last_name}!...  bienvenue sur Groupomania social network`);
+                console.log(" user connecté ! ");
+              } 
+              catch (err) {
+                // console.log("------------- :)",err);
+                     }
       }
-    },
-  },
+  }
 };
 </script>
 
@@ -107,27 +99,26 @@ export default {
 
 
 <style scoped langue="scss">
-.btn-light {
-  color: #212529;
-  background-color: none;
-  border-color: #f8f9fa;
-}
-.card-welcome {
-  /* display: flex; */
-  justify-content: space-between;
-}
 h5 {
   font-size: 30px;
 }
 .card-title {
   margin: 10px;
 }
-
+a.card-link-addPost {
+  color: black;
+  font-weight: bold;
+}
 .card-body-link {
   display: flex;
   justify-content: space-around;
 }
-
+a.card-link-allPost {
+  color: black;
+}
+a.card-link-userPost {
+  color: black;
+}
 .logout {
   text-align: end;
   width: 90%;
@@ -153,8 +144,5 @@ a.logout {
 .container-container {
   display: flex;
   justify-content: center;
-}
-.card {
-  width: 80%;
 }
 </style>

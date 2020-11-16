@@ -8,9 +8,9 @@ console.log("-----");
 router.post('/sign_up', userCtrl.signup); // crée nouvel utilisateur
 
 router.post('/login', userCtrl.login);  //  connect utilisateur
-router.post('/logout', auth, userCtrl.logout); // déconnect utilisateur
-router.put('/:id', auth, multer, userCtrl.modifyUser); // modifie utilisateur
-router.delete('/:id', auth, userCtrl.deleteUser); //supprime l'utilisateur
+// router.post('/logout', userCtrl.logout); // déconnect utilisateur
+// router.put('/:id', userCtrl.modifyUser); // modifie utilisateur
+router.delete('/:id', userCtrl.deleteUser); //supprime l'utilisateur
 console.log("1----");
 
 

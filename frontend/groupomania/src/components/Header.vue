@@ -12,10 +12,13 @@
         </router-link>
         </a>
         <div class="router_link_user"> 
-    <router-link to="/User/Sign_up"> <slot>{{  }}</slot> </router-link>
-     |
+    <!-- <router-link to="/User/Sign_up"> <slot>{{ Signup}}</slot> </router-link> -->
+    <router-link to="/User/Sign_up"> <slot> Sign up</slot> </router-link>
 
-    <router-link to="/User/Login">{{  }}</router-link>  
+     |
+    <!-- <router-link to="/User/Login">{{  Login}}</router-link>   -->
+    <router-link to="/User/Login">  Login</router-link>  
+
         </div>
       </nav>
   <router-view/>
@@ -27,11 +30,12 @@
 export default {
    name: 'Header',
 
+
    data: function () {
     return {
       
 
-      
+
     };
   },
 

@@ -37,7 +37,7 @@ module.exports = async (req, res, next) => {
 
   try {    
     const token        = req.headers.authorization.split(' ')[0];
-    console.log( '///////////////////', token)
+    console.log( '////token///////////////', token)
     if(!token) return res.status(401).send('Accès refusé !');
     const decodedToken = jwt.verify(token, process.env.JWT_KEY);
 console.log('##############', decodedToken);

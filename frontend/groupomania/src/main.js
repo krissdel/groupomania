@@ -21,13 +21,6 @@ createApp(App).use(Vue).use(router).mount('#app')
 
 
 
-// store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
-//     new Vue({
-//       router,
-//       store,
-//       render: h => h(App)
-//     }).$mount("#app");
-//   })
 
 
 

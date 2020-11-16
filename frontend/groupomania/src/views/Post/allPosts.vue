@@ -35,7 +35,7 @@ import Posted from "@/components/Posted.vue";
 
 export default {
   
-  setup() {},
+  
 
   name: "allPosts",
   data() {
