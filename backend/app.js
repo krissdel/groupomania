@@ -1,5 +1,5 @@
 
-global.imagePath = "img";
+global.imagePath = "img"; 
 // require("dotenv").config();                //charge les variables d'environnement à partir d'un .env fichier dans process.env
 const express    = require('express');
 const helmet     = require ('helmet');     // aide à sécuriser l'applications Express en définissant divers en-têtes HTTP

@@ -127,7 +127,7 @@ try {
         console.log(" user connecté ! ");
       } 
       catch (err) {
-        // console.log("------------- :)",err);
+        console.log("------------- :)",err);
         const code = parseInt(err.toString().slice(-3));
         switch (code){
           case 500 : 

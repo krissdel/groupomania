@@ -16,7 +16,7 @@ export default {
      *
      */
 
-    sessionStorage.clear();
+    // sessionStorage.clear();
     if (response.error !== undefined) throw response;
     for (const [key, value] of Object.entries(response)) {
       console.log("*",key)
@@ -29,4 +29,9 @@ export default {
       Authorization: this.jwt,
     };
   },
+  logout(){
+    sessionStorage.clear();
+
+  }
+  
 };

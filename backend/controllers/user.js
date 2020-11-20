@@ -36,9 +36,10 @@ exports.signup = async (req, res) => {
         "id"        : answer.data.insertId,
         "jwt"       : token,
         "last_name" : req.body.last_name,
-        "message"   : "Utilisateur créé !",
         "role"      : 0,
         "email"     : req.body.email,
+        "message"   : "Utilisateur créé !",
+
       });
     } throw("oulàlà c'est le drame");
   }
@@ -79,20 +80,6 @@ exports.login = async (req, res) => {
   };
 };
 
-
-// -----[déconnexion d'un utilisateur ]-----------------------------------------------------------------------
-
-exports.logout = async (req, res) => {
-  try {
-    const currentUser = await User.updateOne({ _id: req.user._id }, { $set: { connected: false } })
-      // console.log(req.user._id)
-      .then(() => res.status(200).json({ message: ' Utilisateur Déconnecté !' }))
-      .catch(error => res.status(400).json({ error }));
-  }
-  catch {
-    (error => res.status(500).json({ error }))
-  }
-};
 
 // -----[supprimer un utilisateur]-----------------------------------------------------------------------
 

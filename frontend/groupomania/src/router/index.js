@@ -72,10 +72,11 @@ const routes = [
     component: () => import('../views/User/Account.vue')
   },
 
+  
   {
-    path: '/User/Profile',
-    name: 'Profile',
-    component: () => import('../views/User/Profile.vue')
+    path: '/Post/modifyPost',
+    name: 'modifyPost',
+    component: () => import('../views/Post/modifyPost.vue')
   },
 
   

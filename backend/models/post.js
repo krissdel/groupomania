@@ -35,7 +35,7 @@ exports.createPost = async function(data) {
   // ------------------------------------------------
   
   exports.getAllUserPosts =  async function(data){
-    const sql = "SELECT from `post` WHERE  `text`, `image` = data.text, data.image";
+    const sql = "SELECT * FROM `post` WHERE `user_id` = 2 ";
     const getAllUserPosts = [
       data
     ];
@@ -46,6 +46,16 @@ exports.createPost = async function(data) {
     return answer;
   }
 // ----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 
 exports.deletePost = async function(id) {
@@ -60,3 +70,28 @@ exports.deletePost = async function(id) {
 }
 
  
+exports.modifyPost = async function(id) {
+  const sql = "UPDATE `post` SET `text`, `image`= ?, ? Where ";
+  const modifyPost = [
+   id
+  ];
+  const answer = await db.request(sql, modifyPost);
+  console.log("modifyPost", answer);
+      console.log('post supprimé');
+  return answer;
+}
+
+
+
+// exports.getOnePost =  async function(data){
+//   const sql = "SELECT * from `post` WHERE `post`.`id` = ? ";
+//   const getOnePost = 
+//   [
+//     data
+//   ];
+//   const answer = await db.request(sql, getOnePost);
+//   console.log("getOnePost", answer);
+//       console.log('voiçi tous les posts');
+
+//   return answer;
+// }

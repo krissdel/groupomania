@@ -35,13 +35,6 @@ exports.login =  async function (email){
 
 
 
-exports.logout =  async function (email){
-  const sql = "SELECT id, FROM `user` WHERE `id` = connected ";
-  const answer = await db.request(sql, [email]);
-  console.log("!!!!!!!!!logout:",answer);
-  return answer;
-};
-
 
 
 exports.delete =  async function (email){

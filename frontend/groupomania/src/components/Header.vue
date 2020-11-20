@@ -8,7 +8,7 @@
         </a>
         <a class="logo_white" href="#">
         <router-link :to="{ name: 'Home'}">
-            <img class= "img2" src="@/assets/icon-left-font-monochrome-blanc-resize.png">
+            <img class= "img2" src="../assets/icon-left-font-monochrome-blanc-resize.png">
         </router-link>
         </a>
         <div class="router_link_user"> 

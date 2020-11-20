@@ -150,7 +150,7 @@ export default {
 
       try {
         let response = await axios.post("user/sign_up", register);
-        console.clear();
+        // console.clear();
         console.log(response)
         auth.init(response.data);
         this.$router.replace({

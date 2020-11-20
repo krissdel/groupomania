@@ -1,8 +1,8 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
     <div class="logout">
-        <router-link to="/user/account">
-          <button type="button" class="btn btn-primary btn-sm">
+        <router-link to="/Home">
+          <button type="button" class="btn btn-primary btn-sm" @click="logout">
             Log out
           </button>
         </router-link>
@@ -34,7 +34,7 @@
             </router-link>
             |
             <router-link to="/Post/allPosts?view=allUserPosts">
-              <button type="submit" class="btn btn-info" @click="getUserPosts">
+              <button type="submit" class="btn btn-info" >
                 user post
               </button>
             </router-link>
@@ -66,6 +66,12 @@ export default {
     };
   },
   methods: {
+
+logout(){
+auth.logout()
+},
+
+
     async deleteUser() {
       try {
         let response = await axios.delete("/user/" + this.id, {
@@ -83,6 +89,23 @@ export default {
         console.log("------------- :)", err);
       }
     },
+
+//  async getUserPosts(){
+//    try {
+//         let response = await axios.get("/post/:id", {
+//           headers: auth.addHeader(),
+//         });
+//         auth.init(response.data);
+//         this.$router.push({
+//           name: "allPosts",
+//           params: { message: response.succeed },
+//         });
+       
+//       } catch (err) {
+//         console.log("------------- :)", err);
+//       }
+// }
+
   },
 };
 </script>
@@ -95,6 +118,7 @@ export default {
 button.btn.btn-primary.btn-sm {
     background-color: #506a96;
     border-color: #0f2140;
+    width: 5pc;
 }
 button.btn.btn-info {
     background-color: #506a96;

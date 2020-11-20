@@ -45,13 +45,14 @@
                     </button>
                   </div>
                   <div id="preview">
-                    <img v-if="resizedImg" :src="resizedImg" />
+                    <img v-if="resizedImg" :src="getImage()" />
+                    <!-- v-if="image !== null" -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
+ 
           <!-- --------[section text]------------------------------------>
 
           <div class="card-body">
@@ -61,7 +62,7 @@
             </div>
 
             <button type="submit" id="add" class="btn btn-primary2">
-              Add post
+            Modify post
             </button>
           </div>
         </div>
@@ -81,12 +82,12 @@ export default {
   name: "post",
   data() {
     return {
-      msg: "Please!.. Add post",
-      selecteFile: null,
+      msg: "Please!.. modify post",
+      selecteFile: "",
       resizedImg: "",
-      // image: '',
+     
       file: "",
-      text: "",
+      text: 'data.text',
       addPost: "",
       add: "",
 
@@ -103,6 +104,11 @@ export default {
         this.resizedImg = URL.createObjectURL(resizedImage);
       });
       //  console.log("tatatatatatatataat", event.target.files[0] );
+    },
+
+getImage () {
+    // const images = require.context('../assets/upload/', false, /\.(png|jpe?g|svg|webp)$/);
+    // return images('./' + this.image.id);
     },
 
     async createPost() {
