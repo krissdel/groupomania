@@ -33,7 +33,7 @@ exports.createPost = async (req, res) => {
 exports.getAllPosts = async (req, res) => {
   try {
       // console.log('ooooooooooooppppp', req);
-    const answer = await post.getAllPosts();
+    const answer = await post.getAllPosts(req.params);
     
     
     if (answer.succeed) {
@@ -59,14 +59,9 @@ exports.getAllUserPosts = async (req, res) => {
   
 
   try {
-    console.log("§§§§§§§§§§§§");
-    const answer = await post.getAllUserPosts();
+    console.log("§§§§§§§§§§§§", req.params);
+    const answer = await post.getAllUserPosts(req.params.id);
     if (answer.succeed) {
-
-      // for (let i = 0, size = answer.data.length; i < size; i++) {
-      //   if (answer.data[i].image === null) continue;
-      //   answer.data[i].image = "/" + imagePath + "/" + answer.data[i].image;
-      // }
       console.log("controller getAllUserPosts Fin--ok---------------------------")
       res.status(201).json({ data: answer.data });
     };
@@ -80,28 +75,17 @@ exports.getAllUserPosts = async (req, res) => {
 
 
 // -----[modifier un post]----------------------------------------------------------------------------
-exports.modifyPost = (req, res) => {
-  const postObject = req.file ? {
-    ...JSON.parse(req.body.post),
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-
-  } : { ...req.body };
-  PostModel.findOne({ _id: req.params.id })
-    .then(post => {
-      if (req.file) {
-        const filename = post.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          PostModel.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-            .then(() => res.status(200).json({ message: ' mise a jour post !' }))
-            .catch(error => res.status(400).json({ error }));
-        });
-      } else {
-        PostModel.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-          .then(() => res.status(200).json({ message: " Article modifié !" }))
-          .catch(error => res.status(400).json({ error }));
-      }
-    })
-    .catch(error => res.status(500).json({ error }));
+exports.modifyPost = async (req, res) => {
+  try {
+    console.log(req.body);
+    const answer = await post.modifyPost(req.body);
+    if (answer.succeed) {
+      console.log("controller modifyPost Fin--ok---------------------------")
+      res.status(201).json({ message: "vôtre post a été modifié !" });
+    };
+  } catch (error) {
+    console.log("modifyPost Failed", error);
+  }
 };
 
 // -----[effacer un post]------------------------------------------------------------------------------
@@ -121,25 +105,20 @@ exports.deletePost = async (req, res) => {
 
 // ------------------------------------
 
-// exports.getOnePost = async (req, res) => {
-//   try {
-//       // console.log('ooooooooooooppppp', req);
-//     const answer = await post.getOnePost();
+exports.getOnePost = async (req, res) => {
+  try {
+      console.log('ooooooooooooreq.params.id', req.params.id);
+    const answer = await post.getOnePost(req.params.id);
     
     
-//     if (answer.succeed) {
-//       console.log("!!!!!!!!!!!", answer);
-//       console.log("controller Get onePost Fin--ok---------------------------\n\n\n\n", answer);
-//       // for (let i = answer.data.length - 1; i >= 0; i--) {
-//       //   if (answer.data[i].image === null) continue;
-//       //   answer.data[i].image = `..assets/upload/${answer.data[i].image}`;
-//       // }
-//       // console.log("^^^^^^^^^^^^", answer.data[i].image);
-//       res.status(201).json({ data: answer.data });
+    if (answer.succeed) {
+      console.log("!!!!!!!!!!!", answer);
+      console.log("controller Get onePost Fin--ok---------------------------\n\n\n\n", answer);
 
-//     };
-
-//   } catch (error) {
-//     console.log("getOnePost Failed", error);
-//   }
-// };
+      res.status(202).json({ data: answer.data});     
+    };
+    console.log("....." ,answer.data);
+  } catch (error) {
+    console.log("getOnePost Failed", error);
+  }
+};

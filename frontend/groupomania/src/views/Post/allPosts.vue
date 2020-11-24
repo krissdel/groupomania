@@ -55,8 +55,6 @@ import axios from "axios";
 import Posted from "@/components/Posted.vue";
 // import auth from "../services/auth";
 
-// import PostedUser from "@/components/PostedUser.vue";
-
 export default {
   name: "allPosts",
   data() {
@@ -64,64 +62,38 @@ export default {
       msg: "Posts",
       allPosts: null,
       allUserPosts: null,
-      // user_id: "",
+      
     };
   
   },
 
-//  props: {
-//     image: {
-//       type: String,
-//     },
-//     text: {
-//       type: String,
-//     },
-//     id: {
-//       type: Number,
-//     },
-//     user_id: {
-//       type: Number,
-//     },
-//     refs: {
-//       type: Number,
-//     },
-//   },
-
-
-
-  components: {
+components: {
     Posted,
   },
+  
 
 
   created() {
     switch (this.$route.query.view) {
       case "allPosts": {
-        axios.get("/post/").then((res) => {
+        axios.get("/post/" ).then((res) => {
           this.allPosts = res.data.data;
-          // console.log("****", typeof res.data, res.data.data);
-          // console.log("++++++++++++", this.allPosts);
+          console.log("****", typeof res.data, res.data.data);
+          console.log("++++++++++++", this.allPosts);
         });
         break;
       }
 
       case "allUserPosts": {
-      //  var user_id = sessionStorage.getItem("id");
-        axios.get("/post/:id" + this.user_id).then((res) => {
-          // headers: auth.addHeader(),
+       var user_id = sessionStorage.getItem("id");
+        axios.get("/post/" + user_id).then((res) => {
           this.allUserPosts = res.data.data;
           console.log("===========", typeof res.data, res.data.data);
           console.log("vvvvvvvvvvvv", this.allUserPosts);
-          // console.log("vvpppppvvvvvv", user_id);
-          //  let response = await axios.put("post/" + this.id, {
-          //     headers: auth.addHeader(),
-          //   });
+          console.log("vvpppppvvvvvv", user_id);
+         
         });
       }
-
-      // default: {
-      //   break;
-      // }
     }
   },
 };

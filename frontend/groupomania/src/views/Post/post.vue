@@ -58,6 +58,7 @@
             <div class="form-group">
               <label for="text">texte</label>
               <input v-model="text" type="text" class="form-control" />
+              
             </div>
 
             <button type="submit" id="add" class="btn btn-primary2">
@@ -79,21 +80,21 @@ import auth from "../../services/auth";
 
 export default {
   name: "post",
+
   data() {
     return {
       msg: "Please!.. Add post",
       selecteFile: null,
       resizedImg: "",
-      // image: '',
       file: "",
       text: "",
       addPost: "",
       add: "",
-
       post: "",
+     
     };
   },
-  components: {},
+ 
 
   methods: {
     onFileSelected(event) {
@@ -113,11 +114,13 @@ export default {
         idParent: 0,
       };
 
-      console.log("-----------", addPost);
+      console.log("---addPost--------", addPost);
 
       try {
         let response = await axios.post("/post/", addPost, {
           headers: auth.addHeader(),
+      
+
           onUploadProgress: (uploadEvent) => {
             console.log(
               "Upload Progress" +
@@ -126,7 +129,8 @@ export default {
             );
           },
         });
-        auth.init(response);
+        console.log('response', response);
+        // auth.init(response);
         if (response.status !== 201) throw response.data.message;
         console.log("---- :) ", response);
 
@@ -134,13 +138,6 @@ export default {
           name: "allPosts",
           query: { view: "allPosts" },
         });
-
-        // if (response.status !== 201) throw  response.data.message;
-        // // console.log(";;;;;;;;;;;;;;;;",response.data.mesage);
-        // this.$router.push({
-        //   name: "allPosts",
-        //   query: { view: "allUserPosts", userId: 1 }, //TODO : changer l'id 1 par une valeur dynamique
-        // });
       } catch (err) {
         if (typeof err === "string") this.error = err;
         else this.error = err.response;

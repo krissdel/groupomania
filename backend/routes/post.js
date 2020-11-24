@@ -6,20 +6,17 @@ const router = express.Router();
 
 const postCtrl = require('../controllers/post');
 
-// exports.router = (function() {
-//     var router = express.Router();
     console.log('yep');
 
 router.post('/', postCtrl.createPost);   
 router.get('/', postCtrl.getAllPosts);  
+router.get('/post/:id', postCtrl.getOnePost);  
+
 router.get('/:id', postCtrl.getAllUserPosts); 
-// router.get('/:id', postCtrl.getOnePost);  
+
 router.put('/:id',  postCtrl.modifyPost);   //auth, multer,
 router.delete('/auth/post/:id', postCtrl.deletePost);   
 
-
-// return router;
-// });
 
 
 module.exports = router

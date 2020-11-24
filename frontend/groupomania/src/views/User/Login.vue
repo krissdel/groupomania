@@ -80,10 +80,7 @@ export default {
       return value ? true : "Password is required";
     },
     // ============================================================
-    //     handleFIleUpload() {
-    // console.log('fuck3');
-    //       this.file = this.$refs.file.files[0];
-    //     },
+    
 
     ...mapActions({
       Login: "auth/Login",

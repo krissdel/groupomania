@@ -35,7 +35,8 @@ exports.createPost = async function(data) {
   // ------------------------------------------------
   
   exports.getAllUserPosts =  async function(data){
-    const sql = "SELECT * FROM `post` WHERE `user_id` = 2 ";
+    console.log('bbbbbbbbbbbbbbbb', data )
+    const sql = "SELECT * FROM `post` WHERE `user_id` = ? ";    
     const getAllUserPosts = [
       data
     ];
@@ -46,14 +47,6 @@ exports.createPost = async function(data) {
     return answer;
   }
 // ----------------------------------------------------
-
-
-
-
-
-
-
-
 
 
 
@@ -69,29 +62,37 @@ exports.deletePost = async function(id) {
   return answer;
 }
 
- 
-exports.modifyPost = async function(id) {
-  const sql = "UPDATE `post` SET `text`, `image`= ?, ? Where ";
-  const modifyPost = [
-   id
+
+
+
+exports.getOnePost =  async function(id){
+  const sql = "SELECT * from `post` WHERE  `post`.`id` = ? ";
+  const getOnePost = 
+  [
+    id
   ];
-  const answer = await db.request(sql, modifyPost);
-  console.log("modifyPost", answer);
-      console.log('post supprimé');
+  const answer = await db.request(sql, getOnePost);
+  console.log("getOnePost", answer);
+      console.log('voiçi vôtre posts');
+
   return answer;
 }
 
-
-
-// exports.getOnePost =  async function(data){
-//   const sql = "SELECT * from `post` WHERE `post`.`id` = ? ";
-//   const getOnePost = 
-//   [
-//     data
-//   ];
-//   const answer = await db.request(sql, getOnePost);
-//   console.log("getOnePost", answer);
-//       console.log('voiçi tous les posts');
-
-//   return answer;
-// }
+/**
+ * met à jour une publication
+ * @function
+ * 
+ * @param {Object} data 
+ * @return {*}     //TODO : définir le type de retour
+ */
+exports.modifyPost = async function(data) {
+  const sql = "UPDATE `post` SET `text`= ?, `image`= ? WHERE `post`.`id` = ?";
+    
+  const modifyPost = [
+   data.text,
+   data.image,
+   data.id
+  ];
+  const answer = await db.request(sql, modifyPost);
+  return answer;
+}

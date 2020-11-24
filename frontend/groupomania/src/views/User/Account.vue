@@ -12,7 +12,7 @@
       <h1 class="display-4">Social Network</h1>
     </div>
     <div class="container-container">
-      <div class="card" style="width: 90%">
+      <div class="card" style="width: 68%">
         <div class="card-welcome">
           <h5>Welcome</h5>
         </div>
@@ -90,21 +90,6 @@ auth.logout()
       }
     },
 
-//  async getUserPosts(){
-//    try {
-//         let response = await axios.get("/post/:id", {
-//           headers: auth.addHeader(),
-//         });
-//         auth.init(response.data);
-//         this.$router.push({
-//           name: "allPosts",
-//           params: { message: response.succeed },
-//         });
-       
-//       } catch (err) {
-//         console.log("------------- :)", err);
-//       }
-// }
 
   },
 };
@@ -170,8 +155,9 @@ a.logout {
 .container-container {
   display: flex;
   justify-content: center;
+  /* max-width: 70pc; */
 }
-.card {
-  width: 80%;
-}
+/* .card {
+  width: 65%;
+} */
 </style>

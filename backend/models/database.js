@@ -53,17 +53,6 @@ async function request(sql, data=null){
   }
 }
 
-// function initial() {
-//   Role.create({
-//     id: 1,
-//     name: "user"
-//   });
- 
-//   Role.create({
-//     id: 2,
-//     name: "admin"
-//   });
-// }
 
  
 

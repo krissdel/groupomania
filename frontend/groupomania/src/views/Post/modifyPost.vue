@@ -17,6 +17,8 @@
         </router-link>
       </div>
     </div>
+    <!-- ------------------------------------------------- -->
+
     <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
         <div class="card" style="width: 18rem">
@@ -35,34 +37,55 @@
                     id="image"
                   />
 
+                  <div class="image">
+                    <img
+                      :src="getImage()"
+                      v-if="image !== null"
+                      style="width: 55%"
+                      alt="image post"
+                    />
+                  </div>
                   <div class="button">
                     <button
                       type="button"
                       class="btn btn-primary1"
                       @click="$refs.fileInput.click()"
                     >
-                      {{ resizedImg ? "Replace" : "pick image" }}
+                      {{ resizedImg ? "Replace" : "former picture" }}
                     </button>
                   </div>
                   <div id="preview">
-                    <img v-if="resizedImg" :src="getImage()" />
-                    <!-- v-if="image !== null" -->
+                    <img v-if="resizedImg" :src="resizedImg" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
- 
+
           <!-- --------[section text]------------------------------------>
 
           <div class="card-body">
             <div class="form-group">
-              <label for="text">texte</label>
-              <input v-model="text" type="text" class="form-control" />
+              <!-- <p v-if="text !== ''" >{{ getText() }}</p> -->
+
+              <div class="card">
+                <div class="card-body-text" >
+                  <p v-if="text !== ''">{{ this.text }}</p>
+                </div>
+              </div>
+
+              <!-- <div v-if="getText() !== ''">{{text}}</div>  -->
+              <label for="text"> former text</label>
+              <input
+                type="text"
+                placeholder="new text"
+                class="form-control"
+                v-model="nouveauTexte"
+              />
             </div>
 
             <button type="submit" id="add" class="btn btn-primary2">
-            Modify post
+              Add post
             </button>
           </div>
         </div>
@@ -79,24 +102,76 @@ import resizeImage from "@/plugins/image-resize.js";
 import auth from "../../services/auth";
 
 export default {
-  name: "post",
+  name: "modifyPost",
+  // text: "",
+// newText:"",
+  props: {
+    id: {
+      type: String,
+    },
+
+    image: {
+      type: String,
+    },
+    text: {
+      type: String,
+    },
+    user_id: {
+      type: Number,
+    },
+    refs: {
+      type: Number,
+    },
+    images: {
+      type: String,
+    },
+    // newText: {
+    //   type: String
+    // },
+  },
   data() {
     return {
+      modifyPost: null,
+
       msg: "Please!.. modify post",
       selecteFile: "",
       resizedImg: "",
-     
-      file: "",
-      text: 'data.text',
       addPost: "",
       add: "",
-
+      file: "",
       post: "",
+      nouveauTexte:"",
     };
   },
-  components: {},
+
+  async created() {
+    try {
+      console.log("created().........");
+      let response = await axios.get("post/post/" + this.id, {
+        headers: auth.addHeader(),
+      });
+      console.log("===========", typeof response.data, response.data.data[0]);
+      console.log("^^^^^^^^^^^", this.id);
+      // auth.init(response);
+    } catch (err) {
+      console.log("---------- :(", err);
+    }
+  },
 
   methods: {
+    getImage: function () {
+      const images = require.context(
+        "../../assets/upload/",
+        false,
+        /\.(png|jpe?g|svg|webp)$/
+      );
+      return this.images !== undefined? images("./no-image-available.jpg") : images("./" + this.image);
+    },
+
+    getText: function () {
+      return this.text;
+    },
+
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       const file = event.target.files[0];
@@ -106,47 +181,26 @@ export default {
       //  console.log("tatatatatatatataat", event.target.files[0] );
     },
 
-getImage () {
-    // const images = require.context('../assets/upload/', false, /\.(png|jpe?g|svg|webp)$/);
-    // return images('./' + this.image.id);
-    },
-
     async createPost() {
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
-        text: this.text,
-        id: sessionStorage.getItem("id"),
-        idParent: 0,
+        text: this.nouveauTexte,
+        id: sessionStorage.getItem("id")
       };
-
       console.log("-----------", addPost);
 
       try {
-        let response = await axios.post("/post/", addPost, {
-          headers: auth.addHeader(),
-          onUploadProgress: (uploadEvent) => {
-            console.log(
-              "Upload Progress" +
-                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-                "%"
-            );
-          },
+        let response = await axios.put("/post/" + this.id, addPost, {
+          // headers: auth.addHeader(),
         });
-        auth.init(response);
+        // auth.init(response);
         if (response.status !== 201) throw response.data.message;
-        console.log("---- :) ", response);
+        console.log("-put --- :) ", response);
 
         this.$router.push({
           name: "allPosts",
           query: { view: "allPosts" },
         });
-
-        // if (response.status !== 201) throw  response.data.message;
-        // // console.log(";;;;;;;;;;;;;;;;",response.data.mesage);
-        // this.$router.push({
-        //   name: "allPosts",
-        //   query: { view: "allUserPosts", userId: 1 }, //TODO : changer l'id 1 par une valeur dynamique
-        // });
       } catch (err) {
         if (typeof err === "string") this.error = err;
         else this.error = err.response;
@@ -159,6 +213,14 @@ getImage () {
 
 
 <style scoped langue="scss">
+
+input.form-control {
+    margin-top: 20px;
+}
+.card-body-text {
+    background-color: #f2f2f2;
+}
+
 button.btn.btn-primary.btn-sm {
   background-color: #506a96;
   border-color: #0f2140;

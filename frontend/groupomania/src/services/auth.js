@@ -16,13 +16,14 @@ export default {
      *
      */
 
-    // sessionStorage.clear();
     if (response.error !== undefined) throw response;
     for (const [key, value] of Object.entries(response)) {
       console.log("*",key)
       if (key !== "message") sessionStorage.setItem(key, value);
     }
   },
+
+
   addHeader: function () {
     return {
       "Content-Type": "application/json",

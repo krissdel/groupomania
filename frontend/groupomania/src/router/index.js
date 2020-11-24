@@ -74,9 +74,10 @@ const routes = [
 
   
   {
-    path: '/Post/modifyPost',
+    path: '/Post/modifyPost/:id',
     name: 'modifyPost',
-    component: () => import('../views/Post/modifyPost.vue')
+    component: () => import('../views/Post/modifyPost.vue'),
+    props: (route) => (route.params)  
   },
 
   

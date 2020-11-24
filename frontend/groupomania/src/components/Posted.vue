@@ -10,19 +10,24 @@
         />
       </div>
       <p v-if="image !== ''">{{ text }}</p>
+
     </div>
     <!-- --------------- -->
     
 
+    <!-- -------------------------------------- -->
 
 
     <div class="cont-cont" v-if="allowed()">
-      <router-link to="/post/modifyPost">
-        <button type="button" class="btn btn-primary btn-sm" @click="edit">
+<router-link :to="{ name: 'modifyPost', params: {id: this.id , text: this.text, image: this.image}}">
+   
+      <!-- <router-link to="/post/modifyPost/33"> -->
+        <button type="button" class="btn btn-primary btn-sm" >
           edit
         </button>
       </router-link>
       &nbsp;
+     
       <button
         type="submit"
         class="btn btn-secondary btn-sm"
@@ -30,6 +35,7 @@
       >
         delete
       </button>
+      
     </div>
   </div>
 </template>
@@ -64,13 +70,7 @@ export default {
   },
 
   methods: {
-    // edit() {
-    //   axios.get("/post/").then((res) => {
-    //     this.modifyPost = res.data.data;
-    //     // console.log("****", typeof res.data, res.data.data);
-    //     // console.log("++++++++++++", this.allPosts);
-    //   });
-    // },
+    
     getImage() {
       const images = require.context(
         "../assets/upload/",
@@ -80,9 +80,9 @@ export default {
       return images("./" + this.image);
     },
 
-    allowed() {
-          //  console.log("uuuussserrrrrid :",this.user_id);
+   
 
+    allowed() {
       if (this.user_id == sessionStorage.getItem("id")) return true;
       if (sessionStorage.getItem("role") == 1) return true;
       return false;
@@ -93,50 +93,22 @@ export default {
         let response = await axios.delete("post/auth/post/" + this.id, {
           headers: auth.addHeader(),
         });console.log("tttttttttttttt", this.id);
-
-        // this.$router.go({
-        //   name: "allPosts",
-        //   query: { view: "allPosts" },
-        // });
-
-        console.log("delete", response, auth);
-        auth.init(response.data);
-        // alert(`   post supprimé !`);
-        console.log(" post supprimé ! ");
-      } catch (err) {
-        console.log("------------- :)", err);
-      }
-    },
-
-    // editPost(){
-
-    // },
-    async modifyPost() {
-      try {
-        let response = await axios.put("post/" + this.id, {
-          headers: auth.addHeader(),
+        this.$router.go({
+          name: "allPosts",
+          query: { view: "allPosts" },    
         });
-
-        // this.$router.go({
-        //   name: "allPosts",
-        //   query: { view: "allPosts" },
-        // });
-
-        console.log("modify", response, auth);
-        auth.init(response.data);
-        alert(`   post modifié !`);
-        console.log("  post modifié ! ");
+        console.log("delete", response, auth);
+        // auth.init(response.data);
+        alert(`attention !... vôtre post va être supprimé ! `);       
       } catch (err) {
         console.log("------------- :)", err);
       }
     },
-  },
-  // computed:{
-  //   imageUrl(){
-  //     console.log("...", this.image);
-  //     return require(this.image)
-  //   }
-  // },
+
+
+
+
+  },  
 };
 </script>
 
