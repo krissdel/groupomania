@@ -30,9 +30,9 @@ export default {
       Authorization: this.jwt,
     };
   },
+
   logout(){
     sessionStorage.clear();
-
+    
   }
-  
 };

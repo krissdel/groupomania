@@ -19,7 +19,7 @@
 
 
     <div class="cont-cont" v-if="allowed()">
-<router-link :to="{ name: 'modifyPost', params: {id: this.id , text: this.text, image: this.image}}">
+<router-link :to="{ name: 'modifyPost', params: {id: this.id , text: this.text, image: this.image==null ? '-1' : this.image}}">
    
       <!-- <router-link to="/post/modifyPost/33"> -->
         <button type="button" class="btn btn-primary btn-sm" >

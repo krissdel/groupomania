@@ -40,7 +40,6 @@
                   <div class="image">
                     <img
                       :src="getImage()"
-                      v-if="image !== null"
                       style="width: 55%"
                       alt="image post"
                     />
@@ -66,15 +65,11 @@
 
           <div class="card-body">
             <div class="form-group">
-              <!-- <p v-if="text !== ''" >{{ getText() }}</p> -->
-
               <div class="card">
-                <div class="card-body-text" >
+                <div class="card-body-text">
                   <p v-if="text !== ''">{{ this.text }}</p>
                 </div>
               </div>
-
-              <!-- <div v-if="getText() !== ''">{{text}}</div>  -->
               <label for="text"> former text</label>
               <input
                 type="text"
@@ -103,15 +98,14 @@ import auth from "../../services/auth";
 
 export default {
   name: "modifyPost",
-  // text: "",
-// newText:"",
+
   props: {
     id: {
       type: String,
     },
 
     image: {
-      type: String,
+      validator: prop => typeof prop === 'string' || prop === null
     },
     text: {
       type: String,
@@ -125,9 +119,6 @@ export default {
     images: {
       type: String,
     },
-    // newText: {
-    //   type: String
-    // },
   },
   data() {
     return {
@@ -140,7 +131,7 @@ export default {
       add: "",
       file: "",
       post: "",
-      nouveauTexte:"",
+      nouveauTexte: "",
     };
   },
 
@@ -160,16 +151,23 @@ export default {
 
   methods: {
     getImage: function () {
+      console.log("----image", "|"+this.image+"|", typeof this.image)
       const images = require.context(
         "../../assets/upload/",
         false,
         /\.(png|jpe?g|svg|webp)$/
       );
-      return this.images !== undefined? images("./no-image-available.jpg") : images("./" + this.image);
-    },
 
-    getText: function () {
-      return this.text;
+      if (isNaN(Number(this.image))) return images("./" + this.image);
+      // this.images = 'null';
+      return  images("./no-image-available.jpg");
+
+      // if (this.images === undefined) {
+      //   return images("./" + this.image);
+      // }
+      // // if (this.images === undefined) {
+      // else return images("./no-image-available.jpg");
+      // // }
     },
 
     onFileSelected(event) {
@@ -185,7 +183,7 @@ export default {
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
         text: this.nouveauTexte,
-        id: sessionStorage.getItem("id")
+        id: this.id,
       };
       console.log("-----------", addPost);
 
@@ -201,6 +199,7 @@ export default {
           name: "allPosts",
           query: { view: "allPosts" },
         });
+        alert(`attention !... vôtre post va être modifié ! `);
       } catch (err) {
         if (typeof err === "string") this.error = err;
         else this.error = err.response;
@@ -213,12 +212,11 @@ export default {
 
 
 <style scoped langue="scss">
-
 input.form-control {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 .card-body-text {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 button.btn.btn-primary.btn-sm {

@@ -1,12 +1,12 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
-    <div class="logout">
+    <!-- <div class="logout">
         <router-link to="/Home">
           <button type="button" class="btn btn-primary btn-sm" @click="logout">
             Log out
           </button>
         </router-link>
-      </div>
+      </div> -->
 
     <div class="container">
       <h1 class="display-4">Social Network</h1>
@@ -69,6 +69,9 @@ export default {
 
 logout(){
 auth.logout()
+  
+   this.$emit("logout", this.$logout);
+  
 },
 
 

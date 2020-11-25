@@ -24,27 +24,37 @@
       <!-- =================================================================== -->
 
       <div class="router_link_user">
-        <!-- <router-link to="/User/Sign_up" v-if="isLogged()">
-          {{ first_name }}
+        <!-- <router-link to="/User/Sign_up" >
+        <P v-if="isLogged()">{{ first_name }} </P>
+          
+        <p v-else> Sign up </P>
         </router-link> -->
 
-        <router-link to="/User/Sign_up" >  
-        <p v-if="first_name !== null">  Welcome: {{ first_name }} </p>
-        <p v-else> Sign up </P>
+        <router-link to="/User/Sign_up">
+        <button type="button" class="btn btn-outline-primary" 
+        v-if="first_name === null"  
+        v-on:logout="$emit('logout', $event.target.signup)"
+        v-bind:logout="logout">signup</button>
+         
+        <p v-else> {{ first_name }} {{ last_name }}</p>
+      
+          
         </router-link>
 
+        
+      
 
-        |
-
-        <router-link to="/User/Login" >
-        <p v-if="first_name !== null">  {{ last_name }} </p>
-        <p v-else> Login </P>
+        <router-link to="/User/Login">
+       <button type="button" class="btn btn-outline-primary" v-if="first_name === null">Login</button>
+        </router-link>
+       <router-link to="/Home">
+       <button type="button" class="btn btn-outline-primary" v-if="first_name !== null"  @click="logout">Logout</button>
+         
         </router-link>
 
         <!-- <router-link to="/User/Login" v-if="isLogged()">
         {{ last_name }}
         </router-link> -->
-
 
         <!-- <div v-if="!isLogged()">{{Login}}</div> 
          <div v-if="isLogged()">{{ first_name }}</div> -->
@@ -57,16 +67,24 @@
 
 
 <script>
-// import auth from "../services/auth";
+import auth from "../services/auth";
 
 export default {
   name: "Header",
   data: function () {
     return {
-      
       first_name: sessionStorage.getItem("first_name"),
       last_name: sessionStorage.getItem("last_name"),
     };
+  },
+
+  props: {
+    signup: {
+      type: String,
+    },
+    login: {
+      type: String,
+    },
   },
 
   methods: {
@@ -78,14 +96,15 @@ export default {
     //   if (last_name !== undefined) return true;
     //   return false();
     // },
-    
-
-   
   },
 
-  // logout(){
-  // auth.logout()
-  // },
+logout(){
+auth.logout()
+  
+  //  this.$emit("logout", this.$logout);
+  
+},
+
 };
 </script>
 
@@ -94,6 +113,17 @@ export default {
 
 
 <style scoped lang="scss">
+.router_link_user {
+  display: flex;
+  justify-content: space-between;
+  width: 10pc;
+}
+button.btn.btn-outline-primary {
+  border-radius: 20px;
+  color: white;
+  border-color: white;
+}
+
 @media (min-width: 270px) {
   .img2 {
     width: 100%;
