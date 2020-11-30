@@ -18,8 +18,10 @@ export default {
 
     if (response.error !== undefined) throw response;
     for (const [key, value] of Object.entries(response)) {
-      console.log("*",key)
-      if (key !== "message") sessionStorage.setItem(key, value);
+      if (key !== "message") {
+        sessionStorage.setItem(key, value);
+        this[key] = value;
+      }
     }
   },
 
@@ -27,12 +29,21 @@ export default {
   addHeader: function () {
     return {
       "Content-Type": "application/json",
-      Authorization: this.jwt,
+      Authorization: sessionStorage.getItem("jwt"),
     };
   },
 
   logout(){
     sessionStorage.clear();
     
+  },
+
+  getData(listOfData){
+    const answer = {};
+    for(let i = listOfData.length-1; i>0; i--){
+      answer[listOfData[i]] = this[listOfData[i]];
+    }
+    console.log("answer", answer);
+    return answer;
   }
 };

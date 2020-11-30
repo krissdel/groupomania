@@ -34,14 +34,17 @@
             </router-link>
             |
             <router-link to="/Post/allPosts?view=allUserPosts">
-              <button type="submit" class="btn btn-info" >
-                user post
-              </button>
+              <button type="submit" class="btn btn-info">user post</button>
             </router-link>
           </div>
           <br />
           <div class="supprime">
-            <button type="button" class="btn btn-light" @click="deleteUser">
+            <button
+              type="button"
+              class="btn btn-light"
+              v-if="admin()"
+              @click="deleteUser"
+            >
               delete account
             </button>
           </div>
@@ -55,25 +58,29 @@
 import axios from "axios";
 import auth from "../../services/auth";
 
+
 export default {
   name: "Account",
   data: function () {
     return {
-      id: sessionStorage.getItem("id"),
+      id: sessionStorage.getItem("user_id"),
       last_name: sessionStorage.getItem("last_name"),
       first_name: sessionStorage.getItem("first_name"),
       email: sessionStorage.getItem("email"),
     };
   },
+  
   methods: {
+    // logout() {
+    //   auth.logout();
+    //   this.$emit("logout");
+    //   // console.log("kkkkk", this.$emit);
+    // },
 
-logout(){
-auth.logout()
-  
-   this.$emit("logout", this.$logout);
-  
-},
-
+    admin() {
+      if (sessionStorage.getItem("role") != 1) return true;
+      return false;
+    },
 
     async deleteUser() {
       try {
@@ -86,14 +93,12 @@ auth.logout()
           name: "Home",
           params: { message: response.succeed },
         });
-        alert(` Vôtre compte a bien été supprimé`);
+        alert(` Attention!... Vôtre compte va être supprimé`);
         console.log(" user supprimé ! ");
       } catch (err) {
         console.log("------------- :)", err);
       }
     },
-
-
   },
 };
 </script>
@@ -102,15 +107,14 @@ auth.logout()
 
 
 <style scoped langue="scss">
-
 button.btn.btn-primary.btn-sm {
-    background-color: #506a96;
-    border-color: #0f2140;
-    width: 5pc;
+  background-color: #506a96;
+  border-color: #0f2140;
+  width: 5pc;
 }
 button.btn.btn-info {
-    background-color: #506a96;
-    border-color: #0f2140;
+  background-color: #506a96;
+  border-color: #0f2140;
 }
 .btn-light {
   color: #212529;

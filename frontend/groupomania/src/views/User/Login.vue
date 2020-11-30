@@ -38,18 +38,20 @@
           </div>
         </div>
 
-        <!-- <router-link :to="{ name: 'post', params: { res }}"> -->
-        <button type="submit" class="btn btn-primary" @Click.prevent="onSubmit">
+        <button
+          type="submit"
+          class="btn btn-primary"
+         
+          @Click.prevent="onSubmit"
+        >
           Login
         </button>
-        <!-- </router-link> -->
       </Form>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapState, mapActions } from "vuex";
 import { mapActions } from "vuex";
 import { Field, Form } from "vee-validate";
 import axios from "axios";
@@ -60,10 +62,8 @@ export default {
     Field,
     Form,
   },
-  name: "Login",
+  name: "Log_in",
   data() {
-    // console.log(data);
-
     return {
       email: "parker@gmail.com",
       password: "parker",
@@ -80,16 +80,19 @@ export default {
       return value ? true : "Password is required";
     },
     // ============================================================
-    
 
     ...mapActions({
       Login: "auth/Login",
     }),
+
+   
+
+   
     async onSubmit(onSubmit) {
       if (!this.email || !this.password) {
         return console.log("certains champs sont vide");
       }
-      console.log("onSubmit",onSubmit);
+      console.log("onSubmit", onSubmit);
 
       // =============================================
       const login = {
@@ -98,48 +101,53 @@ export default {
       };
       console.log(login);
 
-    /**
-     * response
-     *
-     * [response.error]      objet si l'utilisateur n'exhiste pas
-     * [response.message]    unqiuement en cas de succès : un message d'information
-     * [response.id]         unqiuement en cas de succès : l'id de l'utilsateur
-     * [response.jwt]        unqiuement en cas de succès : le jeton d'authentification
-     * [response.last_name]  unqiuement en cas de succès : le nom de l'utilsateur
-     * [response.first_name] unqiuement en cas de succès : le prénom de l'utilisateur
-     * [response.role]       unqiuement en cas de succès : 0 utilisateur 1 admin
-     *
-     */
+      /**
+       * response
+       *
+       * [response.error]      objet si l'utilisateur n'exhiste pas
+       * [response.message]    unqiuement en cas de succès : un message d'information
+       * [response.id]         unqiuement en cas de succès : l'id de l'utilsateur
+       * [response.jwt]        unqiuement en cas de succès : le jeton d'authentification
+       * [response.last_name]  unqiuement en cas de succès : le nom de l'utilsateur
+       * [response.first_name] unqiuement en cas de succès : le prénom de l'utilisateur
+       * [response.role]       unqiuement en cas de succès : 0 utilisateur 1 admin
+       *
+       */
 
+     
 
-try {
-      let response = await axios.post("/user/login", login,{headers: auth.addHeader()});
-      console.log('oooooooooooooo', response, auth);
-       auth.init(response.data);
+      try {
+        let response = await axios.post("/user/login", login, {
+          // headers: auth.addHeader(),
+        });
+        console.log("oooooooooooooo", response, auth);
+        auth.init(response.data);
         this.$router.replace({
           name: "Account",
           params: { message: response.succeed },
         });
-        alert(`Bravo ${response.data.first_name} ${response.data.last_name}!...  bienvenue sur Groupomania social network`);
+
+        
+        alert(
+          `Bravo ${response.data.first_name} ${response.data.last_name}!...  bienvenue sur Groupomania social network`
+        );
+
         console.log(" user connecté ! ");
-      } 
-      catch (err) {
-        console.log("------------- :)",err);
+      } catch (err) {
+        console.log("------------- :)", err);
         const code = parseInt(err.toString().slice(-3));
-        switch (code){
-          case 500 : 
-            alert("le serveur a rencontré une erreur")
+        switch (code) {
+          case 500:
+            alert("le serveur a rencontré une erreur");
             break;
-          case 401 : 
+          case 401:
             alert("utilisateur ou mot de passe incorrect");
             break;
-          default : 
-            alert("le serveur a rencontré une erreur imprévisible")
+          default:
+            alert("le serveur a rencontré une erreur imprévisible");
             break;
         }
       }
-
-     
     },
   },
 };

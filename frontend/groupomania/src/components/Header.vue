@@ -24,50 +24,65 @@
       <!-- =================================================================== -->
 
       <div class="router_link_user">
-        <!-- <router-link to="/User/Sign_up" >
-        <P v-if="isLogged()">{{ first_name }} </P>
-          
-        <p v-else> Sign up </P>
-        </router-link> -->
+        <div class="signup">
+          <router-link to="/User/Sign_up">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              v-if="islogged()"
+              @click="logout"
+            >
+              signup
+            </button>
+            <p v-else>
+              <strong> {{ first_name }} {{ last_name }}</strong>
+            </p>
+          </router-link>
+        </div>
 
-        <router-link to="/User/Sign_up">
-        <button type="button" class="btn btn-outline-primary" 
-        v-if="first_name === null"  
-        v-on:logout="$emit('logout', $event.target.signup)"
-        v-bind:logout="logout">signup</button>
-         
-        <p v-else> {{ first_name }} {{ last_name }}</p>
-      
-          
-        </router-link>
+        <div class="login">
+          <router-link to="/User/Login">
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              @login="message"
+              v-if="islogged()"
+            >
+              Login
+            </button>
+          </router-link>
+        </div>
 
-        
-      
-
-        <router-link to="/User/Login">
-       <button type="button" class="btn btn-outline-primary" v-if="first_name === null">Login</button>
-        </router-link>
-       <router-link to="/Home">
-       <button type="button" class="btn btn-outline-primary" v-if="first_name !== null"  @click="logout">Logout</button>
-         
-        </router-link>
-
-        <!-- <router-link to="/User/Login" v-if="isLogged()">
-        {{ last_name }}
-        </router-link> -->
-
-        <!-- <div v-if="!isLogged()">{{Login}}</div> 
-         <div v-if="isLogged()">{{ first_name }}</div> -->
+        <div class="logout">
+          <router-link
+            :to="{
+              name: 'Home',
+              params: {
+                first_name: this.first_name,
+                last_name: this.last_name,
+              },
+            }"
+          >
+            <!-- <router-link :to="/Home"> -->
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm"
+              @login="login"
+              v-if="islogged()"
+            >
+              Logout
+            </button>
+          </router-link>
+        </div>
       </div>
     </nav>
     <router-view />
-    <!-- ------------------------------------------------ -->
   </div>
 </template>
 
 
 <script>
-import auth from "../services/auth";
+// import auth from "../services/auth";
 
 export default {
   name: "Header",
@@ -77,6 +92,11 @@ export default {
       last_name: sessionStorage.getItem("last_name"),
     };
   },
+  // computed: {
+  //   logout(){
+  //     return this.$store.state.logout
+  //   }
+  // },
 
   props: {
     signup: {
@@ -85,26 +105,47 @@ export default {
     login: {
       type: String,
     },
-  },
-
-  methods: {
-    // isLogged: function () {
-    //   const first_name = sessionStorage.getItem("first_name");
-    //   const last_name = sessionStorage.getItem("last_name");
-
-    //   if (first_name !== undefined) return true;
-    //   if (last_name !== undefined) return true;
-    //   return false();
+    logged: {
+      type: Number,
+    },
+    // logout: {
+    //   type: String,
     // },
   },
 
-logout(){
-auth.logout()
-  
-  //  this.$emit("logout", this.$logout);
-  
-},
+  methods: {
+    islogged: function () {
+      console.log("----- this.first_name", this.first_name);
+      // if (this.logged === 0) return true;
+      // if (this.logged === -1) return false;
+      const first_name = sessionStorage.getItem("first_name");
+      const last_name = sessionStorage.getItem("last_name");
 
+      console.log(".......", first_name);
+
+      if (first_name !== undefined) return true;
+      if (last_name !== undefined) return true;
+
+      return false();
+    },
+
+    // message(payload) {
+// this.logged = payload.logged
+// if (this.logged === 0) return true;
+//       if (this.logged === -1) return false;
+
+      // this.$store.dispatch("logout");
+      // const first_name = sessionStorage.getItem("first_name");
+      // const last_name = sessionStorage.getItem("last_name");
+      // if (this.islogged !== undefined) return true;
+      // if (this.islogged !== undefined) return true;
+      // const first_name = sessionStorage.getItem("first_name");
+      //       if (first_name !== undefined) return  sessionStorage.clear();
+
+      // console.log("logout1...");
+      // this.$emit("logout", -1);
+  //   },
+  },
 };
 </script>
 
@@ -113,6 +154,9 @@ auth.logout()
 
 
 <style scoped lang="scss">
+strong {
+  font-size: 15px;
+}
 .router_link_user {
   display: flex;
   justify-content: space-between;

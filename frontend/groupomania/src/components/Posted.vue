@@ -5,29 +5,29 @@
         <img
           :src="getImage()"
           v-if="image !== null"
-          style="width: 35%"
+          style="width: 40%"
           alt="image post"
         />
       </div>
       <p v-if="image !== ''">{{ text }}</p>
-
     </div>
-    <!-- --------------- -->
-    
-
-    <!-- -------------------------------------- -->
-
 
     <div class="cont-cont" v-if="allowed()">
-<router-link :to="{ name: 'modifyPost', params: {id: this.id , text: this.text, image: this.image==null ? '-1' : this.image}}">
-   
-      <!-- <router-link to="/post/modifyPost/33"> -->
-        <button type="button" class="btn btn-primary btn-sm" >
-          edit
-        </button>
+      <router-link
+        :to="{
+          name: 'modifyPost',
+          params: {
+            
+            id: this.id,
+            text: this.text,
+            image: this.image == null ? '-1' : this.image,
+          },
+        }"
+      >
+        <button type="button" class="btn btn-primary btn-sm">edit</button>
       </router-link>
       &nbsp;
-     
+
       <button
         type="submit"
         class="btn btn-secondary btn-sm"
@@ -35,7 +35,6 @@
       >
         delete
       </button>
-      
     </div>
   </div>
 </template>
@@ -70,7 +69,6 @@ export default {
   },
 
   methods: {
-    
     getImage() {
       const images = require.context(
         "../assets/upload/",
@@ -80,10 +78,8 @@ export default {
       return images("./" + this.image);
     },
 
-   
-
     allowed() {
-      if (this.user_id == sessionStorage.getItem("id")) return true;
+      if (this.user_id == sessionStorage.getItem("user_id")) return true;
       if (sessionStorage.getItem("role") == 1) return true;
       return false;
     },
@@ -92,23 +88,20 @@ export default {
       try {
         let response = await axios.delete("post/auth/post/" + this.id, {
           headers: auth.addHeader(),
-        });console.log("tttttttttttttt", this.id);
+        });
+        console.log("tttttttttttttt", this.id);
         this.$router.go({
           name: "allPosts",
-          query: { view: "allPosts" },    
+          query: { view: "allPosts" },
         });
         console.log("delete", response, auth);
         // auth.init(response.data);
-        alert(`attention !... vôtre post va être supprimé ! `);       
+        alert(`attention !... vôtre post va être supprimé ! `);
       } catch (err) {
         console.log("------------- :)", err);
       }
     },
-
-
-
-
-  },  
+  },
 };
 </script>
 

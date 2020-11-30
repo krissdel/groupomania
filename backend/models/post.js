@@ -78,6 +78,9 @@ exports.getOnePost =  async function(id){
   return answer;
 }
 
+
+
+
 /**
  * met à jour une publication
  * @function
@@ -91,7 +94,7 @@ exports.modifyPost = async function(data) {
   const modifyPost = [
    data.text,
    data.image,
-   data.id
+   data.id_post
   ];
   const answer = await db.request(sql, modifyPost);
   return answer;

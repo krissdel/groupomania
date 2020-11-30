@@ -53,7 +53,7 @@
 <script>
 import axios from "axios";
 import Posted from "@/components/Posted.vue";
-// import auth from "../services/auth";
+import auth from "../../services/auth";
 
 export default {
   name: "allPosts",
@@ -62,36 +62,38 @@ export default {
       msg: "Posts",
       allPosts: null,
       allUserPosts: null,
-      
     };
-  
   },
 
-components: {
+  components: {
     Posted,
   },
-  
-
 
   created() {
     switch (this.$route.query.view) {
       case "allPosts": {
-        axios.get("/post/" ).then((res) => {
-          this.allPosts = res.data.data;
-          console.log("****", typeof res.data, res.data.data);
-          console.log("++++++++++++", this.allPosts);
-        });
+        var id = sessionStorage.getItem("user_id");
+        console.log("dddddd",id);
+        axios
+          .get("/post/", { params: { id }, headers: auth.addHeader()})
+
+          .then((res) => {
+            this.allPosts = res.data.data;
+
+            console.log("****", typeof res.data, res.data.data);
+            console.log("++++++++++++", this.allPosts);
+            //  auth.init(response);
+          });
         break;
       }
 
       case "allUserPosts": {
-       var user_id = sessionStorage.getItem("id");
+        var user_id = sessionStorage.getItem("user_id");
         axios.get("/post/" + user_id).then((res) => {
           this.allUserPosts = res.data.data;
           console.log("===========", typeof res.data, res.data.data);
           console.log("vvvvvvvvvvvv", this.allUserPosts);
           console.log("vvpppppvvvvvv", user_id);
-         
         });
       }
     }

@@ -17,7 +17,8 @@ exports.createPost = async (req, res) => {
       image: req.body.image,
       text: req.body.text,
       // date_creation: 
-    });console.log("iiiiiiiiiiii", req.protocol);
+    });
+    // console.log("iiiiiiiiiiii", req.protocol);
 
     if (answer.succeed) {
       console.log("controllerPost Fin--ok---------------------------")
@@ -77,8 +78,10 @@ exports.getAllUserPosts = async (req, res) => {
 // -----[modifier un post]----------------------------------------------------------------------------
 exports.modifyPost = async (req, res) => {
   try {
-    console.log(req.body);
+    console.log("req.body:",req.body);
     const answer = await post.modifyPost(req.body);
+// console.log("...reqbody...>", req.body);
+
     if (answer.succeed) {
       console.log("controller modifyPost Fin--ok---------------------------")
       res.status(201).json({ message: "vôtre post a été modifié !" });

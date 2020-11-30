@@ -3,7 +3,9 @@
 
   <div class="main">
     <div class="jumbotron jumbotron-fluid">
+      
       <div class="container">
+        
         <div class="home">
           <!-- <p class="card-text1">social network</p> -->
 

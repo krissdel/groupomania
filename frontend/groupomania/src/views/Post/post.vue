@@ -58,7 +58,6 @@
             <div class="form-group">
               <label for="text">texte</label>
               <input v-model="text" type="text" class="form-control" />
-              
             </div>
 
             <button type="submit" id="add" class="btn btn-primary2">
@@ -91,10 +90,8 @@ export default {
       addPost: "",
       add: "",
       post: "",
-     
     };
   },
- 
 
   methods: {
     onFileSelected(event) {
@@ -103,14 +100,14 @@ export default {
       resizeImage({ file: file, maxSize: 200 }).then((resizedImage) => {
         this.resizedImg = URL.createObjectURL(resizedImage);
       });
-      //  console.log("tatatatatatatataat", event.target.files[0] );
     },
 
     async createPost() {
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
         text: this.text,
-        id: sessionStorage.getItem("id"),
+        id: sessionStorage.getItem("user_id"),
+        id_post: this.id,
         idParent: 0,
       };
 
@@ -119,20 +116,12 @@ export default {
       try {
         let response = await axios.post("/post/", addPost, {
           headers: auth.addHeader(),
-      
-
-          onUploadProgress: (uploadEvent) => {
-            console.log(
-              "Upload Progress" +
-                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
-                "%"
-            );
-          },
         });
-        console.log('response', response);
-        // auth.init(response);
+
+        console.log("response", response);
         if (response.status !== 201) throw response.data.message;
         console.log("---- :) ", response);
+        // auth.init(response);
 
         this.$router.push({
           name: "allPosts",

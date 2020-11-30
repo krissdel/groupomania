@@ -1,7 +1,7 @@
 require("dotenv").config(); //charge les variables d'environnement à partir d'un .env fichier dans process.env
 const bcrypt = require('bcrypt');  //stock le mot de passe sécurisé sous forme de hash
-const jwt    = require('jsonwebtoken');  //crée et vérifie les TOKEN
-const user   = require('../models/user');
+const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
+const user = require('../models/user');
 
 // -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
@@ -25,6 +25,8 @@ exports.signup = async (req, res) => {
       password: hash,
       admin: 0
     });
+    console.log("rrrrrrrrr");
+
     if (answer.succeed) {
       const token = jwt.sign(
         { userId: answer.data.insertId },
@@ -33,17 +35,19 @@ exports.signup = async (req, res) => {
       );
       res.status(201).json({
         "first_name": req.body.first_name,
-        "id"        : answer.data.insertId,
-        "jwt"       : token,
-        "last_name" : req.body.last_name,
-        "role"      : 0,
-        "email"     : req.body.email,
-        "message"   : "Utilisateur créé !",
+        "user_id": answer.data.insertId,
+        "jwt": token,
+        "last_name": req.body.last_name,
+        "role": 0,
+        "email": req.body.email,
+        "message": "Utilisateur créé !",
 
       });
-    } throw("oulàlà c'est le drame");
+    }
+    else throw ("oulàlà c'est le drame");
   }
   catch (error) {
+    console.log(error);
     res.status(500).json({ error: error });
   }
 };
@@ -53,17 +57,17 @@ exports.login = async (req, res) => {
   try {
     const alreadyExist = await user.alreadyExist(req.body.email);
     if (!alreadyExist.data.length > 0) {
-      throw("utilisateur n'existe pas !");
+      throw ("utilisateur n'existe pas !");
     }
     if (alreadyExist.succeed) {
       const token = jwt.sign(
         { userId: alreadyExist.data[0].id },
         process.env.JWT_KEY,
         { expiresIn: "24h" },
-      );      
-      return res.status(200).json({ 
+      );
+      return res.status(200).json({
         "first_name": alreadyExist.data[0].first_name,
-        "id"        : alreadyExist.data[0].id,
+        "user_id"   : alreadyExist.data[0].id,
         "jwt"       : token,
         "last_name" : alreadyExist.data[0].last_name,
         "role"      : alreadyExist.data[0].role,

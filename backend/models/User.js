@@ -35,8 +35,6 @@ exports.login =  async function (email){
 
 
 
-
-
 exports.delete =  async function (email){
   const sql = "DELETE FROM `user` WHERE `user`.`id` = ?";
   const answer = await db.request(sql, [email]);

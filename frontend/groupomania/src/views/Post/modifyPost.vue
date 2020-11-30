@@ -105,7 +105,7 @@ export default {
     },
 
     image: {
-      validator: prop => typeof prop === 'string' || prop === null
+      validator: (prop) => typeof prop === "string" || prop === null,
     },
     text: {
       type: String,
@@ -138,9 +138,7 @@ export default {
   async created() {
     try {
       console.log("created().........");
-      let response = await axios.get("post/post/" + this.id, {
-        headers: auth.addHeader(),
-      });
+      let response = await axios.get("post/post/" + this.id, {});
       console.log("===========", typeof response.data, response.data.data[0]);
       console.log("^^^^^^^^^^^", this.id);
       // auth.init(response);
@@ -151,23 +149,15 @@ export default {
 
   methods: {
     getImage: function () {
-      console.log("----image", "|"+this.image+"|", typeof this.image)
+      console.log("----image", "|" + this.image + "|", typeof this.image);
       const images = require.context(
         "../../assets/upload/",
         false,
         /\.(png|jpe?g|svg|webp)$/
       );
-
+      //-----[si aucune image n'a été posté, affichage --> no-image-available]----------
       if (isNaN(Number(this.image))) return images("./" + this.image);
-      // this.images = 'null';
-      return  images("./no-image-available.jpg");
-
-      // if (this.images === undefined) {
-      //   return images("./" + this.image);
-      // }
-      // // if (this.images === undefined) {
-      // else return images("./no-image-available.jpg");
-      // // }
+      return images("./no-image-available.jpg");
     },
 
     onFileSelected(event) {
@@ -176,21 +166,25 @@ export default {
       resizeImage({ file: file, maxSize: 200 }).then((resizedImage) => {
         this.resizedImg = URL.createObjectURL(resizedImage);
       });
-      //  console.log("tatatatatatatataat", event.target.files[0] );
     },
 
     async createPost() {
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
         text: this.nouveauTexte,
-        id: this.id,
+        id: sessionStorage.getItem("user_id"),
+        id_post: this.id,
       };
       console.log("-----------", addPost);
+      console.log("bbbbb...this.id", this.id);
 
       try {
+       var id = sessionStorage.getItem("user_id");
         let response = await axios.put("/post/" + this.id, addPost, {
-          // headers: auth.addHeader(),
+          params: { id },
+          headers: auth.addHeader(),
         });
+
         // auth.init(response);
         if (response.status !== 201) throw response.data.message;
         console.log("-put --- :) ", response);

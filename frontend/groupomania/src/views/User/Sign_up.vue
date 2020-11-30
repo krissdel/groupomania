@@ -80,7 +80,7 @@
             <button
               class="btn btn-primary"
               type="submit"
-              
+             
               @click.prevent="creatUser"
             >
               Sign up
@@ -149,8 +149,9 @@ export default {
       console.log(register);
 
       try {
-        let response = await axios.post("user/sign_up", register);
-        // console.clear();
+        let response = await axios.post("user/sign_up", register,  {
+          headers: auth.addHeader(),
+        });
         console.log(response)
         auth.init(response.data);
         this.$router.replace({
@@ -162,6 +163,8 @@ export default {
         console.log("succeed");
       } catch (err) {
         this.error = err.response.data.error;
+                alert(`l'utilisateur existe déjà`);
+
       }
     },
   },
