@@ -17,9 +17,11 @@
         </router-link>
       </div>
     </div>
+    <!-- ------------------------------------------------- -->
+
     <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
-        <div class="card" style="width: 18rem">
+        <div class="card" style="width: 35rem">
           <div class="card1" style="width: auto">
             <div class="card-body">
               <label for="image"></label>
@@ -35,17 +37,12 @@
                     id="image"
                   />
 
-                  <div class="button">
-                    <button
-                      type="button"
-                      class="btn btn-primary1"
-                      @click="$refs.fileInput.click()"
-                    >
-                      {{ resizedImg ? "Replace" : "pick image" }}
-                    </button>
-                  </div>
-                  <div id="preview">
-                    <img v-if="resizedImg" :src="resizedImg" />
+                  <div class="image">
+                    <img
+                      :src="getImage()"
+                      style="width: 55%"
+                      alt="image post"
+                    />
                   </div>
                 </div>
               </div>
@@ -56,12 +53,36 @@
 
           <div class="card-body">
             <div class="form-group">
-              <label for="text">texte</label>
-              <input v-model="text" type="text" class="form-control" />
+              <div class="card">
+                <div class="card-body-text">
+                  <p v-if="text !== ''">{{ this.text }}</p>
+                </div>
+              </div>
+
+              <!-- -----[reply section]----------------------------------------------- -->
+              <div id="preview">
+                <img v-if="resizedImg" :src="resizedImg" />
+              </div>
+              <div class="button">
+                <button
+                  type="button"
+                  class="btn btn-primary1"
+                  @click="$refs.fileInput.click()"
+                >
+                  {{ resizedImg ? "Replace" : "pick image" }}
+                </button>
+              </div>
+
+              <input
+                type="text"
+                placeholder=" text"
+                class="form-control"
+                v-model="nouveauTexte"
+              />
             </div>
 
             <button type="submit" id="add" class="btn btn-primary2">
-              Add post
+              reply
             </button>
           </div>
         </div>
@@ -78,22 +99,69 @@ import resizeImage from "@/plugins/image-resize.js";
 import auth from "../../services/auth";
 
 export default {
-  name: "post",
+  name: "reply",
 
+  props: {
+    id: {
+      type: String,
+    },
+
+    image: {
+      validator: (prop) => typeof prop === "string" || prop === null,
+    },
+    text: {
+      type: String,
+    },
+    user_id: {
+      type: Number,
+    },
+    refs: {
+      type: Number,
+    },
+    images: {
+      type: String,
+    },
+  },
   data() {
     return {
-      msg: "Please!.. Add post",
-      selecteFile: null,
+      reply: null,
+
+      msg: "reply!.. ",
+      selecteFile: "",
       resizedImg: "",
-      file: "",
-      text: "",
       addPost: "",
       add: "",
+      file: "",
       post: "",
+        nouveauTexte: "",
     };
   },
 
+  async created() {
+    try {
+      console.log("created().........");
+      let response = await axios.get("post/post/" + this.id, {});
+      console.log("===========", typeof response.data, response.data.data[0]);
+      console.log("^^^^^^^^^^^", this.id);
+      // auth.init(response);
+    } catch (err) {
+      console.log("---------- :(", err);
+    }
+  },
+
   methods: {
+    getImage: function () {
+      console.log("----image", "|" + this.image + "|", typeof this.image);
+      const images = require.context(
+        "../../assets/upload/",
+        false,
+        /\.(png|jpe?g|svg|webp)$/
+      );
+      //-----[si aucune image n'a été posté, affichage --> no-image-available]----------
+      if (isNaN(Number(this.image))) return images("./" + this.image);
+      return images("./no-image-available.jpg");
+    },
+
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       const file = event.target.files[0];
@@ -105,28 +173,31 @@ export default {
     async createPost() {
       const addPost = {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
-        text: this.text,
+        text: this.nouveauTexte,
         id: sessionStorage.getItem("user_id"),
         id_post: this.id,
-        idParent: 0,
+        idParent: this.refs,
       };
-console.log("refs;;;;;;;;;;;;", addPost)
-      
 
       try {
-        let response = await axios.post("/post/", addPost, {
+        var id = sessionStorage.getItem("user_id");
+        // let response = await axios.post("/post/", addPost, {
+        //           headers: auth.addHeader(),
+        //         });
+
+        let response = await axios.post("/post/" + this.id, addPost, {
+          params: { id },
           headers: auth.addHeader(),
         });
 
-        console.log("response", response);
         if (response.status !== 201) throw response.data.message;
-        console.log("---- :) ", response);
-        
+        console.log("-put --- :) ", response);
 
         this.$router.push({
           name: "allPosts",
           query: { view: "allPosts" },
         });
+        alert(`attention !... vôtre post va être modifié ! `);
       } catch (err) {
         if (typeof err === "string") this.error = err;
         else this.error = err.response;
@@ -139,6 +210,13 @@ console.log("refs;;;;;;;;;;;;", addPost)
 
 
 <style scoped langue="scss">
+input.form-control {
+  margin-top: 20px;
+}
+.card-body-text {
+  background-color: #f2f2f2;
+}
+
 button.btn.btn-primary.btn-sm {
   background-color: #506a96;
   border-color: #0f2140;

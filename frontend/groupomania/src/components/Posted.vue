@@ -10,6 +10,7 @@
         />
       </div>
       <p v-if="image !== ''">{{ text }}</p>
+      <p>{{ this.showDate() }}</p>
     </div>
 
     <div class="cont-cont" v-if="allowed()">
@@ -17,7 +18,6 @@
         :to="{
           name: 'modifyPost',
           params: {
-            
             id: this.id,
             text: this.text,
             image: this.image == null ? '-1' : this.image,
@@ -26,6 +26,7 @@
       >
         <button type="button" class="btn btn-primary btn-sm">edit</button>
       </router-link>
+
       &nbsp;
 
       <button
@@ -36,6 +37,25 @@
         delete
       </button>
     </div>
+<div class="cont-cont" v-if="reply()">
+ <router-link
+        :to="{
+          name: 'reply',
+          params: {
+            id: this.id,
+            text: this.text,
+            image: this.image == null ? '-1' : this.image,
+            refs: this.refs,
+          },
+        }"
+      >
+    
+    <button type="button" class="btn btn-primary btn-sm">reply</button>
+    
+</router-link>
+</div>
+
+
   </div>
 </template>
 
@@ -66,9 +86,33 @@ export default {
     refs: {
       type: Number,
     },
+    date: {
+      type: String,
+    },
   },
 
   methods: {
+    showDate() {
+      if (this.date === null) return "";
+      const date = this.date.split("-");
+      const mois = [
+        "",
+        "janvier",
+        "fevrier",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "aout",
+        "septembre",
+        "octobre",
+        "novembre",
+        "decembre",
+      ];
+      return date[2].slice(0, 2) + " " + mois[date[1]] + " " + date[0];
+    },
+
     getImage() {
       const images = require.context(
         "../assets/upload/",
@@ -84,18 +128,21 @@ export default {
       return false;
     },
 
+    reply() {
+      if (this.user_id == sessionStorage.getItem("user_id")) return false;
+      return true;
+    },
+
     async deletePost() {
       try {
         let response = await axios.delete("post/auth/post/" + this.id, {
           headers: auth.addHeader(),
         });
-        console.log("tttttttttttttt", this.id);
         this.$router.go({
           name: "allPosts",
           query: { view: "allPosts" },
         });
         console.log("delete", response, auth);
-        // auth.init(response.data);
         alert(`attention !... vôtre post va être supprimé ! `);
       } catch (err) {
         console.log("------------- :)", err);

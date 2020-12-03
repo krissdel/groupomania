@@ -2,7 +2,6 @@ const express = require ('express');
 const userCtrl = require('../controllers/user');
 const auth = require('../middleware/auth');
 const router = express.Router();
-// const multer = require ('../middleware/multer');
 
 
 router.post('/sign_up',   userCtrl.signup); // crée nouvel utilisateur

@@ -80,6 +80,12 @@ const routes = [
     props: (route) => (route.params)  
   },
 
+  {
+    path: '/Post/reply/:id',
+    name: 'reply',
+    component: () => import('../views/Post/reply.vue'),
+    props: (route) => (route.params)  
+  },
   
 
 

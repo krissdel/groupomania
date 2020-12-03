@@ -95,6 +95,7 @@ export default {
         });
         alert(` Attention!... Vôtre compte va être supprimé`);
         console.log(" user supprimé ! ");
+        sessionStorage.clear();
       } catch (err) {
         console.log("------------- :)", err);
       }

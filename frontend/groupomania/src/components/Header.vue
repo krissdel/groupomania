@@ -23,14 +23,17 @@
 
       <!-- =================================================================== -->
 
+
+
+<!-- ============================================================ -->
       <div class="router_link_user">
         <div class="signup">
           <router-link to="/User/Sign_up">
             <button
               type="button"
               class="btn btn-outline-primary btn-sm"
-              v-if="islogged()"
-              @click="logout"
+              v-if="!islogged()"
+              
             >
               signup
             </button>
@@ -45,8 +48,8 @@
             <button
               type="button"
               class="btn btn-outline-primary btn-sm"
-              @login="message"
-              v-if="islogged()"
+              
+              v-if="!islogged()"
             >
               Login
             </button>
@@ -63,11 +66,10 @@
               },
             }"
           >
-            <!-- <router-link :to="/Home"> -->
             <button
               type="button"
               class="btn btn-outline-primary btn-sm"
-              @login="login"
+             
               v-if="islogged()"
             >
               Logout
@@ -82,7 +84,6 @@
 
 
 <script>
-// import auth from "../services/auth";
 
 export default {
   name: "Header",
@@ -92,11 +93,7 @@ export default {
       last_name: sessionStorage.getItem("last_name"),
     };
   },
-  // computed: {
-  //   logout(){
-  //     return this.$store.state.logout
-  //   }
-  // },
+
 
   props: {
     signup: {
@@ -105,17 +102,38 @@ export default {
     login: {
       type: String,
     },
-    logged: {
+    logout: {
+      type:String,
+    },
+    test: {
       type: Number,
     },
+    // logged: {
+    //   type: Number,
+    // },
     // logout: {
     //   type: String,
     // },
   },
 
   methods: {
+
+
+
+
+
+
+
+
+
+
     islogged: function () {
-      console.log("----- this.first_name", this.first_name);
+console.log(this.test);
+      if(this.test === 0) return true;
+      if(this.test === -1) return false;
+
+
+      // console.log("----- this.first_name", this.first_name);
       // if (this.logged === 0) return true;
       // if (this.logged === -1) return false;
       const first_name = sessionStorage.getItem("first_name");

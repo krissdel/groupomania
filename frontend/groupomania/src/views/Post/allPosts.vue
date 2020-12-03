@@ -28,6 +28,7 @@
             v-bind:id="data.id"
             v-bind:user_id="data.user_id"
             v-bind:refs="data.refs"
+            v-bind:date="data.date_creation"
           >
           </Posted>
         </div>
@@ -40,6 +41,7 @@
             v-bind:id="data.id"
             v-bind:user_id="data.user_id"
             v-bind:refs="data.refs"
+            v-bind:date="data.date_creation"
           >
           </Posted>
         </div>
@@ -73,9 +75,9 @@ export default {
     switch (this.$route.query.view) {
       case "allPosts": {
         var id = sessionStorage.getItem("user_id");
-        console.log("dddddd",id);
+        console.log("dddddd", id);
         axios
-          .get("/post/", { params: { id }, headers: auth.addHeader()})
+          .get("/post/", { params: { id }, headers: auth.addHeader() })
 
           .then((res) => {
             this.allPosts = res.data.data;
@@ -104,6 +106,8 @@ export default {
 
 
 <style scoped langue="scss">
+
+
 .msg {
   font-size: 30px;
 }
@@ -117,7 +121,7 @@ button.btn.btn-primary.btn-sm {
   text-align: end;
 }
 .card {
-  height: 14pc;
+  height: 20pc;
   color: blue;
 }
 

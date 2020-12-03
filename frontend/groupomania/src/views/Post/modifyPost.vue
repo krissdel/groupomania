@@ -175,8 +175,7 @@ export default {
         id: sessionStorage.getItem("user_id"),
         id_post: this.id,
       };
-      console.log("-----------", addPost);
-      console.log("bbbbb...this.id", this.id);
+     
 
       try {
        var id = sessionStorage.getItem("user_id");
@@ -185,7 +184,6 @@ export default {
           headers: auth.addHeader(),
         });
 
-        // auth.init(response);
         if (response.status !== 201) throw response.data.message;
         console.log("-put --- :) ", response);
 

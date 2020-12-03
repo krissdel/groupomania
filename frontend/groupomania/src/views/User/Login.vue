@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
 import { Field, Form } from "vee-validate";
 import axios from "axios";
 import auth from "../../services/auth";
@@ -81,9 +81,9 @@ export default {
     },
     // ============================================================
 
-    ...mapActions({
-      Login: "auth/Login",
-    }),
+    // ...mapActions({
+    //   Login: "auth/Login",
+    // }),
 
    
 
