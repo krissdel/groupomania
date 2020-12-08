@@ -17,8 +17,8 @@
         </router-link>
       </div>
 
-      <!-- ---------------------------------------------------- -->
-      <div class="container">
+      <!-----[affichage de tous les posts initiaux]-- ---------------------------------------------------- -->
+      <div class="container" v-if="comments()">
         <div class="container-posts" v-if="allPosts !== null">
           <Posted
             v-for="(data, index) in allPosts.reverse()"
@@ -29,9 +29,13 @@
             v-bind:user_id="data.user_id"
             v-bind:refs="data.refs"
             v-bind:date="data.date_creation"
+            v-bind:commentsQty="data.commentsQty"
           >
           </Posted>
         </div>
+
+        <!-----[affichage de tous les posts utilisateur]-- ---------------------------------------------------- -->
+
         <div class="container-posts" v-if="allUserPosts !== null">
           <Posted
             v-for="(data, index) in allUserPosts.reverse()"
@@ -71,6 +75,13 @@ export default {
     Posted,
   },
 
+  methods: {
+    comments() {
+      var refs = sessionStorage.getItem("refs");
+      if (refs === null) return true;
+    },
+  },
+
   created() {
     switch (this.$route.query.view) {
       case "allPosts": {
@@ -84,7 +95,6 @@ export default {
 
             console.log("****", typeof res.data, res.data.data);
             console.log("++++++++++++", this.allPosts);
-            //  auth.init(response);
           });
         break;
       }
@@ -106,8 +116,6 @@ export default {
 
 
 <style scoped langue="scss">
-
-
 .msg {
   font-size: 30px;
 }
@@ -125,10 +133,6 @@ button.btn.btn-primary.btn-sm {
   color: blue;
 }
 
-/* .card {
-  width: 18rem;
-  height: 18pc;
-} */
 .msg {
   text-align: center;
 }

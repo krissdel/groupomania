@@ -20,7 +20,7 @@ exports.createPost = async function(data) {
 // -------------------------------------------------------
 
   exports.getAllPosts =  async function(data){
-    const sql = "SELECT * from post ";
+    const sql = "SELECT * from `post` WHERE `refs` = 0 ";    
     const getAllPosts = 
     [
       data
@@ -97,5 +97,23 @@ exports.modifyPost = async function(data) {
    data.id_post
   ];
   const answer = await db.request(sql, modifyPost);
+  return answer;
+}
+
+exports.getCommentsPosts = async function(data) {
+  const sql = "SELECT * from `post` WHERE  `refs` = ? ";
+    
+  const getCommentsPosts = [
+   data
+  ];
+  const answer = await db.request(sql, getCommentsPosts);
+  console.log("getCommentsPosts", answer);
+      console.log('voiçi tous les commentaires');
+  return answer;
+}
+
+exports.getCommentsQty = async function(idPost){
+  const sql = "SELECT COUNT(id) FROM `post` WHERE `refs` = ? ";
+  const answer = await db.request(sql, [idPost]);
   return answer;
 }

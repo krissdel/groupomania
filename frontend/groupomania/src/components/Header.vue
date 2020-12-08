@@ -1,17 +1,7 @@
 <template>
   <div class="Header">
     <nav class="navbar navbar-light bg-dark">
-      <a class="navbar-brand" href="#">
-        <router-link :to="{ name: 'Home' }">
-          <img
-            class="img"
-            src="@/assets/icon_glob.png"
-            width="30"
-            height="30"
-            alt="glob_logo"
-          />
-        </router-link>
-      </a>
+      <div class="logo">
       <a class="logo_white" href="#">
         <router-link :to="{ name: 'Home' }">
           <img
@@ -20,62 +10,6 @@
           />
         </router-link>
       </a>
-
-      <!-- =================================================================== -->
-
-
-
-<!-- ============================================================ -->
-      <div class="router_link_user">
-        <div class="signup">
-          <router-link to="/User/Sign_up">
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm"
-              v-if="!islogged()"
-              
-            >
-              signup
-            </button>
-            <p v-else>
-              <strong> {{ first_name }} {{ last_name }}</strong>
-            </p>
-          </router-link>
-        </div>
-
-        <div class="login">
-          <router-link to="/User/Login">
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm"
-              
-              v-if="!islogged()"
-            >
-              Login
-            </button>
-          </router-link>
-        </div>
-
-        <div class="logout">
-          <router-link
-            :to="{
-              name: 'Home',
-              params: {
-                first_name: this.first_name,
-                last_name: this.last_name,
-              },
-            }"
-          >
-            <button
-              type="button"
-              class="btn btn-outline-primary btn-sm"
-             
-              v-if="islogged()"
-            >
-              Logout
-            </button>
-          </router-link>
-        </div>
       </div>
     </nav>
     <router-view />
@@ -84,86 +18,8 @@
 
 
 <script>
-
 export default {
   name: "Header",
-  data: function () {
-    return {
-      first_name: sessionStorage.getItem("first_name"),
-      last_name: sessionStorage.getItem("last_name"),
-    };
-  },
-
-
-  props: {
-    signup: {
-      type: String,
-    },
-    login: {
-      type: String,
-    },
-    logout: {
-      type:String,
-    },
-    test: {
-      type: Number,
-    },
-    // logged: {
-    //   type: Number,
-    // },
-    // logout: {
-    //   type: String,
-    // },
-  },
-
-  methods: {
-
-
-
-
-
-
-
-
-
-
-    islogged: function () {
-console.log(this.test);
-      if(this.test === 0) return true;
-      if(this.test === -1) return false;
-
-
-      // console.log("----- this.first_name", this.first_name);
-      // if (this.logged === 0) return true;
-      // if (this.logged === -1) return false;
-      const first_name = sessionStorage.getItem("first_name");
-      const last_name = sessionStorage.getItem("last_name");
-
-      console.log(".......", first_name);
-
-      if (first_name !== undefined) return true;
-      if (last_name !== undefined) return true;
-
-      return false();
-    },
-
-    // message(payload) {
-// this.logged = payload.logged
-// if (this.logged === 0) return true;
-//       if (this.logged === -1) return false;
-
-      // this.$store.dispatch("logout");
-      // const first_name = sessionStorage.getItem("first_name");
-      // const last_name = sessionStorage.getItem("last_name");
-      // if (this.islogged !== undefined) return true;
-      // if (this.islogged !== undefined) return true;
-      // const first_name = sessionStorage.getItem("first_name");
-      //       if (first_name !== undefined) return  sessionStorage.clear();
-
-      // console.log("logout1...");
-      // this.$emit("logout", -1);
-  //   },
-  },
 };
 </script>
 
@@ -227,6 +83,4 @@ button.btn.btn-outline-primary {
 a {
   color: white;
 }
-
-/* ============================================= */
 </style>

@@ -17,11 +17,11 @@
         </router-link>
       </div>
     </div>
-    <!-- ------------------------------------------------- -->
-
+    <!-----[section formulaire pour modifier un post]---------------------------------------------------->
     <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
         <div class="card" style="width: 18rem">
+          <!-- --------[section image]------------------------------------>
           <div class="card1" style="width: auto">
             <div class="card-body">
               <label for="image"></label>
@@ -36,7 +36,6 @@
                     ref="fileInput"
                     id="image"
                   />
-
                   <div class="image">
                     <img
                       :src="getImage()"
@@ -60,9 +59,7 @@
               </div>
             </div>
           </div>
-
           <!-- --------[section text]------------------------------------>
-
           <div class="card-body">
             <div class="form-group">
               <div class="card">
@@ -78,7 +75,6 @@
                 v-model="nouveauTexte"
               />
             </div>
-
             <button type="submit" id="add" class="btn btn-primary2">
               Add post
             </button>
@@ -141,7 +137,6 @@ export default {
       let response = await axios.get("post/post/" + this.id, {});
       console.log("===========", typeof response.data, response.data.data[0]);
       console.log("^^^^^^^^^^^", this.id);
-      // auth.init(response);
     } catch (err) {
       console.log("---------- :(", err);
     }
@@ -175,10 +170,9 @@ export default {
         id: sessionStorage.getItem("user_id"),
         id_post: this.id,
       };
-     
 
       try {
-       var id = sessionStorage.getItem("user_id");
+        var id = sessionStorage.getItem("user_id");
         let response = await axios.put("/post/" + this.id, addPost, {
           params: { id },
           headers: auth.addHeader(),
@@ -186,7 +180,6 @@ export default {
 
         if (response.status !== 201) throw response.data.message;
         console.log("-put --- :) ", response);
-
         this.$router.push({
           name: "allPosts",
           query: { view: "allPosts" },

@@ -7,11 +7,9 @@
       <h5 class="card-title">adresse :</h5>
       <p class="card-text">
         Groupomania <br />
-        12 place Sathonay 69001 Lyon<br/>
-        contact@groupomania.com 
+        12 place Sathonay 69001 Lyon<br />
+        contact@groupomania.com
       </p>
-
-      <!-- <a href="#" class="btn btn-primary">Go</a> -->
     </div>
   </div>
 </template>
@@ -24,3 +22,15 @@ export default {
   name: "Footer",
 };
 </script>
+
+
+<style scoped lang="scss">
+.card-body {
+  text-align: center;
+  background-color: #1b325b;
+  color: white;
+}
+.card {
+  border-color: #1b325b;
+}
+</style>

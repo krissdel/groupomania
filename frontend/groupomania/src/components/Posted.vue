@@ -12,6 +12,7 @@
       <p v-if="image !== ''">{{ text }}</p>
       <p>{{ this.showDate() }}</p>
     </div>
+    <!-- -----[ bouton pour modifier un post]--------------------------------------------------------------------------- -->
 
     <div class="cont-cont" v-if="allowed()">
       <router-link
@@ -24,11 +25,10 @@
           },
         }"
       >
-        <button type="button" class="btn btn-primary btn-sm">edit</button>
+        <button type="button" class="btn btn-primary btn-sm">modify</button>
       </router-link>
 
-      &nbsp;
-
+      <!-- -----[ bouton pour effacer un post]--------------------------------------------------------------------------- -->
       <button
         type="submit"
         class="btn btn-secondary btn-sm"
@@ -37,8 +37,11 @@
         delete
       </button>
     </div>
-<div class="cont-cont" v-if="reply()">
- <router-link
+
+    <!-- -----[ bouton pour repondre a un post]--------------------------------------------------------------------------- -->
+
+    <div class="cont-cont" v-if="reply()">
+      <router-link
         :to="{
           name: 'reply',
           params: {
@@ -49,18 +52,31 @@
           },
         }"
       >
-    
-    <button type="button" class="btn btn-primary btn-sm">reply</button>
-    
-</router-link>
-</div>
+        <button type="button" class="btn btn-primary btn-sm">reply</button>
+      </router-link>
+    </div>
 
+    <!-- -----[ bouton pour afficher les commentaires en suivi de reponse post]--------------------------------------------------------------------------- -->
 
+    <div class="cont-cont">
+      <router-link
+        :to="{
+          name: 'comments',
+          params: {
+            id: this.id,
+            text: this.text,
+            image: this.image == null ? '-1' : this.image,
+            refs: this.refs,
+          },
+        }"
+      >
+        <div class="comments" v-if="hasComments()">
+          <span class="badge badge-primary" @click="seeComments">comment{{this.commentPluriel()}} ({{commentsQty}})</span>
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
-
-
-
 
 <script>
 import axios from "axios";
@@ -69,7 +85,7 @@ import auth from "../services/auth";
 export default {
   name: "Posted",
   text: "",
-
+  comments: 0,
   props: {
     image: {
       type: String,
@@ -89,9 +105,23 @@ export default {
     date: {
       type: String,
     },
+    commentsQty: {
+      type: Number,
+    },
   },
 
   methods: {
+    seeComments() {
+      sessionStorage.setItem("refs", this.id);
+    },
+    hasComments(){
+      if (this.commentsQty > 0) return true;
+      return false;
+    },
+    commentPluriel(){
+      if (this.commentsQty > 1) return "s";
+      return "";
+    },
     showDate() {
       if (this.date === null) return "";
       const date = this.date.split("-");
@@ -154,6 +184,9 @@ export default {
 
 
 <style scoped lang="scss">
+.comments {
+  text-align: end;
+}
 button.btn.btn-primary.btn-sm {
   width: 5pc;
   background-color: #506a96;
@@ -186,5 +219,6 @@ p {
 .card {
   height: 13pc;
   color: blue;
+  display: block;
 }
 </style>

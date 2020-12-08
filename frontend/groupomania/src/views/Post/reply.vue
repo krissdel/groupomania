@@ -8,8 +8,6 @@
             all Posts
           </button>
         </router-link>
-        <br />
-        <br />
         <router-link to="/user/account">
           <button type="button" class="btn btn-primary btn-sm">
             Back to account
@@ -17,11 +15,11 @@
         </router-link>
       </div>
     </div>
-    <!-- ------------------------------------------------- -->
-
+    <!-----[section formulaire pour repondre a un post]---------------------------------------------------->
     <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
         <div class="card" style="width: 35rem">
+          <!-----[section image]---------------------------------------------------->
           <div class="card1" style="width: auto">
             <div class="card-body">
               <label for="image"></label>
@@ -40,7 +38,7 @@
                   <div class="image">
                     <img
                       :src="getImage()"
-                      style="width: 55%"
+                      style="width: 40%"
                       alt="image post"
                     />
                   </div>
@@ -48,9 +46,7 @@
               </div>
             </div>
           </div>
-
-          <!-- --------[section text]------------------------------------>
-
+          <!----------[section text]------------------------------------>
           <div class="card-body">
             <div class="form-group">
               <div class="card">
@@ -58,8 +54,7 @@
                   <p v-if="text !== ''">{{ this.text }}</p>
                 </div>
               </div>
-
-              <!-- -----[reply section]----------------------------------------------- -->
+              <!-------[reply section]----------------------------------------------- -->
               <div id="preview">
                 <img v-if="resizedImg" :src="resizedImg" />
               </div>
@@ -72,7 +67,6 @@
                   {{ resizedImg ? "Replace" : "pick image" }}
                 </button>
               </div>
-
               <input
                 type="text"
                 placeholder=" text"
@@ -80,7 +74,6 @@
                 v-model="nouveauTexte"
               />
             </div>
-
             <button type="submit" id="add" class="btn btn-primary2">
               reply
             </button>
@@ -133,17 +126,16 @@ export default {
       add: "",
       file: "",
       post: "",
-        nouveauTexte: "",
+      nouveauTexte: "",
     };
   },
-
+  // -----[recuperatiion des posts créer]-----------------------------------------
   async created() {
     try {
       console.log("created().........");
       let response = await axios.get("post/post/" + this.id, {});
       console.log("===========", typeof response.data, response.data.data[0]);
       console.log("^^^^^^^^^^^", this.id);
-      // auth.init(response);
     } catch (err) {
       console.log("---------- :(", err);
     }
@@ -175,29 +167,23 @@ export default {
         image: this.selectedFile !== undefined ? this.selectedFile.name : null,
         text: this.nouveauTexte,
         id: sessionStorage.getItem("user_id"),
-        id_post: this.id,
-        idParent: this.refs,
+        idParent: this.id,
       };
 
       try {
         var id = sessionStorage.getItem("user_id");
-        // let response = await axios.post("/post/", addPost, {
-        //           headers: auth.addHeader(),
-        //         });
-
-        let response = await axios.post("/post/" + this.id, addPost, {
+        let response = await axios.post("/post/", addPost, {
           params: { id },
           headers: auth.addHeader(),
         });
-
+        auth.init(response.data);
         if (response.status !== 201) throw response.data.message;
         console.log("-put --- :) ", response);
 
         this.$router.push({
-          name: "allPosts",
-          query: { view: "allPosts" },
+          name: "comments",
         });
-        alert(`attention !... vôtre post va être modifié ! `);
+        alert(`vous allez envoyer une réponse  ! `);
       } catch (err) {
         if (typeof err === "string") this.error = err;
         else this.error = err.response;

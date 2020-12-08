@@ -17,9 +17,11 @@
         </router-link>
       </div>
     </div>
+    <!-----[section formulaire pour créer un post]---------------------------------------------------->
     <form @submit.prevent="createPost" for="post" id="post">
       <div class="container">
         <div class="card" style="width: 18rem">
+          <!-- --------[section image]------------------------------------>
           <div class="card1" style="width: auto">
             <div class="card-body">
               <label for="image"></label>
@@ -34,7 +36,6 @@
                     ref="fileInput"
                     id="image"
                   />
-
                   <div class="button">
                     <button
                       type="button"
@@ -51,15 +52,12 @@
               </div>
             </div>
           </div>
-
           <!-- --------[section text]------------------------------------>
-
           <div class="card-body">
             <div class="form-group">
               <label for="text">texte</label>
               <input v-model="text" type="text" class="form-control" />
             </div>
-
             <button type="submit" id="add" class="btn btn-primary2">
               Add post
             </button>
@@ -110,19 +108,13 @@ export default {
         id_post: this.id,
         idParent: 0,
       };
-console.log("refs;;;;;;;;;;;;", addPost)
-      
-
       try {
         let response = await axios.post("/post/", addPost, {
           headers: auth.addHeader(),
         });
-
         console.log("response", response);
         if (response.status !== 201) throw response.data.message;
         console.log("---- :) ", response);
-        
-
         this.$router.push({
           name: "allPosts",
           query: { view: "allPosts" },

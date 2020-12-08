@@ -1,58 +1,62 @@
 <template>
-  <div class="container">
-    <h1 class="text-center">Login</h1>
-
-    <div class="container_container">
-      <!-- @onsubmit.prevent="onSubmit()" -->
-      <Form v-slot="{ errors }" class="login">
-        <div class="form-group row">
-          <label for="email" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <Field
-              name="email"
-              as="input"
-              :rules="isRequiredEmail"
-              type="email"
-              class="form-control"
-              id="email"
-              v-model="email"
-              ref="email"
-            />
-            <span>{{ errors.email }}</span>
+  <div class="section">    
+    <div class="container">
+      <h1 class="text-center">Login</h1>
+      <div class="title-signup">
+            <router-link to="/Home">
+              <h5 class="text-center">Sign up</h5>
+            </router-link>
+      </div>
+      <div class="container_container">
+        <Form v-slot="{ errors }" class="login">
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <Field
+                name="email"
+                as="input"
+                :rules="isRequiredEmail"
+                type="email"
+                class="form-control"
+                id="email"
+                v-model="email"
+                placeholder="Email"
+                ref="email"
+              />
+              <span>{{ errors.email }}</span>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="password" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <Field
-              name="password"
-              as="input"
-              :rules="isRequiredPassword"
-              type="password"
-              class="form-control"
-              id="password"
-              v-model="password"
-              ref="password"
-            />
-            <span>{{ errors.password }}</span>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <Field
+                name="password"
+                as="input"
+                :rules="isRequiredPassword"
+                type="password"
+                class="form-control"
+                id="password"
+                v-model="password"
+                placeholder="Password"
+                ref="password"
+              />
+              <span>{{ errors.password }}</span>
+            </div>
           </div>
-        </div>
-
-        <button
-          type="submit"
-          class="btn btn-primary"
-         
-          @Click.prevent="onSubmit"
-        >
-          Login
-        </button>
-      </Form>
+          <div class="form-group row">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              @Click.prevent="onSubmit"
+            >
+              Login
+            </button>
+          </div>
+        </Form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapActions } from "vuex";
 import { Field, Form } from "vee-validate";
 import axios from "axios";
 import auth from "../../services/auth";
@@ -79,22 +83,12 @@ export default {
     isRequiredPassword(value) {
       return value ? true : "Password is required";
     },
-    // ============================================================
 
-    // ...mapActions({
-    //   Login: "auth/Login",
-    // }),
-
-   
-
-   
     async onSubmit(onSubmit) {
       if (!this.email || !this.password) {
         return console.log("certains champs sont vide");
       }
       console.log("onSubmit", onSubmit);
-
-      // =============================================
       const login = {
         email: this.email,
         password: this.password,
@@ -114,11 +108,9 @@ export default {
        *
        */
 
-     
-
       try {
         let response = await axios.post("/user/login", login, {
-          // headers: auth.addHeader(),
+          headers: auth.addHeader(),
         });
         console.log("oooooooooooooo", response, auth);
         auth.init(response.data);
@@ -127,7 +119,6 @@ export default {
           params: { message: response.succeed },
         });
 
-        
         alert(
           `Bravo ${response.data.first_name} ${response.data.last_name}!...  bienvenue sur Groupomania social network`
         );
@@ -154,6 +145,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+h5.text-center {
+  width: 100%;
+  color: #ff000094;
+}
+
+.title-signup {
+  justify-content: center;
+  display: flex;
+}
+
+h1 {
+  color: white;
+}
+
+button.btn.btn-primary {
+  width: 80%;
+}
+
+.row {
+  justify-content: center;
+}
+.section {
+  background-image: url("../../assets/carte-du-monde.jpg");
+  background-size: cover;
+}
 label.col-sm-2.col-form-label {
   font-weight: lighter;
 }

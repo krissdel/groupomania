@@ -1,13 +1,12 @@
 <template>
   <div class="jumbotron jumbotron-fluid">
-    <!-- <div class="logout">
+    <div class="logout">
         <router-link to="/Home">
           <button type="button" class="btn btn-primary btn-sm" @click="logout">
             Log out
           </button>
         </router-link>
-      </div> -->
-
+      </div>
     <div class="container">
       <h1 class="display-4">Social Network</h1>
     </div>
@@ -27,7 +26,6 @@
             <router-link to="/Post/allPosts?view=allPosts">
               <button type="submit" class="btn btn-info">all posts</button>
             </router-link>
-
             |
             <router-link to="/Post/post">
               <button type="submit" class="btn btn-info">Add post</button>
@@ -71,11 +69,9 @@ export default {
   },
   
   methods: {
-    // logout() {
-    //   auth.logout();
-    //   this.$emit("logout");
-    //   // console.log("kkkkk", this.$emit);
-    // },
+    logout() {
+      auth.logout();
+    },
 
     admin() {
       if (sessionStorage.getItem("role") != 1) return true;
@@ -111,7 +107,7 @@ export default {
 button.btn.btn-primary.btn-sm {
   background-color: #506a96;
   border-color: #0f2140;
-  width: 5pc;
+  width: 6pc;
 }
 button.btn.btn-info {
   background-color: #506a96;
@@ -123,11 +119,11 @@ button.btn.btn-info {
   border-color: #f8f9fa;
 }
 .card-welcome {
-  /* display: flex; */
   justify-content: space-between;
 }
 h5 {
   font-size: 30px;
+  color: white;
 }
 .card-title {
   margin: 10px;
@@ -163,9 +159,8 @@ a.logout {
 .container-container {
   display: flex;
   justify-content: center;
-  /* max-width: 70pc; */
 }
-/* .card {
-  width: 65%;
-} */
+.card {
+      background-color: #1b325b;
+}
 </style>

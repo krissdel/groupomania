@@ -34,8 +34,11 @@ export default {
   },
 
   logout(){
-    sessionStorage.clear();
-    
+    sessionStorage.clear();  
+  },
+
+  clearRefs() {
+     sessionStorage.removeItem('refs');
   },
 
   getData(listOfData){

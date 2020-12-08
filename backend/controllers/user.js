@@ -73,8 +73,6 @@ exports.login = async (req, res) => {
         "role"      : alreadyExist.data[0].role,
         "email"     : alreadyExist.data[0].email,
         "message"   : "welcome user !",
-        user: user.id,
-        jwt: token,
       });
     }
   }
