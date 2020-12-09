@@ -3,10 +3,12 @@
     <div class="section">
       <div class="container">
         <div class="title">
-          <h1 class="text-center">Sign up</h1>
+          <div class="title-h1">
+            <h1 class="text-center">Sign up</h1>
+          </div>
           <div class="title-login">
             <router-link to="/User/Login">
-              <h5 class="text-center">Login</h5>
+              <h2 class="text-center">Login</h2>
             </router-link>
           </div>
         </div>
@@ -27,8 +29,10 @@
                     v-model="firstName"
                   />
                   <span>{{ errors.firstName }}</span>
+                  <label for="firstName"></label>
                 </div>
               </div>
+
               <div class="form-group col-md-6">
                 <div class="col">
                   <Field
@@ -42,6 +46,7 @@
                     placeholder="Last name"
                     v-model="lastName"
                   />
+                  <label for="lastName"></label>
                   <span>{{ errors.lastName }}</span>
                 </div>
               </div>
@@ -61,6 +66,7 @@
                     v-model="email"
                   />
                   <span>{{ errors.email }}</span>
+                  <label for="email"></label>
                 </div>
               </div>
               <div class="form-group col-md-6">
@@ -77,6 +83,7 @@
                     v-model="password"
                   />
                   <span>{{ errors.password }}</span>
+                  <label for="password"></label>
                 </div>
               </div>
             </div>
@@ -175,9 +182,10 @@ export default {
 </script>
 
 <style langue='scss'>
-h5.text-center {
+h2.text-center {
   width: 100%;
-  color: #ff000094;
+  color: red;
+  font-size: 25px;
 }
 
 .title-login {
@@ -196,6 +204,7 @@ h1.text-center {
 .section {
   background-image: url("../assets/global-network-connection-world-map.jpg");
   background-size: cover;
+  background-color: rgb(14, 1, 1);
 }
 span {
   color: red;
@@ -243,7 +252,7 @@ span {
   width: 100%;
 }
 
-h4 {
+h3 {
   text-align: center;
   font-size: 2rem;
 }
@@ -261,7 +270,7 @@ h4 {
 .card-footer {
   background-color: #0f2140 !important;
 }
-h4 {
+h3 {
   color: white;
   font-size: 20px;
 }

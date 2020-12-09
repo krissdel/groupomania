@@ -6,7 +6,7 @@
         <router-link :to="{ name: 'Home' }">
           <img
             class="img2"
-            src="../assets/icon-left-font-monochrome-blanc-resize.png"
+            src="../assets/icon-left-font-monochrome-blanc-resize.png" alt="logo-groupomania"
           />
         </router-link>
       </a>
@@ -22,10 +22,6 @@ export default {
   name: "Header",
 };
 </script>
-
-
-
-
 
 <style scoped lang="scss">
 strong {

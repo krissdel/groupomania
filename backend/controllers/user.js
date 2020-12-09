@@ -7,17 +7,13 @@ const user = require('../models/user');
 exports.signup = async (req, res) => {
   try {
 
-    console.log("-1------------------------------", req.body);
-
     const alreadyExist = await user.alreadyExist(req.body.email);
-    console.log("-2-----------------------------")
     if (alreadyExist.data.length > 0) {
       res.status(500).json({ error: "l'utilisateur existe déjà !" });
       console.log('utilisateur existe déjà');
       return
     }
     const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
-    console.log("-3-----------------------------");
     const answer = await user.signup({
       firstName: req.body.first_name,
       lastName: req.body.last_name,
@@ -25,7 +21,6 @@ exports.signup = async (req, res) => {
       password: hash,
       admin: 0
     });
-    console.log("rrrrrrrrr");
 
     if (answer.succeed) {
       const token = jwt.sign(
@@ -77,7 +72,6 @@ exports.login = async (req, res) => {
     }
   }
   catch (error) {
-    console.log("controllers/user > login :", error)
     return res.status(401).json(error);
   };
 };

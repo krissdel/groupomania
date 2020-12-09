@@ -178,7 +178,7 @@ export default {
         });
         auth.init(response.data);
         if (response.status !== 201) throw response.data.message;
-        console.log("-put --- :) ", response);
+        console.log(response);
 
         this.$router.push({
           name: "comments",

@@ -112,9 +112,8 @@ export default {
         let response = await axios.post("/post/", addPost, {
           headers: auth.addHeader(),
         });
-        console.log("response", response);
         if (response.status !== 201) throw response.data.message;
-        console.log("---- :) ", response);
+        console.log(response);
         this.$router.push({
           name: "allPosts",
           query: { view: "allPosts" },

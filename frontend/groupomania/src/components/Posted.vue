@@ -15,6 +15,7 @@
     <!-- -----[ bouton pour modifier un post]--------------------------------------------------------------------------- -->
 
     <div class="cont-cont" v-if="allowed()">
+      <div class="cont-cont-btn">
       <router-link
         :to="{
           name: 'modifyPost',
@@ -36,6 +37,7 @@
       >
         delete
       </button>
+      </div>
     </div>
 
     <!-- -----[ bouton pour repondre a un post]--------------------------------------------------------------------------- -->
@@ -56,7 +58,7 @@
       </router-link>
     </div>
 
-    <!-- -----[ bouton pour afficher les commentaires en suivi de reponse post]--------------------------------------------------------------------------- -->
+    <!-- -----[ bouton pour afficher les commentaires ]--------------------------------------------------------------------------- -->
 
     <div class="cont-cont">
       <router-link
@@ -207,9 +209,13 @@ p {
   padding: 10px;
 }
 .cont-cont {
-  width: 100%;
   display: flex;
   justify-content: center;
+}
+.cont-cont-btn {
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
 }
 .container-button {
   display: flex;

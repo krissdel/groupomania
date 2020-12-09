@@ -103,6 +103,7 @@ button.btn.btn-primary.btn-sm {
   background-color: #506a96;
   border-color: #0f2140;
   width: 8pc;
+  margin-bottom: 20px;
 }
 .container-addPost {
   text-align: end;

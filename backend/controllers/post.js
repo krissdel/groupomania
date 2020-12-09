@@ -4,8 +4,7 @@ const post = require('../models/post');
 
 // -----[ création des posts]-----------------------------------------------------------
 exports.createPost = async (req, res) => {
-  console.log('55555555555444444444444444');
-  console.log(req.body)
+ 
   try {
     const answer = await post.createPost({
       id: req.body.id,
@@ -14,7 +13,6 @@ exports.createPost = async (req, res) => {
       text: req.body.text,
     });
     if (answer.succeed) {
-      console.log("controllerPost Fin--ok---------------------------")
       return res.status(201).json({
         "refs": req.body.idParent,
       });
@@ -32,10 +30,7 @@ exports.getAllPosts = async (req, res) => {
       for( let i=0, size = answer.data.length; i<size; i++){
         const qty = await post.getCommentsQty(answer.data[i].id);
         answer.data[i].commentsQty=qty.data[0]["COUNT(id)"];
-        console.log(answer.data[i].id,"_>", qty.data[0], answer.data[i].commentsQty)
       }
-      
-      console.log("!!!!!!end!!!!!");
       res.status(201).json({ data: answer.data });
     };
   } catch (error) {
@@ -46,10 +41,9 @@ exports.getAllPosts = async (req, res) => {
 // -----[ trouver les posts d'un seul user  ]------------------------------------------------------------------------
 exports.getAllUserPosts = async (req, res) => {
   try {
-    console.log("§§§§§§§§§§§§", req.params);
+
     const answer = await post.getAllUserPosts(req.params.id);
     if (answer.succeed) {
-      console.log("controller getAllUserPosts Fin--ok---------------------------")
       res.status(201).json({ data: answer.data });
     };
 
@@ -62,10 +56,8 @@ exports.getAllUserPosts = async (req, res) => {
 
 exports.modifyPost = async (req, res) => {
   try {
-    console.log("req.body:", req.body);
     const answer = await post.modifyPost(req.body);
     if (answer.succeed) {
-      console.log("controller modifyPost Fin--ok---------------------------")
       res.status(201).json({ message: "vôtre post a été modifié !" });
     };
   } catch (error) {
@@ -77,10 +69,8 @@ exports.modifyPost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
   try {
-    console.log(req.params);
     const answer = await post.deletePost(req.params.id);
     if (answer.succeed) {
-      console.log("controller deletePost Fin--ok---------------------------")
       res.status(200).json({ message: "post supprimée !" });
     };
   } catch (error) {
@@ -92,14 +82,10 @@ exports.deletePost = async (req, res) => {
 
 exports.getOnePost = async (req, res) => {
   try {
-    console.log('ooooooooooooreq.params.id', req.params.id);
     const answer = await post.getOnePost(req.params.id);
     if (answer.succeed) {
-      console.log("!!!!!!!!!!!", answer);
-      console.log("controller Get onePost Fin--ok---------------------------\n\n\n\n", answer);
-      res.status(202).json({ data: answer.data });
+     res.status(202).json({ data: answer.data });
     };
-    console.log(".....", answer.data);
   } catch (error) {
     console.log("getOnePost Failed", error);
   }
@@ -108,10 +94,8 @@ exports.getOnePost = async (req, res) => {
 exports.getCommentsPosts = async (req, res) => {
 
   try {
-    console.log("CCCCCCCCCCCC", req.params);
     const answer = await post.getCommentsPosts(req.params.refs);
     if (answer.succeed) {
-      console.log("controller getCommentsPosts Fin--ok---------------------------")
       res.status(201).json({ data: answer.data });
     };
   } catch (error) {

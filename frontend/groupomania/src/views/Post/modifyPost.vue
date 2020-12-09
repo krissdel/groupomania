@@ -133,10 +133,8 @@ export default {
 
   async created() {
     try {
-      console.log("created().........");
       let response = await axios.get("post/post/" + this.id, {});
-      console.log("===========", typeof response.data, response.data.data[0]);
-      console.log("^^^^^^^^^^^", this.id);
+      console.log(typeof response.data, response.data.data[0]);
     } catch (err) {
       console.log("---------- :(", err);
     }
@@ -144,7 +142,6 @@ export default {
 
   methods: {
     getImage: function () {
-      console.log("----image", "|" + this.image + "|", typeof this.image);
       const images = require.context(
         "../../assets/upload/",
         false,
@@ -179,7 +176,7 @@ export default {
         });
 
         if (response.status !== 201) throw response.data.message;
-        console.log("-put --- :) ", response);
+        console.log(response);
         this.$router.push({
           name: "allPosts",
           query: { view: "allPosts" },

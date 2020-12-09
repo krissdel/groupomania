@@ -8,15 +8,12 @@
         <router-link to="/Post/post">
           <button type="submit" class="btn btn-primary btn-sm">Add post</button>
         </router-link>
-        <br />
-        <br />
         <router-link to="/user/account">
           <button type="submit" class="btn btn-primary btn-sm">
             Back to account
           </button>
         </router-link>
       </div>
-
       <!-----[affichage de tous les posts initiaux]-- ---------------------------------------------------- -->
       <div class="container" v-if="comments()">
         <div class="container-posts" v-if="allPosts !== null">
@@ -86,15 +83,10 @@ export default {
     switch (this.$route.query.view) {
       case "allPosts": {
         var id = sessionStorage.getItem("user_id");
-        console.log("dddddd", id);
         axios
           .get("/post/", { params: { id }, headers: auth.addHeader() })
-
           .then((res) => {
             this.allPosts = res.data.data;
-
-            console.log("****", typeof res.data, res.data.data);
-            console.log("++++++++++++", this.allPosts);
           });
         break;
       }
@@ -103,9 +95,6 @@ export default {
         var user_id = sessionStorage.getItem("user_id");
         axios.get("/post/" + user_id).then((res) => {
           this.allUserPosts = res.data.data;
-          console.log("===========", typeof res.data, res.data.data);
-          console.log("vvvvvvvvvvvv", this.allUserPosts);
-          console.log("vvpppppvvvvvv", user_id);
         });
       }
     }
@@ -124,9 +113,12 @@ button.btn.btn-primary.btn-sm {
   background-color: #506a96;
   border-color: #0f2140;
   width: 8pc;
+  margin-bottom: 20px;
 }
 .container-addPost {
   text-align: end;
+  display: flex;
+  flex-direction: column;
 }
 .card {
   height: 20pc;

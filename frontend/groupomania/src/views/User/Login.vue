@@ -1,11 +1,11 @@
 <template>
-  <div class="section">    
+  <div class="section">
     <div class="container">
       <h1 class="text-center">Login</h1>
       <div class="title-signup">
-            <router-link to="/Home">
-              <h5 class="text-center">Sign up</h5>
-            </router-link>
+        <router-link to="/Home">
+          <h2 class="text-center">Sign up</h2>
+        </router-link>
       </div>
       <div class="container_container">
         <Form v-slot="{ errors }" class="login">
@@ -112,7 +112,6 @@ export default {
         let response = await axios.post("/user/login", login, {
           headers: auth.addHeader(),
         });
-        console.log("oooooooooooooo", response, auth);
         auth.init(response.data);
         this.$router.replace({
           name: "Account",
@@ -145,10 +144,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-h5.text-center {
+h2.text-center {
   width: 100%;
-  color: #ff000094;
+  color: red;
+  font-size: 25px;
 }
 
 .title-signup {
@@ -170,6 +169,7 @@ button.btn.btn-primary {
 .section {
   background-image: url("../../assets/carte-du-monde.jpg");
   background-size: cover;
+  background-color: grey;
 }
 label.col-sm-2.col-form-label {
   font-weight: lighter;

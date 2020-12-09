@@ -1,10 +1,10 @@
 <template>
   <div class="card">
     <div class="card-footer">
-      <h4>Contact</h4>
+      <h3>Contact</h3>
     </div>
     <div class="card-body">
-      <h5 class="card-title">adresse :</h5>
+      <h4 class="card-title">adresse :</h4>
       <p class="card-text">
         Groupomania <br />
         12 place Sathonay 69001 Lyon<br />
