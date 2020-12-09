@@ -69,8 +69,8 @@ export default {
   name: "Log_in",
   data() {
     return {
-      email: "parker@gmail.com",
-      password: "parker",
+      email: "",
+      password: "",
 
       error: "",
     };
