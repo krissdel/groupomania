@@ -3,17 +3,20 @@
     <div class="title">
       <h3>{{ msg }}</h3>
       <div class="B-to-account">
+        <div class="B-allPost">
         <router-link to="/Post/allPosts?view=allPosts">
           <button type="submit" class="btn btn-primary btn-sm">
             all Posts
           </button>
         </router-link>
-        <br />
+        </div>
+        <div class="B-allPost1">
         <router-link to="/user/account">
           <button type="button" class="btn btn-primary btn-sm">
             Back to account
           </button>
         </router-link>
+        </div>
       </div>
     </div>
     <!-----[section formulaire pour créer un post]---------------------------------------------------->
@@ -129,6 +132,9 @@ export default {
 
 
 <style scoped langue="scss">
+.B-allPost {
+    margin-bottom: 20px;
+}
 button.btn.btn-primary.btn-sm {
   background-color: #506a96;
   border-color: #0f2140;
