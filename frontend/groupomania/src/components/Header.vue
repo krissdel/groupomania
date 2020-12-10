@@ -57,7 +57,6 @@ button.btn.btn-outline-primary {
   }
 }
 
-/* Small devices (landscape phones, 576px and up)  */
 @media (min-width: 576px) {
   .img2 {
     width: 90%;

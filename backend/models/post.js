@@ -9,11 +9,7 @@ exports.createPost = async function(data) {
       data.idParent,
       data.id,
     ];
-    
     const answer = await db.request(sql, createPost);
-    console.log("creatPost", answer);
-        console.log('post crée');
-
     return answer;
   };
   
@@ -26,24 +22,17 @@ exports.createPost = async function(data) {
       data
     ];
     const answer = await db.request(sql, getAllPosts);
-    console.log("getAllPosts", answer);
-        console.log('voiçi tous les posts');
-
     return answer;
   }
   
   // ------------------------------------------------
   
   exports.getAllUserPosts =  async function(data){
-    console.log('bbbbbbbbbbbbbbbb', data )
     const sql = "SELECT * FROM `post` WHERE `user_id` = ? ";    
     const getAllUserPosts = [
       data
     ];
     const answer = await db.request(sql, getAllUserPosts);
-    console.log("getAllUserPosts", answer);
-        console.log('voiçi tous vos posts');
-
     return answer;
   }
 // ----------------------------------------------------
@@ -57,8 +46,6 @@ exports.deletePost = async function(id) {
    id
   ];
   const answer = await db.request(sql, deletePost);
-  console.log("deletePost", answer);
-      console.log('post supprimé');
   return answer;
 }
 
@@ -72,22 +59,10 @@ exports.getOnePost =  async function(id){
     id
   ];
   const answer = await db.request(sql, getOnePost);
-  console.log("getOnePost", answer);
-      console.log('voiçi vôtre posts');
-
   return answer;
 }
 
 
-
-
-/**
- * met à jour une publication
- * @function
- * 
- * @param {Object} data 
- * @return {*}     //TODO : définir le type de retour
- */
 exports.modifyPost = async function(data) {
   const sql = "UPDATE `post` SET `text`= ?, `image`= ? WHERE `post`.`id` = ?";
     
@@ -101,14 +76,11 @@ exports.modifyPost = async function(data) {
 }
 
 exports.getCommentsPosts = async function(data) {
-  const sql = "SELECT * from `post` WHERE  `refs` = ? ";
-    
+  const sql = "SELECT * from `post` WHERE  `refs` = ? ";  
   const getCommentsPosts = [
    data
   ];
   const answer = await db.request(sql, getCommentsPosts);
-  console.log("getCommentsPosts", answer);
-      console.log('voiçi tous les commentaires');
   return answer;
 }
 

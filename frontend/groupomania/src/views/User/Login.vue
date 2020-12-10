@@ -88,25 +88,11 @@ export default {
       if (!this.email || !this.password) {
         return console.log("certains champs sont vide");
       }
-      console.log("onSubmit", onSubmit);
+      console.log(onSubmit);
       const login = {
         email: this.email,
         password: this.password,
       };
-      console.log(login);
-
-      /**
-       * response
-       *
-       * [response.error]      objet si l'utilisateur n'exhiste pas
-       * [response.message]    unqiuement en cas de succès : un message d'information
-       * [response.id]         unqiuement en cas de succès : l'id de l'utilsateur
-       * [response.jwt]        unqiuement en cas de succès : le jeton d'authentification
-       * [response.last_name]  unqiuement en cas de succès : le nom de l'utilsateur
-       * [response.first_name] unqiuement en cas de succès : le prénom de l'utilisateur
-       * [response.role]       unqiuement en cas de succès : 0 utilisateur 1 admin
-       *
-       */
 
       try {
         let response = await axios.post("/user/login", login, {

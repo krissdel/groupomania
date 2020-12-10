@@ -155,8 +155,7 @@ export default {
         email: this.email,
         password: this.password,
       };
-      console.log(register);
-
+     
       try {
         let response = await axios.post("user/sign_up", register, {
           headers: auth.addHeader(),

@@ -14,7 +14,6 @@ const pool = (require("mariadb")).createPool({
 
 
 async function connect(){
-  console.log("******connect")
   try{
     if (bdd !== null) return;
     bdd = await pool.getConnection();
@@ -30,19 +29,14 @@ function disconnect(){
 
 async function request(sql, data=null){
   try {
-    // initial();
-    console.log("sql",sql, data);
     if (bdd === null) await connect();
     const answer = await bdd.query(sql,data);
-    // disconnect();
-    // console.log("request answer:",answer); 
     return {
       "succeed" : true,
       "data"    : removeMeta(answer)
     };
     
   } catch (err) {
-    console.warn("request error:", err);
     return {
       "succeed" : false,
       "data" : err
@@ -62,4 +56,3 @@ function removeMeta(data){
   return data;
 }
 exports.request = request;
-// exports.disconnect = disconnect;

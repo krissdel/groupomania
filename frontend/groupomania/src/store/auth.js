@@ -4,69 +4,69 @@ export default {
     namespaced: true,
 
     state: {
-        token: null, 
+        token: null,
         user: null
     },
 
     getters: {
-        authentificated (state) {
+        authentificated(state) {
             return state.token && state.user
         },
 
-        user (state) {
+        user(state) {
             return state.user
         }
     },
 
     mutations: {
-        SET_TOKEN (state, token) {
-            state.token = token 
+        SET_TOKEN(state, token) {
+            state.token = token
         },
-        SET_USER (state, data ) {
+        SET_USER(state, data) {
             state.user = data
         }
 
     },
     actions: {
-        async Login ({ dispatch }, credentials) {
+        async Login({ dispatch }, credentials) {
             try {
-                let response = await axios.post( "user/login", credentials)
+                let response = await axios.post("user/login", credentials)
 
                 return dispatch('attempt', response.data.token)
             } catch (err) {
                 console.log(err.response.data)
-                return err.response.data.error 
-            }    
+                return err.response.data.error
+            }
         },
 
 
-        async attempt ({ commit, state }, token) {
-            if(token) {
+        async attempt({ commit, state }, token) {
+            if (token) {
                 commit('SET_TOKEN', token)
             }
 
-            if(!state.token) {
+            if (!state.token) {
                 return
             }
 
             try {
-                let response =  await axios.get("user")
+                let response = await axios.get("user")
 
-                commit ('SET_USER', response.data)
+                commit('SET_USER', response.data)
 
-            }catch (error) {
+            } catch (error) {
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
             }
 
-    },
+        },
 
-    async logout ({ commit }) {
-        return axios.post('auth/logout').then(() => {
-            commit('SET_TOKEN', null)
-            commit('SET_USER', null)
-        })
-    }
+        async logout({ commit }) {
+            return axios.post('auth/logout').then(() => {
+                commit('SET_TOKEN', null)
+                commit('SET_USER', null)
+            })
+        }
 
     }
 };

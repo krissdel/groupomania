@@ -3,17 +3,20 @@
     <div class="title">
       <h3>{{ msg }}</h3>
       <div class="B-to-account">
-        <router-link to="/Post/allPosts?view=allPosts">
-          <button type="submit" class="btn btn-primary btn-sm">
-            all Posts
-          </button>
-        </router-link>
-        <br />
-        <router-link to="/user/account">
-          <button type="button" class="btn btn-primary btn-sm">
-            Back to account
-          </button>
-        </router-link>
+        <div class="B-allPost">
+          <router-link to="/Post/allPosts?view=allPosts">
+            <button type="submit" class="btn btn-primary btn-sm">
+              all Posts
+            </button>
+          </router-link>
+        </div>
+        <div class="B-allPost1">
+          <router-link to="/user/account">
+            <button type="button" class="btn btn-primary btn-sm">
+              Back to account
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
     <!-----[section formulaire pour modifier un post]---------------------------------------------------->
@@ -133,7 +136,7 @@ export default {
   async created() {
     try {
       let response = await axios.get("post/post/" + this.id, {});
-      console.log(typeof response.data, response.data.data[0]);
+      console.log(response);
     } catch (err) {
       console.log("---------- :(", err);
     }
@@ -193,6 +196,9 @@ export default {
 
 
 <style scoped langue="scss">
+.B-allPost {
+    margin-bottom: 20px;
+}
 input.form-control {
   margin-top: 20px;
 }

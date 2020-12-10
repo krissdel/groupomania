@@ -111,7 +111,7 @@ export default {
       type: Number,
     },
     refs: {
-      type: Number,
+      type: String,
     },
     images: {
       type: String,
@@ -134,18 +134,15 @@ export default {
   // -----[recuperatiion des posts créer]-----------------------------------------
   async created() {
     try {
-      console.log("created().........");
       let response = await axios.get("post/post/" + this.id, {});
-      console.log("===========", typeof response.data, response.data.data[0]);
-      console.log("^^^^^^^^^^^", this.id);
+      console.log(response);
     } catch (err) {
-      console.log("---------- :(", err);
+      console.log(err);
     }
   },
 
   methods: {
     getImage: function () {
-      console.log("----image", "|" + this.image + "|", typeof this.image);
       const images = require.context(
         "../../assets/upload/",
         false,

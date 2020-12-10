@@ -84,7 +84,6 @@ exports.deleteUser = async (req, res) => {
     console.log(req.params);
     const answer = await user.delete(req.params.id);
     if (answer.succeed) {
-      console.log("controller deleteUser Fin--ok---------------------------")
       res.status(200).json({ message: "user supprimée !" });
     };
   } catch (error) {

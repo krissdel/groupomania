@@ -83,7 +83,6 @@ export default {
         let response = await axios.delete("/user/" + this.id, {
           headers: auth.addHeader(),
         });
-        console.log("delete", response, auth);
         auth.init(response.data);
         this.$router.push({
           name: "Home",
