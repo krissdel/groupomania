@@ -9,7 +9,6 @@
           </button>
         </router-link>
         <br />
-        <br />
         <router-link to="/user/account">
           <button type="button" class="btn btn-primary btn-sm">
             Back to account

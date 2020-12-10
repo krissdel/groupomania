@@ -3,11 +3,13 @@
     <div class="title">
       <h3>{{ msg }}</h3>
       <div class="B-to-account">
+        <div class="B-all post">
         <router-link to="/Post/allPosts?view=allPosts">
           <button type="submit" class="btn btn-primary btn-sm">
             all Posts
           </button>
         </router-link>
+        </div>
         <router-link to="/user/account">
           <button type="button" class="btn btn-primary btn-sm">
             Back to account
@@ -196,6 +198,9 @@ export default {
 
 
 <style scoped langue="scss">
+.B-all.post {
+    margin-bottom: 20px;
+}
 input.form-control {
   margin-top: 20px;
 }
@@ -210,6 +215,8 @@ button.btn.btn-primary.btn-sm {
 }
 .B-to-account {
   text-align: end;
+  display: flex;
+  flex-direction: column;
 }
 a.card-link1 {
   color: black;
